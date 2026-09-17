@@ -11,14 +11,20 @@ interface Memory {
   content: string;
   source: string;
   type: string;
+  priority?: 'high' | 'medium' | 'low';
+  due_date?: string;
   tags: string[];
+  status: string;
+  created_at: string;
 }
+
+type CategoryKey = 'needs_attention' | 'due_today' | 'waiting' | 'coming_up' | 'other';
 
 export default function TodayPage() {
   const [memories, setMemories] = useState<Memory[]>([]);
   const [loading, setLoading] = useState(true);
-  const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [extracting, setExtracting] = useState(false);
 
   useEffect(() => {
     loadData();
@@ -30,7 +36,6 @@ export default function TodayPage() {
       window.location.href = '/auth/login';
       return;
     }
-
     await fetchMemories();
   };
 
@@ -46,44 +51,72 @@ export default function TodayPage() {
     setLoading(false);
   };
 
+  const categorizeMemory = (memory: Memory): CategoryKey => {
+    if (memory.priority === 'high' && !memory.due_date) return 'needs_attention';
+    if (memory.due_date) {
+      const dueDate = new Date(memory.due_date);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      dueDate.setHours(0, 0, 0, 0);
+      if (dueDate.getTime() === today.getTime()) return 'due_today';
+      if (dueDate.getTime() > today.getTime()) return 'coming_up';
+    }
+    return 'other';
+  };
+
+  const groupedMemories = memories.reduce(
+    (acc, memory) => {
+      const category = categorizeMemory(memory);
+      if (!acc[category]) acc[category] = [];
+      acc[category].push(memory);
+      return acc;
+    },
+    {} as Record<CategoryKey, Memory[]>
+  );
+
   const handleAddMemory = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted', { title, content });
-    if (!title.trim() || !content.trim()) {
-      console.log('Validation failed');
-      return;
-    }
+    if (!content.trim()) return;
 
+    setExtracting(true);
     const { data: { session } } = await supabase.auth.getSession();
-    console.log('Session:', session?.user?.email);
     if (!session) {
-      console.log('No session');
+      setExtracting(false);
       return;
     }
 
-    const { error } = await supabase.from('memories').insert([
-      {
-        user_id: session.user.id,
-        title,
-        content,
-        source: 'manual',
-        type: 'note',
-        tags: [],
-        status: 'captured',
-      },
-    ]);
+    try {
+      const response = await fetch('/api/extract', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text: content,
+          authToken: session.access_token,
+        }),
+      });
 
-    if (!error) {
-      setTitle('');
-      setContent('');
-      await fetchMemories();
+      if (response.ok) {
+        setContent('');
+        await fetchMemories();
+      }
+    } catch (error) {
+      console.error('Extract failed:', error);
+    } finally {
+      setExtracting(false);
     }
   };
+
+  const categories: { key: CategoryKey; label: string; icon: string; color: string }[] = [
+    { key: 'needs_attention', label: '🔴 Needs Attention', icon: '⚠️', color: 'border-red-200 bg-red-50' },
+    { key: 'due_today', label: '📅 Due Today', icon: '🎯', color: 'border-orange-200 bg-orange-50' },
+    { key: 'coming_up', label: '📆 Coming Up', icon: '⏰', color: 'border-blue-200 bg-blue-50' },
+    { key: 'other', label: '📝 Other', icon: '📌', color: 'border-gray-200 bg-gray-50' },
+  ];
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50">
       <nav className="bg-white shadow px-8 py-4">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
           <h1 className="text-2xl font-bold text-green-700">Recall AI</h1>
           <button
             onClick={() => supabase.auth.signOut().then(() => (window.location.href = '/'))}
@@ -94,74 +127,79 @@ export default function TodayPage() {
         </div>
       </nav>
 
-      <div className="max-w-6xl mx-auto px-8 py-12">
-        <h2 className="text-4xl font-bold text-gray-900 mb-12">Today's Memories</h2>
-
-        <div className="grid lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-1 h-fit">
+      <div className="max-w-7xl mx-auto px-8 py-12">
+        <div className="grid lg:grid-cols-4 gap-8">
+          <div className="lg:col-span-1 h-fit sticky top-8">
             <div className="bg-white rounded-lg shadow-lg p-6">
-              <h3 className="text-lg font-semibold mb-4 text-gray-900">
-                New Memory
-              </h3>
+              <h3 className="text-lg font-semibold mb-4 text-gray-900">Capture</h3>
               <form onSubmit={handleAddMemory} className="space-y-3">
-                <input
-                  type="text"
-                  placeholder="Title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                />
                 <textarea
-                  placeholder="Content"
+                  placeholder="Tell me what you need to remember..."
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  rows={4}
+                  rows={6}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 />
                 <button
                   type="submit"
-                  className="w-full py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700"
+                  disabled={extracting}
+                  className="w-full py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 disabled:bg-gray-400"
                 >
-                  Add Memory
+                  {extracting ? 'Extracting...' : 'Capture & Extract'}
                 </button>
               </form>
             </div>
           </div>
 
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-3">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">Today's Memories</h2>
             {loading ? (
               <p className="text-gray-600">Loading...</p>
             ) : memories.length === 0 ? (
-              <p className="text-gray-600">No memories yet.</p>
+              <p className="text-gray-600">No memories yet. Start capturing!</p>
             ) : (
-              memories.map((memory) => (
-                <div
-                  key={memory.id}
-                  className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition"
-                >
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      {memory.title}
-                    </h3>
-                    <span className="inline-block px-2 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded">
-                      {memory.source}
-                    </span>
+              <div className="space-y-8">
+                {categories.map(({ key, label, icon, color }) => (
+                  <div key={key}>
+                    {groupedMemories[key] && groupedMemories[key].length > 0 && (
+                      <div>
+                        <h3 className="text-xl font-semibold mb-4 text-gray-900 flex items-center gap-2">
+                          {icon} {label} ({groupedMemories[key].length})
+                        </h3>
+                        <div className="space-y-3">
+                          {groupedMemories[key].map((memory) => (
+                            <div
+                              key={memory.id}
+                              className={`border-l-4 rounded-lg p-4 ${color} hover:shadow-md transition`}
+                            >
+                              <div className="flex justify-between items-start mb-2">
+                                <h4 className="font-semibold text-gray-900">{memory.title}</h4>
+                                {memory.priority && (
+                                  <span className={`text-xs font-semibold px-2 py-1 rounded ${
+                                    memory.priority === 'high' ? 'bg-red-200 text-red-700' :
+                                    memory.priority === 'medium' ? 'bg-yellow-200 text-yellow-700' :
+                                    'bg-green-200 text-green-700'
+                                  }`}>
+                                    {memory.priority}
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-gray-700 mb-2">{memory.content}</p>
+                              <div className="flex flex-wrap gap-2">
+                                {memory.tags?.map((tag) => (
+                                  <span key={tag} className="text-xs bg-white px-2 py-1 rounded">
+                                    {tag}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  <p className="text-gray-600 mb-3">{memory.content}</p>
-                  {memory.tags && memory.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2">
-                      {memory.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="inline-block px-2 py-1 text-xs bg-teal-100 text-teal-700 rounded"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))
+                ))}
+              </div>
             )}
           </div>
         </div>

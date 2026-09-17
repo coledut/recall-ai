@@ -12,6 +12,7 @@ export interface Memory {
   status: MemoryStatus;
   tags: string[];
   due_date?: string;
+  priority?: 'high' | 'medium' | 'low';
   extracted_at: string;
   created_at: string;
   updated_at: string;
