@@ -13,8 +13,11 @@ export async function POST(request: Request) {
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     if (!supabaseUrl || !supabaseKey) return Response.json({ error: "Config error" }, { status: 500 });
 
-    const supabase = createClient(supabaseUrl, supabaseKey);
-    const { data: { user } } = await supabase.auth.getUser(authToken);
+    const supabase = createClient(supabaseUrl, supabaseKey, {
+      global: { headers: { Authorization: `Bearer ${authToken}` } }
+    });
+
+    const { data: { user } } = await supabase.auth.getUser();
     if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
     const prompt = `Extract info from: "${text}"\n\nRespond ONLY with this JSON (no markdown):\n{"title":"string (max 10 words)","type":"commitment","priority":"high","due_date":null,"people":[],"summary":"string"}`;
@@ -29,7 +32,7 @@ export async function POST(request: Request) {
     const txt = gres.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
     const extracted = JSON.parse(txt.replace(/```json|```/g, ""));
 
-    const { data } = await supabase.from("memories").insert([{
+    const { data, error } = await supabase.from("memories").insert([{
       user_id: user.id,
       title: extracted.title || "Note",
       content: text,
@@ -41,6 +44,11 @@ export async function POST(request: Request) {
       priority: extracted.priority || "medium",
       extracted_at: new Date().toISOString(),
     }]);
+
+    if (error) {
+      console.error("Insert error:", error);
+      return Response.json({ error: error.message }, { status: 500 });
+    }
 
     return Response.json({ success: true, memory: data?.[0] });
   } catch (e) {
