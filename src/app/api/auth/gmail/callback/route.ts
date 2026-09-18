@@ -12,7 +12,10 @@ export async function GET(request: Request) {
 
     const clientId = process.env.GOOGLE_CLIENT_ID;
     const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-    const redirectUri = `${new URL(request.url).origin}/api/auth/gmail/callback`;
+    const isDev = process.env.NODE_ENV === 'development';
+    const redirectUri = isDev
+      ? 'http://localhost:3000/api/auth/gmail/callback'
+      : 'https://recall-ai-new.vercel.app/api/auth/gmail/callback';
 
     // Exchange code for tokens
     const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {

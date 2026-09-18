@@ -1,6 +1,9 @@
 export async function GET(request: Request) {
   const clientId = process.env.GOOGLE_CLIENT_ID;
-  const redirectUri = `${new URL(request.url).origin}/api/auth/gmail/callback`;
+  const isDev = process.env.NODE_ENV === 'development';
+  const redirectUri = isDev
+    ? 'http://localhost:3000/api/auth/gmail/callback'
+    : 'https://recall-ai-new.vercel.app/api/auth/gmail/callback';
 
   const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
   authUrl.searchParams.set('client_id', clientId!);
