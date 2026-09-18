@@ -1,5 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
-import Anthropic from '@anthropic-ai/sdk';
+
+const GEMINI_API_KEY = process.env.GOOGLE_GEMINI_API_KEY;
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
 export async function POST(request: Request) {
   try {
@@ -11,6 +13,13 @@ export async function POST(request: Request) {
 
     if (!authToken) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    if (!GEMINI_API_KEY) {
+      return Response.json(
+        { error: 'Server configuration error' },
+        { status: 500 }
+      );
     }
 
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -32,10 +41,6 @@ export async function POST(request: Request) {
     if (!user) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
-
-    const anthropic = new Anthropic({
-      apiKey: process.env.ANTHROPIC_API_KEY,
-    });
 
     const extractionPrompt = `You are an AI assistant that extracts structured information from user-provided text about commitments, tasks, and notes.
 
@@ -59,19 +64,29 @@ Respond ONLY with valid JSON in this exact format:
   "summary": "string"
 }`;
 
-    const message = await anthropic.messages.create({
-      model: 'claude-3-5-sonnet-20241022',
-      max_tokens: 500,
-      messages: [
-        {
-          role: 'user',
-          content: extractionPrompt,
-        },
-      ],
+    const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [
+          {
+            parts: [{ text: extractionPrompt }],
+          },
+        ],
+      }),
     });
 
-    const responseText =
-      message.content[0].type === 'text' ? message.content[0].text : '';
+    if (!response.ok) {
+      const error = await response.json();
+      console.error('Gemini API error:', error);
+      return Response.json(
+        { error: 'Failed to extract memory' },
+        { status: response.status }
+      );
+    }
+
+    const geminiResponse = await response.json();
+    const responseText = geminiResponse.candidates?.[0]?.content?.parts?.[0]?.text || '';
     const extracted = JSON.parse(responseText);
 
     const { data, error } = await supabase.from('memories').insert([
