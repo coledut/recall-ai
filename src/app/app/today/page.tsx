@@ -148,6 +148,15 @@ export default function TodayPage() {
                   {extracting ? 'Extracting...' : 'Capture & Extract'}
                 </button>
               </form>
+              <div className="border-t pt-4 mt-4">
+                <p className="text-sm text-gray-600 mb-3">Or sync from:</p>
+                <a
+                  href="/api/auth/gmail"
+                  className="w-full block py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 text-center"
+                >
+                  📧 Connect Gmail
+                </a>
+              </div>
             </div>
           </div>
 
