@@ -36,7 +36,31 @@ export default function TodayPage() {
       window.location.href = '/auth/login';
       return;
     }
+
+    // Check for Gmail token in URL
+    const params = new URLSearchParams(window.location.search);
+    const gmailToken = params.get('gmail_token');
+    if (gmailToken) {
+      await fetchEmails(gmailToken, session.access_token);
+      // Remove token from URL
+      window.history.replaceState({}, '', '/app/today');
+    }
+
     await fetchMemories();
+  };
+
+  const fetchEmails = async (accessToken: string, authToken: string) => {
+    try {
+      const res = await fetch('/api/gmail/fetch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ accessToken, authToken }),
+      });
+      const data = await res.json();
+      console.log('Gmail fetch result:', data);
+    } catch (error) {
+      console.error('Gmail fetch error:', error);
+    }
   };
 
   const fetchMemories = async () => {
