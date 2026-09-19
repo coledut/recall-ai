@@ -338,11 +338,55 @@ export default function TodayPage() {
     }
   };
 
-  const categories: { key: CategoryKey; label: string; icon: string; color: string }[] = [
-    { key: 'needs_attention', label: '🔴 Needs Attention', icon: '⚠️', color: 'border-red-200 bg-red-50' },
-    { key: 'due_today', label: '📅 Due Today', icon: '🎯', color: 'border-orange-200 bg-orange-50' },
-    { key: 'coming_up', label: '📆 Coming Up', icon: '⏰', color: 'border-blue-200 bg-blue-50' },
-    { key: 'other', label: '📝 Other', icon: '📌', color: 'border-gray-200 bg-gray-50' },
+  const categories: { key: CategoryKey; label: string; icon: React.ReactNode; color: string }[] = [
+    {
+      key: 'needs_attention',
+      label: 'Needs Attention',
+      icon: (
+        <div className="w-8 h-8 bg-gradient-to-br from-red-400 to-red-500 rounded-full flex items-center justify-center">
+          <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
+          </svg>
+        </div>
+      ),
+      color: 'border-red-200 bg-red-50'
+    },
+    {
+      key: 'due_today',
+      label: 'Due Today',
+      icon: (
+        <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-500 rounded-full flex items-center justify-center">
+          <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z" />
+          </svg>
+        </div>
+      ),
+      color: 'border-orange-200 bg-orange-50'
+    },
+    {
+      key: 'coming_up',
+      label: 'Coming Up',
+      icon: (
+        <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-500 rounded-full flex items-center justify-center">
+          <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M11.99 5V1h-8v4H1v14h22V5h-11.01zm7 10h-5v5h-4v-5H4v-4h5V7h4v4h5v4z" />
+          </svg>
+        </div>
+      ),
+      color: 'border-blue-200 bg-blue-50'
+    },
+    {
+      key: 'other',
+      label: 'Other',
+      icon: (
+        <div className="w-8 h-8 bg-gradient-to-br from-gray-400 to-gray-500 rounded-full flex items-center justify-center">
+          <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M3 13h2v8H3zm4-8h2v16H7zm4-2h2v18h-2zm4 4h2v14h-2zm4-2h2v16h-2z" />
+          </svg>
+        </div>
+      ),
+      color: 'border-gray-200 bg-gray-50'
+    },
   ];
 
   return (
@@ -358,9 +402,14 @@ export default function TodayPage() {
           <div className="flex gap-6 items-center">
             <a
               href="/app/dashboard"
-              className="text-white/90 hover:text-white font-semibold flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-200"
+              className="text-white/90 hover:text-white font-semibold flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-200 group"
             >
-              <span className="text-xl">📊</span> Dashboard
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-full flex items-center justify-center group-hover:shadow-lg group-hover:shadow-blue-400/50 group-hover:scale-110 transition-all duration-300">
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
+                </svg>
+              </div>
+              Dashboard
             </a>
             <button
               onClick={() => supabase.auth.signOut().then(() => (window.location.href = '/'))}
@@ -377,7 +426,12 @@ export default function TodayPage() {
           <div className="lg:col-span-1 h-fit sticky top-8">
             <div className="bg-gradient-to-br from-green-600 to-teal-600 rounded-2xl shadow-2xl p-6 backdrop-blur-sm border border-green-400/30">
               <h3 className="text-xl font-bold mb-4 text-white flex items-center gap-2">
-                <span className="text-2xl">✨</span> Capture Memory
+                <div className="w-8 h-8 bg-gradient-to-br from-yellow-300 to-yellow-400 rounded-full flex items-center justify-center shadow-lg">
+                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                  </svg>
+                </div>
+                Capture Memory
               </h3>
               <form onSubmit={handleAddMemory} className="space-y-3">
                 <textarea
@@ -390,9 +444,14 @@ export default function TodayPage() {
                 <button
                   type="submit"
                   disabled={extracting || recording}
-                  className="w-full py-3 bg-white/20 hover:bg-white/30 text-white font-bold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 border border-white/30 hover:border-white/50 shadow-lg hover:shadow-xl"
+                  className="w-full py-3 bg-white/20 hover:bg-white/30 text-white font-bold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 border border-white/30 hover:border-white/50 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
                 >
-                  {extracting ? '⏳ Extracting...' : '💾 Capture & Extract'}
+                  <div className="w-5 h-5 bg-gradient-to-br from-purple-300 to-pink-300 rounded-full flex items-center justify-center">
+                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54h2.04v2.06h3.02v-2.05h2.04l-2.75-3.54-1.56 1.99z" />
+                    </svg>
+                  </div>
+                  {extracting ? '⏳ Extracting...' : 'Capture & Extract'}
                 </button>
               </form>
               <div className="border-t border-white/20 pt-4 mt-4">
@@ -401,36 +460,56 @@ export default function TodayPage() {
                   type="button"
                   onClick={recording ? stopRecording : startRecording}
                   disabled={extracting}
-                  className={`w-full py-3 font-bold rounded-xl text-white transition-all duration-200 border shadow-lg hover:shadow-xl mb-2 ${
+                  className={`w-full py-3 font-bold rounded-xl text-white transition-all duration-200 border shadow-lg hover:shadow-xl mb-2 flex items-center justify-center gap-2 ${
                     recording
                       ? 'bg-red-500/80 hover:bg-red-600 border-red-400/50'
                       : 'bg-white/20 hover:bg-white/30 border-white/30 hover:border-white/50 disabled:opacity-50'
                   }`}
                 >
-                  {recording ? '⏹️ Stop Recording' : '🎤 Record Voice'}
+                  <div className={`w-5 h-5 rounded-full flex items-center justify-center ${recording ? 'bg-red-300' : 'bg-gradient-to-br from-cyan-300 to-blue-300'}`}>
+                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z" />
+                    </svg>
+                  </div>
+                  {recording ? 'Stop Recording' : 'Record Voice'}
                 </button>
                 <button
                   type="button"
                   onClick={testVoiceCapture}
                   disabled={extracting}
-                  className="w-full py-2 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 disabled:opacity-50 transition-all duration-200 border border-white/20 text-sm"
+                  className="w-full py-2 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 disabled:opacity-50 transition-all duration-200 border border-white/20 text-sm flex items-center justify-center gap-2"
                 >
-                  🧪 Test Demo
+                  <div className="w-4 h-4 bg-gradient-to-br from-green-300 to-emerald-400 rounded-full flex items-center justify-center">
+                    <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 9.5c0 .83-.67 1.5-1.5 1.5S11 13.33 11 12.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5z" />
+                    </svg>
+                  </div>
+                  Test Demo
                 </button>
               </div>
               <div className="border-t border-white/20 pt-4 mt-4">
                 <p className="text-sm text-white/80 mb-3 font-semibold">Or sync from:</p>
                 <a
                   href="/api/auth/gmail"
-                  className="w-full block py-2 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 text-center mb-2 transition-all duration-200 border border-white/20 hover:border-white/50"
+                  className="w-full block py-2 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 text-center mb-2 transition-all duration-200 border border-white/20 hover:border-white/50 flex items-center justify-center gap-2 group"
                 >
-                  📧 Gmail
+                  <div className="w-5 h-5 bg-gradient-to-br from-red-400 to-red-500 rounded-full flex items-center justify-center group-hover:shadow-lg group-hover:shadow-red-400/50">
+                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                    </svg>
+                  </div>
+                  Gmail
                 </a>
                 <a
                   href="/api/auth/slack"
-                  className="w-full block py-2 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 text-center transition-all duration-200 border border-white/20 hover:border-white/50"
+                  className="w-full block py-2 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 text-center transition-all duration-200 border border-white/20 hover:border-white/50 flex items-center justify-center gap-2 group"
                 >
-                  💬 Slack
+                  <div className="w-5 h-5 bg-gradient-to-br from-purple-400 to-purple-500 rounded-full flex items-center justify-center group-hover:shadow-lg group-hover:shadow-purple-400/50">
+                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M6 2c-2.2 0-4 1.8-4 4v6c0 2.2 1.8 4 4 4h6c2.2 0 4-1.8 4-4V6c0-2.2-1.8-4-4-4H6zm0 4h4v4H6V6zm12 0c0-2.2-1.8-4-4-4s-4 1.8-4 4v2h4v4h4V6zm-4 12c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z" />
+                    </svg>
+                  </div>
+                  Slack
                 </a>
               </div>
             </div>
@@ -466,12 +545,17 @@ export default function TodayPage() {
             {/* Search Bar */}
             <div className="mb-8">
               <div className="relative">
+                <div className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 bg-gradient-to-br from-teal-400 to-cyan-400 rounded-full flex items-center justify-center pointer-events-none">
+                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                  </svg>
+                </div>
                 <input
                   type="text"
-                  placeholder="🔍 Search your memories..."
+                  placeholder="Search your memories..."
                   value={searchQuery}
                   onChange={(e) => handleSearch(e.target.value)}
-                  className="w-full px-5 py-3 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 bg-white/10 text-white placeholder-white/50 backdrop-blur-sm focus:bg-white/15 transition-all duration-200"
+                  className="w-full pl-12 pr-5 py-3 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 bg-white/10 text-white placeholder-white/50 backdrop-blur-sm focus:bg-white/15 transition-all duration-200"
                 />
               </div>
               {isSearching && <p className="text-sm text-teal-300 mt-3 animate-pulse">✨ Searching...</p>}
@@ -505,7 +589,7 @@ export default function TodayPage() {
                     {groupedMemories[key] && groupedMemories[key].length > 0 && (
                       <div>
                         <h3 className="text-2xl font-bold mb-5 text-green-700 flex items-center gap-3">
-                          <span className="text-3xl">{icon}</span> {label} <span className="text-lg font-semibold text-green-600">({groupedMemories[key].length})</span>
+                          {icon} {label} <span className="text-lg font-semibold text-green-600">({groupedMemories[key].length})</span>
                         </h3>
                         <div className="space-y-3">
                           {groupedMemories[key].map((memory) => (
