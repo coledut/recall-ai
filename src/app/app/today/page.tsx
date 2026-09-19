@@ -461,7 +461,7 @@ export default function TodayPage() {
                 )}
               </div>
             )}
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-white to-teal-100 bg-clip-text text-transparent mb-8">Today's Memories</h2>
+            <h2 className="text-4xl font-bold text-green-900 mb-8">Today's Memories</h2>
 
             {/* Search Bar */}
             <div className="mb-8">

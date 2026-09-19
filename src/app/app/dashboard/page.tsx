@@ -246,15 +246,15 @@ export default function DashboardPage() {
         {/* Secondary Stats */}
         <div className="grid md:grid-cols-3 gap-6 mb-8">
           {/* Priority Distribution */}
-          <div className="bg-gradient-to-br from-white/10 to-white/5 rounded-2xl shadow-xl p-6 border border-white/20 backdrop-blur-sm">
-            <h3 className="text-lg font-bold text-white/95 mb-4 flex items-center gap-2">🎯 Priority Distribution</h3>
+          <div className="bg-gradient-to-br from-gray-100 to-gray-50 rounded-2xl shadow-lg p-6 border-2 border-gray-300">
+            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">🎯 Priority Distribution</h3>
             <div className="space-y-3">
               <div>
                 <div className="flex justify-between text-sm mb-2">
-                  <span className="text-red-200 font-semibold">High</span>
-                  <span className="font-bold text-red-100">{stats.highPriority}</span>
+                  <span className="text-red-700 font-semibold">High</span>
+                  <span className="font-bold text-red-900">{stats.highPriority}</span>
                 </div>
-                <div className="w-full bg-white/10 rounded-full h-3 overflow-hidden">
+                <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
                   <div
                     className="bg-gradient-to-r from-red-600 to-red-500 h-3 rounded-full transition-all duration-500"
                     style={{
@@ -265,10 +265,10 @@ export default function DashboardPage() {
               </div>
               <div>
                 <div className="flex justify-between text-sm mb-2">
-                  <span className="text-yellow-200 font-semibold">Medium</span>
-                  <span className="font-bold text-yellow-100">{stats.mediumPriority}</span>
+                  <span className="text-yellow-700 font-semibold">Medium</span>
+                  <span className="font-bold text-yellow-900">{stats.mediumPriority}</span>
                 </div>
-                <div className="w-full bg-white/10 rounded-full h-3 overflow-hidden">
+                <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
                   <div
                     className="bg-gradient-to-r from-yellow-600 to-yellow-500 h-3 rounded-full transition-all duration-500"
                     style={{
@@ -279,10 +279,10 @@ export default function DashboardPage() {
               </div>
               <div>
                 <div className="flex justify-between text-sm mb-2">
-                  <span className="text-green-200 font-semibold">Low</span>
-                  <span className="font-bold text-green-100">{stats.lowPriority}</span>
+                  <span className="text-green-700 font-semibold">Low</span>
+                  <span className="font-bold text-green-900">{stats.lowPriority}</span>
                 </div>
-                <div className="w-full bg-white/10 rounded-full h-3 overflow-hidden">
+                <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
                   <div
                     className="bg-gradient-to-r from-green-600 to-green-500 h-3 rounded-full transition-all duration-500"
                     style={{
@@ -295,30 +295,30 @@ export default function DashboardPage() {
           </div>
 
           {/* Upcoming */}
-          <div className="bg-gradient-to-br from-white/10 to-white/5 rounded-2xl shadow-xl p-6 border border-white/20 backdrop-blur-sm">
-            <h3 className="text-lg font-bold text-white/95 mb-4 flex items-center gap-2">⏰ Upcoming</h3>
+          <div className="bg-gradient-to-br from-gray-100 to-gray-50 rounded-2xl shadow-lg p-6 border-2 border-gray-300">
+            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">⏰ Upcoming</h3>
             <div className="space-y-3">
-              <div className="bg-gradient-to-r from-orange-600/30 to-orange-600/10 p-4 rounded-xl border border-orange-400/30 backdrop-blur-sm">
-                <p className="text-orange-200 text-sm font-semibold">Due This Week</p>
-                <p className="text-4xl font-bold text-orange-100 mt-2">{stats.dueThisWeek}</p>
+              <div className="bg-gradient-to-r from-orange-100 to-orange-50 p-4 rounded-xl border-2 border-orange-300">
+                <p className="text-orange-700 text-sm font-semibold">Due This Week</p>
+                <p className="text-4xl font-bold text-orange-900 mt-2">{stats.dueThisWeek}</p>
               </div>
-              <div className="bg-gradient-to-r from-blue-600/30 to-blue-600/10 p-4 rounded-xl border border-blue-400/30 backdrop-blur-sm">
-                <p className="text-blue-200 text-sm font-semibold">Created This Week</p>
-                <p className="text-4xl font-bold text-blue-100 mt-2">{stats.createdThisWeek}</p>
+              <div className="bg-gradient-to-r from-teal-100 to-teal-50 p-4 rounded-xl border-2 border-teal-300">
+                <p className="text-teal-700 text-sm font-semibold">Created This Week</p>
+                <p className="text-4xl font-bold text-teal-900 mt-2">{stats.createdThisWeek}</p>
               </div>
             </div>
           </div>
 
           {/* Memory Types */}
-          <div className="bg-gradient-to-br from-white/10 to-white/5 rounded-2xl shadow-xl p-6 border border-white/20 backdrop-blur-sm">
-            <h3 className="text-lg font-bold text-white/95 mb-4 flex items-center gap-2">🏷️ By Type</h3>
+          <div className="bg-gradient-to-br from-gray-100 to-gray-50 rounded-2xl shadow-lg p-6 border-2 border-gray-300">
+            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">🏷️ By Type</h3>
             <div className="space-y-3">
               {Object.entries(stats.memoryTypes)
                 .sort(([, a], [, b]) => b - a)
                 .map(([type, count]) => (
-                  <div key={type} className="flex justify-between items-center text-sm p-2 rounded-lg hover:bg-white/10 transition-all">
-                    <span className="text-white/80 capitalize font-medium">{type}</span>
-                    <span className="font-bold text-purple-300 bg-white/10 px-3 py-1 rounded-full">{count}</span>
+                  <div key={type} className="flex justify-between items-center text-sm p-2 rounded-lg hover:bg-gray-200 transition-all">
+                    <span className="text-gray-800 capitalize font-medium">{type}</span>
+                    <span className="font-bold text-green-700 bg-green-100 px-3 py-1 rounded-full">{count}</span>
                   </div>
                 ))}
             </div>
@@ -326,24 +326,24 @@ export default function DashboardPage() {
         </div>
 
         {/* Recent Memories by Priority */}
-        <div className="bg-gradient-to-br from-white/10 to-white/5 rounded-2xl shadow-xl p-6 border border-white/20 backdrop-blur-sm">
+        <div className="bg-gradient-to-br from-gray-100 to-gray-50 rounded-2xl shadow-lg p-6 border-2 border-gray-300">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-2xl font-bold text-white/95 flex items-center gap-2">📝 Recent Memories</h3>
+            <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">📝 Recent Memories</h3>
             <div className="flex gap-2 flex-wrap">
               {(['all', 'high', 'medium', 'low'] as const).map(priority => (
                 <button
                   key={priority}
                   onClick={() => setSelectedPriority(priority)}
-                  className={`px-4 py-2 rounded-full text-sm font-bold transition-all duration-200 backdrop-blur-sm border ${
+                  className={`px-4 py-2 rounded-full text-sm font-bold transition-all duration-200 border ${
                     selectedPriority === priority
                       ? priority === 'high'
-                        ? 'bg-red-600/40 text-red-100 border-red-400/50 shadow-lg shadow-red-500/20'
+                        ? 'bg-red-100 text-red-700 border-red-300 shadow-lg shadow-red-200'
                         : priority === 'medium'
-                        ? 'bg-yellow-600/40 text-yellow-100 border-yellow-400/50 shadow-lg shadow-yellow-500/20'
+                        ? 'bg-yellow-100 text-yellow-700 border-yellow-300 shadow-lg shadow-yellow-200'
                         : priority === 'low'
-                        ? 'bg-green-600/40 text-green-100 border-green-400/50 shadow-lg shadow-green-500/20'
-                        : 'bg-blue-600/40 text-blue-100 border-blue-400/50 shadow-lg shadow-blue-500/20'
-                      : 'bg-white/10 text-white/70 border-white/20 hover:bg-white/20 hover:text-white/90'
+                        ? 'bg-green-100 text-green-700 border-green-300 shadow-lg shadow-green-200'
+                        : 'bg-blue-100 text-blue-700 border-blue-300 shadow-lg shadow-blue-200'
+                      : 'bg-gray-100 text-gray-600 border-gray-300 hover:bg-gray-200 hover:text-gray-700'
                   }`}
                 >
                   {priority === 'all' ? '📌 All' : priority === 'high' ? '🔴 High' : priority === 'medium' ? '🟡 Medium' : '🟢 Low'}
@@ -356,36 +356,36 @@ export default function DashboardPage() {
             {filteredMemories.slice(0, 10).map(memory => (
               <div
                 key={memory.id}
-                className="border-l-4 rounded-xl p-4 bg-gradient-to-r from-white/10 to-transparent hover:from-white/15 hover:to-white/5 transition-all duration-200 hover:scale-102 group"
+                className="border-l-4 rounded-xl p-4 bg-white/80 hover:bg-white transition-all duration-200 hover:shadow-lg hover:scale-102 group"
                 style={{
                   borderColor:
                     memory.priority === 'high'
-                      ? '#ef4444'
+                      ? '#dc2626'
                       : memory.priority === 'medium'
                       ? '#eab308'
-                      : '#22c55e',
+                      : '#16a34a',
                 }}
               >
                 <div className="flex justify-between items-start mb-2">
-                  <h4 className="font-bold text-white group-hover:text-purple-100 transition-colors">{memory.title}</h4>
+                  <h4 className="font-bold text-gray-900 group-hover:text-green-700 transition-colors">{memory.title}</h4>
                   {memory.priority && (
                     <span
-                      className={`text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm border ${
+                      className={`text-xs font-bold px-3 py-1 rounded-full border ${
                         memory.priority === 'high'
-                          ? 'bg-red-500/30 text-red-200 border-red-400/50'
+                          ? 'bg-red-100 text-red-700 border-red-300'
                           : memory.priority === 'medium'
-                          ? 'bg-yellow-500/30 text-yellow-200 border-yellow-400/50'
-                          : 'bg-green-500/30 text-green-200 border-green-400/50'
+                          ? 'bg-yellow-100 text-yellow-700 border-yellow-300'
+                          : 'bg-green-100 text-green-700 border-green-300'
                       }`}
                     >
                       {memory.priority}
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-white/80 line-clamp-2 group-hover:text-white transition-colors">{memory.content}</p>
-                <div className="flex justify-between items-center mt-3 text-xs text-white/60">
-                  <span className="capitalize px-2 py-1 bg-white/10 rounded-lg">{memory.type}</span>
-                  {memory.due_date && <span className="text-purple-300">📅 {memory.due_date.split('T')[0]}</span>}
+                <p className="text-sm text-gray-700 line-clamp-2 group-hover:text-gray-900 transition-colors">{memory.content}</p>
+                <div className="flex justify-between items-center mt-3 text-xs text-gray-600">
+                  <span className="capitalize px-2 py-1 bg-gray-100 rounded-lg">{memory.type}</span>
+                  {memory.due_date && <span className="text-green-700">📅 {memory.due_date.split('T')[0]}</span>}
                 </div>
               </div>
             ))}
