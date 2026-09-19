@@ -27,6 +27,7 @@ export default function TodayPage() {
   const [extracting, setExtracting] = useState(false);
   const [recording, setRecording] = useState(false);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
+  const [notifications, setNotifications] = useState<any>(null);
 
   useEffect(() => {
     loadData();
@@ -59,6 +60,7 @@ export default function TodayPage() {
     }
 
     await fetchMemories();
+    await fetchNotifications(session.access_token);
   };
 
   const fetchEmails = async (accessToken: string, authToken: string) => {
@@ -115,6 +117,21 @@ export default function TodayPage() {
       setMemories(data);
     }
     setLoading(false);
+  };
+
+  const fetchNotifications = async (token: string) => {
+    try {
+      const res = await fetch('/api/notifications', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setNotifications(data);
+        console.log('Notifications:', data);
+      }
+    } catch (error) {
+      console.error('Notifications fetch error:', error);
+    }
   };
 
   const startRecording = async () => {
@@ -344,6 +361,30 @@ export default function TodayPage() {
           </div>
 
           <div className="lg:col-span-3">
+            {notifications && (notifications.summary.overdue > 0 || notifications.summary.dueToday > 0) && (
+              <div className="mb-8 space-y-3">
+                {notifications.summary.overdue > 0 && (
+                  <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded">
+                    <h3 className="font-semibold text-red-800">🚨 {notifications.summary.overdue} Overdue Item{notifications.summary.overdue !== 1 ? 's' : ''}</h3>
+                    <div className="text-sm text-red-700 mt-2 space-y-1">
+                      {notifications.overdue.slice(0, 3).map((item: any) => (
+                        <p key={item.id}>• {item.title} ({item.daysOverdue} days overdue)</p>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {notifications.summary.dueToday > 0 && (
+                  <div className="bg-orange-50 border-l-4 border-orange-500 p-4 rounded">
+                    <h3 className="font-semibold text-orange-800">⏰ {notifications.summary.dueToday} Due Today</h3>
+                    <div className="text-sm text-orange-700 mt-2 space-y-1">
+                      {notifications.dueToday.slice(0, 3).map((item: any) => (
+                        <p key={item.id}>• {item.title} {item.priority === 'high' && '(High Priority)'}</p>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
             <h2 className="text-3xl font-bold text-gray-900 mb-8">Today's Memories</h2>
             {loading ? (
               <p className="text-gray-600">Loading...</p>
