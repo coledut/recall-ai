@@ -35,6 +35,7 @@ export default function DashboardPage() {
   const [memories, setMemories] = useState<Memory[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedPriority, setSelectedPriority] = useState<'all' | 'high' | 'medium' | 'low'>('all');
+  const [sortBy, setSortBy] = useState<'due-date' | 'created-date' | 'priority'>('due-date');
 
   useEffect(() => {
     loadDashboardData();
@@ -131,9 +132,46 @@ export default function DashboardPage() {
     }
   };
 
+  const categorizeMemory = (memory: Memory): 'overdue' | 'due-today' | 'coming-up' | 'other' => {
+    if (!memory.due_date) return 'other';
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const dueDate = new Date(memory.due_date.split('T')[0] + 'T00:00:00');
+    if (dueDate < today) return 'overdue';
+    if (dueDate.getTime() === today.getTime()) return 'due-today';
+    if (dueDate > today) return 'coming-up';
+    return 'other';
+  };
+
+  const sortMemories = (list: Memory[]) => {
+    return list.sort((a, b) => {
+      if (sortBy === 'due-date') {
+        const aDate = a.due_date ? new Date(a.due_date).getTime() : Infinity;
+        const bDate = b.due_date ? new Date(b.due_date).getTime() : Infinity;
+        return aDate - bDate;
+      }
+      if (sortBy === 'created-date') {
+        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+      }
+      if (sortBy === 'priority') {
+        const priorityOrder = { high: 0, medium: 1, low: 2 };
+        return (priorityOrder[a.priority as keyof typeof priorityOrder] ?? 3) -
+               (priorityOrder[b.priority as keyof typeof priorityOrder] ?? 3);
+      }
+      return 0;
+    });
+  };
+
   const filteredMemories = selectedPriority === 'all'
     ? memories
     : memories.filter(m => m.priority === selectedPriority);
+
+  const groupedMemories = {
+    overdue: sortMemories(filteredMemories.filter(m => categorizeMemory(m) === 'overdue')),
+    'due-today': sortMemories(filteredMemories.filter(m => categorizeMemory(m) === 'due-today')),
+    'coming-up': sortMemories(filteredMemories.filter(m => categorizeMemory(m) === 'coming-up')),
+    other: sortMemories(filteredMemories.filter(m => categorizeMemory(m) === 'other')),
+  };
 
   if (loading) {
     return (
@@ -333,11 +371,20 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Recent Memories by Priority */}
+        {/* Recent Memories Categorized */}
         <div className="bg-gradient-to-br from-gray-100 to-gray-50 rounded-2xl shadow-lg p-6 border-2 border-gray-300 hover:shadow-2xl hover:shadow-gray-400/30 transition-all duration-300">
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2 hover:text-gray-700 transition-colors">📝 Recent Memories</h3>
-            <div className="flex gap-2 flex-wrap">
+          <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
+            <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2 hover:text-gray-700 transition-colors">📝 Memories</h3>
+            <div className="flex gap-3 flex-wrap">
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as 'due-date' | 'created-date' | 'priority')}
+                className="px-4 py-2 rounded-full text-sm font-bold border-2 border-gray-300 bg-white text-gray-700 hover:border-gray-400 transition-all cursor-pointer"
+              >
+                <option value="due-date">📅 Due Date</option>
+                <option value="created-date">✨ Created Date</option>
+                <option value="priority">⚡ Priority</option>
+              </select>
               {(['all', 'high', 'medium', 'low'] as const).map(priority => (
                 <button
                   key={priority}
@@ -360,51 +407,109 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="space-y-3 max-h-96 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
-            {filteredMemories.slice(0, 10).map(memory => (
-              <div
-                key={memory.id}
-                className="border-l-4 rounded-xl p-4 bg-white/80 hover:bg-white transition-all duration-300 hover:shadow-xl hover:scale-105 hover:-translate-y-2 group cursor-pointer"
-                style={{
-                  borderColor:
-                    memory.priority === 'high'
-                      ? '#dc2626'
-                      : memory.priority === 'medium'
-                      ? '#eab308'
-                      : '#16a34a',
-                  boxShadow: `0 0 20px 0 ${
-                    memory.priority === 'high'
-                      ? 'rgba(220, 38, 38, 0.1)'
-                      : memory.priority === 'medium'
-                      ? 'rgba(234, 179, 8, 0.1)'
-                      : 'rgba(22, 163, 74, 0.1)'
-                  }`,
-                }}
-              >
-                <div className="flex justify-between items-start mb-2">
-                  <h4 className="font-bold text-gray-900 group-hover:text-green-700 transition-colors">{memory.title}</h4>
-                  {memory.priority && (
-                    <span
-                      className={`text-xs font-bold px-3 py-1 rounded-full border ${
-                        memory.priority === 'high'
-                          ? 'bg-red-100 text-red-700 border-red-300'
-                          : memory.priority === 'medium'
-                          ? 'bg-yellow-100 text-yellow-700 border-yellow-300'
-                          : 'bg-green-100 text-green-700 border-green-300'
-                      }`}
+          <div className="space-y-6">
+            {/* Overdue Section */}
+            {groupedMemories.overdue.length > 0 && (
+              <div>
+                <h4 className="text-lg font-bold text-red-700 mb-3 flex items-center gap-2">🚨 Overdue ({groupedMemories.overdue.length})</h4>
+                <div className="space-y-3">
+                  {groupedMemories.overdue.slice(0, 5).map(memory => (
+                    <div
+                      key={memory.id}
+                      className="border-l-4 rounded-xl p-4 bg-white/80 hover:bg-white transition-all duration-300 hover:shadow-xl hover:scale-105 hover:-translate-y-2 group cursor-pointer"
+                      style={{
+                        borderColor: memory.priority === 'high' ? '#dc2626' : memory.priority === 'medium' ? '#eab308' : '#16a34a',
+                      }}
                     >
-                      {memory.priority}
-                    </span>
-                  )}
-                </div>
-                <p className="text-sm text-gray-700 line-clamp-2 group-hover:text-gray-900 transition-colors">{memory.content}</p>
-                <div className="flex justify-between items-center mt-3 text-xs text-gray-600">
-                  <span className="capitalize px-2 py-1 bg-gray-100 rounded-lg">{memory.type}</span>
-                  {memory.due_date && <span className="text-green-700">📅 {memory.due_date.split('T')[0]}</span>}
+                      <div className="flex justify-between items-start mb-2">
+                        <h4 className="font-bold text-gray-900 group-hover:text-green-700 transition-colors">{memory.title}</h4>
+                        {memory.priority && (
+                          <span className={`text-xs font-bold px-3 py-1 rounded-full border ${memory.priority === 'high' ? 'bg-red-100 text-red-700 border-red-300' : memory.priority === 'medium' ? 'bg-yellow-100 text-yellow-700 border-yellow-300' : 'bg-green-100 text-green-700 border-green-300'}`}>
+                            {memory.priority}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-sm text-gray-700 line-clamp-2 group-hover:text-gray-900 transition-colors">{memory.content}</p>
+                      <div className="flex justify-between items-center mt-3 text-xs text-gray-600">
+                        <span className="capitalize px-2 py-1 bg-gray-100 rounded-lg">{memory.type}</span>
+                        {memory.due_date && <span className="text-green-700">📅 {memory.due_date.split('T')[0]}</span>}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
+            )}
+
+            {/* Due Today Section */}
+              {groupedMemories['due-today'].length > 0 && (
+                <div>
+                  <h4 className="text-lg font-bold text-orange-700 mb-3 flex items-center gap-2">⏰ Due Today ({groupedMemories['due-today'].length})</h4>
+                  <div className="space-y-3">
+                    {groupedMemories['due-today'].slice(0, 5).map(memory => (
+                      <div key={memory.id} className="border-l-4 rounded-xl p-4 bg-white/80 hover:bg-white transition-all duration-300 hover:shadow-xl hover:scale-105 hover:-translate-y-2 group cursor-pointer" style={{borderColor: memory.priority === 'high' ? '#dc2626' : memory.priority === 'medium' ? '#eab308' : '#16a34a'}}>
+                        <div className="flex justify-between items-start mb-2">
+                          <h4 className="font-bold text-gray-900 group-hover:text-green-700 transition-colors">{memory.title}</h4>
+                          {memory.priority && <span className={`text-xs font-bold px-3 py-1 rounded-full border ${memory.priority === 'high' ? 'bg-red-100 text-red-700 border-red-300' : memory.priority === 'medium' ? 'bg-yellow-100 text-yellow-700 border-yellow-300' : 'bg-green-100 text-green-700 border-green-300'}`}>{memory.priority}</span>}
+                        </div>
+                        <p className="text-sm text-gray-700 line-clamp-2 group-hover:text-gray-900 transition-colors">{memory.content}</p>
+                        <div className="flex justify-between items-center mt-3 text-xs text-gray-600">
+                          <span className="capitalize px-2 py-1 bg-gray-100 rounded-lg">{memory.type}</span>
+                          {memory.due_date && <span className="text-green-700">📅 {memory.due_date.split('T')[0]}</span>}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Coming Up Section */}
+              {groupedMemories['coming-up'].length > 0 && (
+                <div>
+                  <h4 className="text-lg font-bold text-blue-700 mb-3 flex items-center gap-2">📆 Coming Up ({groupedMemories['coming-up'].length})</h4>
+                  <div className="space-y-3">
+                    {groupedMemories['coming-up'].slice(0, 5).map(memory => (
+                      <div key={memory.id} className="border-l-4 rounded-xl p-4 bg-white/80 hover:bg-white transition-all duration-300 hover:shadow-xl hover:scale-105 hover:-translate-y-2 group cursor-pointer" style={{borderColor: memory.priority === 'high' ? '#dc2626' : memory.priority === 'medium' ? '#eab308' : '#16a34a'}}>
+                        <div className="flex justify-between items-start mb-2">
+                          <h4 className="font-bold text-gray-900 group-hover:text-green-700 transition-colors">{memory.title}</h4>
+                          {memory.priority && <span className={`text-xs font-bold px-3 py-1 rounded-full border ${memory.priority === 'high' ? 'bg-red-100 text-red-700 border-red-300' : memory.priority === 'medium' ? 'bg-yellow-100 text-yellow-700 border-yellow-300' : 'bg-green-100 text-green-700 border-green-300'}`}>{memory.priority}</span>}
+                        </div>
+                        <p className="text-sm text-gray-700 line-clamp-2 group-hover:text-gray-900 transition-colors">{memory.content}</p>
+                        <div className="flex justify-between items-center mt-3 text-xs text-gray-600">
+                          <span className="capitalize px-2 py-1 bg-gray-100 rounded-lg">{memory.type}</span>
+                          {memory.due_date && <span className="text-green-700">📅 {memory.due_date.split('T')[0]}</span>}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Other Section */}
+              {groupedMemories.other.length > 0 && (
+                <div>
+                  <h4 className="text-lg font-bold text-gray-700 mb-3 flex items-center gap-2">📋 Other ({groupedMemories.other.length})</h4>
+                  <div className="space-y-3">
+                    {groupedMemories.other.slice(0, 5).map(memory => (
+                      <div key={memory.id} className="border-l-4 rounded-xl p-4 bg-white/80 hover:bg-white transition-all duration-300 hover:shadow-xl hover:scale-105 hover:-translate-y-2 group cursor-pointer" style={{borderColor: memory.priority === 'high' ? '#dc2626' : memory.priority === 'medium' ? '#eab308' : '#16a34a'}}>
+                        <div className="flex justify-between items-start mb-2">
+                          <h4 className="font-bold text-gray-900 group-hover:text-green-700 transition-colors">{memory.title}</h4>
+                          {memory.priority && <span className={`text-xs font-bold px-3 py-1 rounded-full border ${memory.priority === 'high' ? 'bg-red-100 text-red-700 border-red-300' : memory.priority === 'medium' ? 'bg-yellow-100 text-yellow-700 border-yellow-300' : 'bg-green-100 text-green-700 border-green-300'}`}>{memory.priority}</span>}
+                        </div>
+                        <p className="text-sm text-gray-700 line-clamp-2 group-hover:text-gray-900 transition-colors">{memory.content}</p>
+                        <div className="flex justify-between items-center mt-3 text-xs text-gray-600">
+                          <span className="capitalize px-2 py-1 bg-gray-100 rounded-lg">{memory.type}</span>
+                          {memory.due_date && <span className="text-green-700">📅 {memory.due_date.split('T')[0]}</span>}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {Object.values(groupedMemories).every(cat => cat.length === 0) && (
+                <p className="text-gray-600 text-center py-8">No memories to display</p>
+              )}
+            </div>
         </div>
       </div>
     </main>
