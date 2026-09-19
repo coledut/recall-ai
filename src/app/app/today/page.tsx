@@ -543,7 +543,7 @@ export default function TodayPage() {
                   placeholder="Search your memories..."
                   value={searchQuery}
                   onChange={(e) => handleSearch(e.target.value)}
-                  className="w-full pl-12 pr-5 py-3 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 bg-white/10 text-white placeholder-white/50 backdrop-blur-sm focus:bg-white/15 transition-all duration-200"
+                  className="w-full pl-12 pr-5 py-3 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 bg-white/10 text-gray-900 placeholder-gray-600 backdrop-blur-sm focus:bg-white/15 transition-all duration-200"
                 />
               </div>
               {isSearching && <p className="text-sm text-teal-300 mt-3 animate-pulse">✨ Searching...</p>}
