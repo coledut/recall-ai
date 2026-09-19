@@ -504,31 +504,31 @@ export default function TodayPage() {
                   <div key={key}>
                     {groupedMemories[key] && groupedMemories[key].length > 0 && (
                       <div>
-                        <h3 className="text-2xl font-bold mb-5 text-white/95 flex items-center gap-3">
-                          <span className="text-3xl">{icon}</span> {label} <span className="text-lg font-semibold text-teal-300">({groupedMemories[key].length})</span>
+                        <h3 className="text-2xl font-bold mb-5 text-green-700 flex items-center gap-3">
+                          <span className="text-3xl">{icon}</span> {label} <span className="text-lg font-semibold text-green-600">({groupedMemories[key].length})</span>
                         </h3>
                         <div className="space-y-3">
                           {groupedMemories[key].map((memory) => (
                             <div
                               key={memory.id}
-                              className="border-l-4 rounded-xl p-5 bg-gradient-to-r from-white/10 to-transparent border-green-400/50 hover:border-purple-300 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 backdrop-blur-sm hover:scale-102 hover:-translate-y-1 group"
+                              className="border-l-4 rounded-xl p-5 bg-white/60 backdrop-blur-sm border-green-400 hover:border-green-500 hover:shadow-lg hover:shadow-green-200 transition-all duration-300 hover:scale-102 hover:-translate-y-1 group"
                             >
                               <div className="flex justify-between items-start mb-2">
-                                <h4 className="font-bold text-white group-hover:text-green-100 transition-colors">{memory.title}</h4>
+                                <h4 className="font-bold text-gray-900 group-hover:text-green-700 transition-colors">{memory.title}</h4>
                                 {memory.priority && (
-                                  <span className={`text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm ${
-                                    memory.priority === 'high' ? 'bg-red-500/30 text-red-200 border border-red-400/50' :
-                                    memory.priority === 'medium' ? 'bg-yellow-500/30 text-yellow-200 border border-yellow-400/50' :
-                                    'bg-green-500/30 text-green-200 border border-green-400/50'
+                                  <span className={`text-xs font-bold px-3 py-1 rounded-full ${
+                                    memory.priority === 'high' ? 'bg-red-100 text-red-700 border border-red-300' :
+                                    memory.priority === 'medium' ? 'bg-yellow-100 text-yellow-700 border border-yellow-300' :
+                                    'bg-green-100 text-green-700 border border-green-300'
                                   }`}>
                                     {memory.priority}
                                   </span>
                                 )}
                               </div>
-                              <p className="text-white/80 mb-3 group-hover:text-white transition-colors">{memory.content}</p>
+                              <p className="text-gray-700 mb-3 group-hover:text-gray-900 transition-colors">{memory.content}</p>
                               <div className="flex flex-wrap gap-2">
                                 {memory.tags?.map((tag) => (
-                                  <span key={tag} className="text-xs bg-white/20 text-white/90 px-3 py-1 rounded-full border border-white/20 backdrop-blur-sm hover:bg-white/30 transition-all">
+                                  <span key={tag} className="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full border border-green-300 hover:bg-green-200 transition-all">
                                     {tag}
                                   </span>
                                 ))}
