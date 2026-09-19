@@ -30,11 +30,14 @@ export default function TodayPage() {
   const [notifications, setNotifications] = useState<any>(null);
 
   useEffect(() => {
+    console.log('⚡ useEffect mounted');
     loadData();
   }, []);
 
   const loadData = async () => {
+    console.log('🚀 loadData started');
     const { data: { session } } = await supabase.auth.getSession();
+    console.log('📋 Got session:', session?.user?.email);
     if (!session) {
       window.location.href = '/auth/login';
       return;
@@ -111,10 +114,23 @@ export default function TodayPage() {
       .select('*')
       .order('created_at', { ascending: false });
 
-    console.log('Fetched memories:', data?.length, 'Error:', error);
+    console.log('Fetched memories:', {
+      count: data?.length,
+      error: error?.message || error?.code || 'none',
+      fullError: JSON.stringify(error)
+    });
+
+    if (error) {
+      console.error('Full error details:', error);
+    }
+
     if (!error && data) {
       console.log('First memory:', data[0]);
       setMemories(data);
+    } else if (error) {
+      console.log('No data due to error');
+    } else {
+      console.log('No data, no error - strange state');
     }
     setLoading(false);
   };
@@ -237,13 +253,18 @@ export default function TodayPage() {
       const category = categorizeMemory(memory);
       if (!acc[category]) acc[category] = [];
       acc[category].push(memory);
-      if (memory.title === 'Call Sarah') {
-        console.log('Call Sarah memory:', { title: memory.title, due_date: memory.due_date, priority: memory.priority, category });
-      }
       return acc;
     },
     {} as Record<CategoryKey, Memory[]>
   );
+
+  console.log('Grouped memories:', {
+    total: memories.length,
+    needs_attention: groupedMemories.needs_attention?.length || 0,
+    due_today: groupedMemories.due_today?.length || 0,
+    coming_up: groupedMemories.coming_up?.length || 0,
+    other: groupedMemories.other?.length || 0
+  });
 
   const handleAddMemory = async (e: React.FormEvent) => {
     e.preventDefault();
