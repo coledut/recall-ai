@@ -350,12 +350,17 @@ export default function TodayPage() {
       <nav className="bg-white shadow px-8 py-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <h1 className="text-2xl font-bold text-green-700">Recall AI</h1>
-          <button
-            onClick={() => supabase.auth.signOut().then(() => (window.location.href = '/'))}
-            className="text-gray-600 hover:text-gray-900"
-          >
-            Sign Out
-          </button>
+          <div className="flex gap-4 items-center">
+            <a href="/app/dashboard" className="text-gray-600 hover:text-gray-900 font-semibold">
+              📊 Dashboard
+            </a>
+            <button
+              onClick={() => supabase.auth.signOut().then(() => (window.location.href = '/'))}
+              className="text-gray-600 hover:text-gray-900"
+            >
+              Sign Out
+            </button>
+          </div>
         </div>
       </nav>
 
