@@ -585,10 +585,10 @@ export default function TodayPage() {
                               key={memory.id}
                               className="border-l-4 rounded-xl p-5 bg-white/60 backdrop-blur-sm border-green-400 hover:border-green-600 hover:shadow-2xl hover:shadow-green-400/30 transition-all duration-300 hover:scale-105 hover:-translate-y-2 group cursor-pointer"
                             >
-                              <div className="flex justify-between items-start mb-2">
-                                <h4 className="font-bold text-gray-900 group-hover:text-green-700 transition-colors">{memory.title}</h4>
+                              <div className="flex justify-between items-start mb-2 gap-2">
+                                <h4 className="font-bold text-gray-900 group-hover:text-green-700 transition-colors line-clamp-2">{memory.title}</h4>
                                 {memory.priority && (
-                                  <span className={`text-xs font-bold px-3 py-1 rounded-full ${
+                                  <span className={`text-xs font-bold px-3 py-1 rounded-full flex-shrink-0 ${
                                     memory.priority === 'high' ? 'bg-red-100 text-red-700 border border-red-300' :
                                     memory.priority === 'medium' ? 'bg-yellow-100 text-yellow-700 border border-yellow-300' :
                                     'bg-green-100 text-green-700 border border-green-300'
@@ -597,7 +597,7 @@ export default function TodayPage() {
                                   </span>
                                 )}
                               </div>
-                              <p className="text-gray-700 mb-3 group-hover:text-gray-900 transition-colors">{memory.content}</p>
+                              <p className="text-gray-700 mb-3 group-hover:text-gray-900 transition-colors line-clamp-3">{memory.content}</p>
                               <div className="flex flex-wrap gap-2">
                                 {memory.tags?.map((tag) => (
                                   <span key={tag} className="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full border border-green-300 hover:bg-green-200 transition-all">

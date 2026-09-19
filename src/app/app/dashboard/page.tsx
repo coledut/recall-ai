@@ -469,9 +469,9 @@ export default function DashboardPage() {
                       }}
                     >
                       <div className="flex justify-between items-start mb-2">
-                        <h4 className="font-bold text-gray-900 group-hover:text-green-700 transition-colors">{memory.title}</h4>
+                        <h4 className="font-bold text-gray-900 group-hover:text-green-700 transition-colors line-clamp-2">{memory.title}</h4>
                         {memory.priority && (
-                          <span className={`text-xs font-bold px-3 py-1 rounded-full border ${memory.priority === 'high' ? 'bg-red-100 text-red-700 border-red-300' : memory.priority === 'medium' ? 'bg-yellow-100 text-yellow-700 border-yellow-300' : 'bg-green-100 text-green-700 border-green-300'}`}>
+                          <span className={`text-xs font-bold px-3 py-1 rounded-full border flex-shrink-0 ${memory.priority === 'high' ? 'bg-red-100 text-red-700 border-red-300' : memory.priority === 'medium' ? 'bg-yellow-100 text-yellow-700 border-yellow-300' : 'bg-green-100 text-green-700 border-green-300'}`}>
                             {memory.priority}
                           </span>
                         )}
