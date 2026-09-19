@@ -346,23 +346,23 @@ export default function TodayPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      <nav className="bg-gradient-to-r from-purple-600 to-blue-600 shadow-2xl px-8 py-5 border-b border-purple-400/30">
+    <main className="min-h-screen bg-gradient-to-br from-green-50 via-teal-50 to-green-50">
+      <nav className="bg-gradient-to-r from-green-600 to-teal-600 shadow-2xl px-8 py-5 border-b border-green-400/30">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="text-3xl">🧠</div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-purple-100 bg-clip-text text-transparent">Recall AI</h1>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-green-100 bg-clip-text text-transparent">Recall AI</h1>
           </div>
           <div className="flex gap-6 items-center">
             <a
               href="/app/dashboard"
-              className="text-white/80 hover:text-white font-semibold flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white/10 transition-all duration-200"
+              className="text-white/90 hover:text-white font-semibold flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-200"
             >
               <span className="text-xl">📊</span> Dashboard
             </a>
             <button
               onClick={() => supabase.auth.signOut().then(() => (window.location.href = '/'))}
-              className="text-white/80 hover:text-white px-4 py-2 rounded-lg hover:bg-white/10 transition-all duration-200"
+              className="text-white/90 hover:text-white px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-200"
             >
               ↗ Sign Out
             </button>
@@ -373,7 +373,7 @@ export default function TodayPage() {
       <div className="max-w-7xl mx-auto px-8 py-12">
         <div className="grid lg:grid-cols-4 gap-8">
           <div className="lg:col-span-1 h-fit sticky top-8">
-            <div className="bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl shadow-2xl p-6 backdrop-blur-sm border border-purple-400/30">
+            <div className="bg-gradient-to-br from-green-600 to-teal-600 rounded-2xl shadow-2xl p-6 backdrop-blur-sm border border-green-400/30">
               <h3 className="text-xl font-bold mb-4 text-white flex items-center gap-2">
                 <span className="text-2xl">✨</span> Capture Memory
               </h3>
@@ -459,7 +459,7 @@ export default function TodayPage() {
                 )}
               </div>
             )}
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent mb-8">Today's Memories</h2>
+            <h2 className="text-4xl font-bold bg-gradient-to-r from-white to-teal-100 bg-clip-text text-transparent mb-8">Today's Memories</h2>
 
             {/* Search Bar */}
             <div className="mb-8">
@@ -469,10 +469,10 @@ export default function TodayPage() {
                   placeholder="🔍 Search your memories..."
                   value={searchQuery}
                   onChange={(e) => handleSearch(e.target.value)}
-                  className="w-full px-5 py-3 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white/10 text-white placeholder-white/50 backdrop-blur-sm focus:bg-white/15 transition-all duration-200"
+                  className="w-full px-5 py-3 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 bg-white/10 text-white placeholder-white/50 backdrop-blur-sm focus:bg-white/15 transition-all duration-200"
                 />
               </div>
-              {isSearching && <p className="text-sm text-purple-300 mt-3 animate-pulse">✨ Searching...</p>}
+              {isSearching && <p className="text-sm text-teal-300 mt-3 animate-pulse">✨ Searching...</p>}
               {searchQuery && searchResults.length > 0 && (
                 <p className="text-sm text-purple-200 mt-3">🎯 Found {searchResults.length} result{searchResults.length !== 1 ? 's' : ''}</p>
               )}
@@ -483,10 +483,10 @@ export default function TodayPage() {
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-white/90">✨ Search Results</h3>
                 {searchResults.map((memory: Memory) => (
-                  <div key={memory.id} className="bg-gradient-to-r from-purple-600/20 to-blue-600/20 p-4 rounded-xl border border-white/20 hover:border-white/40 hover:shadow-2xl transition-all duration-300 backdrop-blur-sm hover:scale-105 hover:-translate-y-1">
+                  <div key={memory.id} className="bg-gradient-to-r from-green-600/20 to-teal-600/20 p-4 rounded-xl border border-white/20 hover:border-white/40 hover:shadow-2xl transition-all duration-300 backdrop-blur-sm hover:scale-105 hover:-translate-y-1">
                     <h4 className="font-semibold text-white">{memory.title}</h4>
                     {memory.content && <p className="text-sm text-white/80 mt-2 line-clamp-2">{memory.content}</p>}
-                    {memory.due_date && <p className="text-xs text-purple-300 mt-2">📅 Due: {memory.due_date}</p>}
+                    {memory.due_date && <p className="text-xs text-teal-300 mt-2">📅 Due: {memory.due_date}</p>}
                   </div>
                 ))}
               </div>
@@ -503,16 +503,16 @@ export default function TodayPage() {
                     {groupedMemories[key] && groupedMemories[key].length > 0 && (
                       <div>
                         <h3 className="text-2xl font-bold mb-5 text-white/95 flex items-center gap-3">
-                          <span className="text-3xl">{icon}</span> {label} <span className="text-lg font-semibold text-purple-300">({groupedMemories[key].length})</span>
+                          <span className="text-3xl">{icon}</span> {label} <span className="text-lg font-semibold text-teal-300">({groupedMemories[key].length})</span>
                         </h3>
                         <div className="space-y-3">
                           {groupedMemories[key].map((memory) => (
                             <div
                               key={memory.id}
-                              className="border-l-4 rounded-xl p-5 bg-gradient-to-r from-white/10 to-transparent border-purple-400/50 hover:border-purple-300 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 backdrop-blur-sm hover:scale-102 hover:-translate-y-1 group"
+                              className="border-l-4 rounded-xl p-5 bg-gradient-to-r from-white/10 to-transparent border-green-400/50 hover:border-purple-300 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 backdrop-blur-sm hover:scale-102 hover:-translate-y-1 group"
                             >
                               <div className="flex justify-between items-start mb-2">
-                                <h4 className="font-bold text-white group-hover:text-purple-100 transition-colors">{memory.title}</h4>
+                                <h4 className="font-bold text-white group-hover:text-green-100 transition-colors">{memory.title}</h4>
                                 {memory.priority && (
                                   <span className={`text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm ${
                                     memory.priority === 'high' ? 'bg-red-500/30 text-red-200 border border-red-400/50' :

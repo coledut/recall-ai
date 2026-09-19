@@ -162,16 +162,16 @@ export default function DashboardPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900">
-      <nav className="bg-gradient-to-r from-indigo-600 to-blue-600 shadow-2xl px-8 py-5 border-b border-indigo-400/30">
+    <main className="min-h-screen bg-gradient-to-br from-green-50 via-teal-50 to-green-50">
+      <nav className="bg-gradient-to-r from-green-600 to-teal-600 shadow-2xl px-8 py-5 border-b border-green-400/30">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-indigo-100 bg-clip-text text-transparent">📊 Analytics Dashboard</h1>
-            <p className="text-sm text-indigo-100/80 mt-1">Memory insights and trends</p>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-green-100 bg-clip-text text-transparent">📊 Analytics Dashboard</h1>
+            <p className="text-sm text-green-100/80 mt-1">Memory insights and trends</p>
           </div>
           <a
             href="/app/today"
-            className="text-white/80 hover:text-white font-semibold flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white/10 transition-all duration-200"
+            className="text-white/90 hover:text-white font-semibold flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-200"
           >
             ← Back to Memories
           </a>
@@ -182,15 +182,15 @@ export default function DashboardPage() {
         {/* Key Stats Grid */}
         <div className="grid md:grid-cols-4 gap-6 mb-8">
           {/* Total Memories */}
-          <div className="bg-gradient-to-br from-blue-600/40 to-blue-600/20 rounded-2xl shadow-2xl p-6 border border-blue-400/30 backdrop-blur-sm hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105">
+          <div className="bg-gradient-to-br from-green-600/40 to-green-600/20 rounded-2xl shadow-2xl p-6 border border-green-400/30 backdrop-blur-sm hover:shadow-green-500/30 transition-all duration-300 hover:scale-105">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-blue-200 text-sm font-semibold">Total Memories</p>
-                <p className="text-5xl font-bold text-blue-100 mt-2">{stats.totalMemories}</p>
+                <p className="text-green-200 text-sm font-semibold">Total Memories</p>
+                <p className="text-5xl font-bold text-green-100 mt-2">{stats.totalMemories}</p>
               </div>
               <div className="text-6xl opacity-80">📚</div>
             </div>
-            <p className="text-xs text-blue-200/70 mt-4">📈 {stats.createdThisMonth} this month</p>
+            <p className="text-xs text-green-200/70 mt-4">📈 {stats.createdThisMonth} this month</p>
           </div>
 
           {/* High Priority */}
@@ -218,15 +218,15 @@ export default function DashboardPage() {
           </div>
 
           {/* Due Today */}
-          <div className="bg-gradient-to-br from-purple-600/40 to-purple-600/20 rounded-2xl shadow-2xl p-6 border border-purple-400/30 backdrop-blur-sm hover:shadow-purple-500/30 transition-all duration-300 hover:scale-105">
+          <div className="bg-gradient-to-br from-teal-600/40 to-teal-600/20 rounded-2xl shadow-2xl p-6 border border-teal-400/30 backdrop-blur-sm hover:shadow-teal-500/30 transition-all duration-300 hover:scale-105">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-purple-200 text-sm font-semibold">Due Today</p>
-                <p className="text-5xl font-bold text-purple-100 mt-2">{stats.dueToday}</p>
+                <p className="text-teal-200 text-sm font-semibold">Due Today</p>
+                <p className="text-5xl font-bold text-teal-100 mt-2">{stats.dueToday}</p>
               </div>
               <div className="text-6xl opacity-80">📅</div>
             </div>
-            <p className="text-xs text-purple-200/70 mt-4">🎯 Action needed today</p>
+            <p className="text-xs text-teal-200/70 mt-4">🎯 Action needed today</p>
           </div>
         </div>
 
