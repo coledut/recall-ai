@@ -25,6 +25,8 @@ export default function TodayPage() {
   const [loading, setLoading] = useState(true);
   const [content, setContent] = useState('');
   const [extracting, setExtracting] = useState(false);
+  const [recording, setRecording] = useState(false);
+  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
 
   useEffect(() => {
     loadData();
@@ -73,6 +75,90 @@ export default function TodayPage() {
       setMemories(data);
     }
     setLoading(false);
+  };
+
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const recorder = new MediaRecorder(stream, { mimeType: 'audio/webm;codecs=opus' });
+      const chunks: Blob[] = [];
+
+      recorder.ondataavailable = (e) => chunks.push(e.data);
+      recorder.onstop = async () => {
+        const audioBlob = new Blob(chunks, { type: 'audio/webm;codecs=opus' });
+        await transcribeAudio(audioBlob);
+        stream.getTracks().forEach(track => track.stop());
+      };
+
+      recorder.start();
+      setMediaRecorder(recorder);
+      setRecording(true);
+    } catch (error) {
+      console.error('Microphone error:', error);
+      alert('Failed to access microphone');
+    }
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorder) {
+      mediaRecorder.stop();
+      setRecording(false);
+    }
+  };
+
+  const transcribeAudio = async (audioBlob: Blob) => {
+    try {
+      setExtracting(true);
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      const formData = new FormData();
+      formData.append('audio', audioBlob);
+      formData.append('authToken', session.access_token);
+
+      const res = await fetch('/api/transcribe', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        console.log('Transcribed:', data.transcript);
+        await fetchMemories();
+      }
+    } catch (error) {
+      console.error('Transcribe failed:', error);
+    } finally {
+      setExtracting(false);
+    }
+  };
+
+  const testVoiceCapture = async () => {
+    setExtracting(true);
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      setExtracting(false);
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/extract', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text: 'Meeting with Sarah on Friday morning to review the Q4 marketing strategy and budget. Need to finalize by Thursday EOD. Also need to send status report to executives by Wednesday.',
+          authToken: session.access_token,
+        }),
+      });
+
+      if (res.ok) {
+        await fetchMemories();
+      }
+    } catch (error) {
+      console.error('Test failed:', error);
+    } finally {
+      setExtracting(false);
+    }
   };
 
   const categorizeMemory = (memory: Memory): CategoryKey => {
@@ -166,12 +252,35 @@ export default function TodayPage() {
                 />
                 <button
                   type="submit"
-                  disabled={extracting}
+                  disabled={extracting || recording}
                   className="w-full py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 disabled:bg-gray-400"
                 >
                   {extracting ? 'Extracting...' : 'Capture & Extract'}
                 </button>
               </form>
+              <div className="border-t pt-4 mt-4">
+                <p className="text-sm text-gray-600 mb-3">Or record:</p>
+                <button
+                  type="button"
+                  onClick={recording ? stopRecording : startRecording}
+                  disabled={extracting}
+                  className={`w-full py-2 font-semibold rounded-lg text-white ${
+                    recording
+                      ? 'bg-red-600 hover:bg-red-700'
+                      : 'bg-purple-600 hover:bg-purple-700 disabled:bg-gray-400'
+                  }`}
+                >
+                  {recording ? '⏹️ Stop Recording' : '🎤 Record Voice'}
+                </button>
+                <button
+                  type="button"
+                  onClick={testVoiceCapture}
+                  disabled={extracting}
+                  className="w-full mt-2 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 disabled:bg-gray-400"
+                >
+                  🧪 Test Voice (Demo)
+                </button>
+              </div>
               <div className="border-t pt-4 mt-4">
                 <p className="text-sm text-gray-600 mb-3">Or sync from:</p>
                 <a
