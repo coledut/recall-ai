@@ -39,11 +39,12 @@ export default function TodayPage() {
       return;
     }
 
-    // Check for Gmail token in URL
+    // Check for Gmail/Calendar token in URL
     const params = new URLSearchParams(window.location.search);
     const gmailToken = params.get('gmail_token');
     if (gmailToken) {
       await fetchEmails(gmailToken, session.access_token);
+      await syncCalendar(gmailToken, session.access_token);
       // Remove token from URL
       window.history.replaceState({}, '', '/app/today');
     }
@@ -62,6 +63,20 @@ export default function TodayPage() {
       console.log('Gmail fetch result:', data);
     } catch (error) {
       console.error('Gmail fetch error:', error);
+    }
+  };
+
+  const syncCalendar = async (accessToken: string, authToken: string) => {
+    try {
+      const res = await fetch('/api/calendar/sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ accessToken, authToken }),
+      });
+      const data = await res.json();
+      console.log('Calendar sync result:', data);
+    } catch (error) {
+      console.error('Calendar sync error:', error);
     }
   };
 
