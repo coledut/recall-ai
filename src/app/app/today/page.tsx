@@ -447,7 +447,37 @@ export default function TodayPage() {
               </div>
             )}
             <h2 className="text-3xl font-bold text-gray-900 mb-8">Today's Memories</h2>
-            {loading ? (
+
+            {/* Search Bar */}
+            <div className="mb-8">
+              <input
+                type="text"
+                placeholder="🔍 Search memories..."
+                value={searchQuery}
+                onChange={(e) => handleSearch(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+              {isSearching && <p className="text-sm text-gray-500 mt-2">Searching...</p>}
+              {searchQuery && searchResults.length > 0 && (
+                <p className="text-sm text-gray-600 mt-2">Found {searchResults.length} result{searchResults.length !== 1 ? 's' : ''}</p>
+              )}
+            </div>
+
+            {/* Search Results or All Memories */}
+            {searchQuery && searchResults.length > 0 ? (
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-gray-800">Search Results</h3>
+                {searchResults.map((memory: Memory) => (
+                  <div key={memory.id} className="bg-white p-4 rounded-lg border border-gray-200 hover:shadow-md transition">
+                    <h4 className="font-semibold text-gray-900">{memory.title}</h4>
+                    {memory.content && <p className="text-sm text-gray-600 mt-1 line-clamp-2">{memory.content}</p>}
+                    {memory.due_date && <p className="text-xs text-gray-500 mt-2">Due: {memory.due_date}</p>}
+                  </div>
+                ))}
+              </div>
+            ) : searchQuery && searchResults.length === 0 ? (
+              <p className="text-gray-600">No memories found matching "{searchQuery}"</p>
+            ) : loading ? (
               <p className="text-gray-600">Loading...</p>
             ) : memories.length === 0 ? (
               <p className="text-gray-600">No memories yet. Start capturing!</p>
