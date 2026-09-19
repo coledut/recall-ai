@@ -176,7 +176,7 @@ export default function DashboardPage() {
           </div>
           <a
             href="/app/today"
-            className="text-green-700 hover:text-green-800 font-semibold flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-100 transition-all duration-200"
+            className="text-white hover:text-green-100 font-semibold flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-200"
           >
             ← Back to Memories
           </a>
