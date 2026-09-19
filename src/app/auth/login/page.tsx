@@ -49,11 +49,15 @@ export default function LoginPage() {
 
       <div className="w-full max-w-md bg-gradient-to-br from-white/20 to-white/10 rounded-2xl shadow-2xl p-8 backdrop-blur-xl border border-white/30 relative z-10">
         <div className="text-center mb-8">
-          <div className="text-5xl mb-4">🧠</div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-green-700 to-teal-600 bg-clip-text text-transparent">
+          <div className="flex justify-center mb-4">
+            <svg className="w-16 h-16 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+            </svg>
+          </div>
+          <h1 className="text-4xl font-bold text-green-700">
             Recall AI
           </h1>
-          <p className="text-teal-700/80 text-sm mt-2">Your intelligent memory assistant</p>
+          <p className="text-green-700/70 text-sm mt-2">Your memory companion</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
