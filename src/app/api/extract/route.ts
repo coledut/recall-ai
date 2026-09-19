@@ -21,7 +21,22 @@ export async function POST(request: Request) {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
-    const prompt = `Extract info from: "${text}"\n\nRespond ONLY with this JSON (no markdown):\n{"title":"string (max 10 words)","type":"commitment","priority":"high","due_date":null,"people":[],"summary":"string"}`;
+    const today = new Date();
+    const todayStr = today.toISOString().split('T')[0];
+    const tomorrow = new Date(today.getTime() + 86400000).toISOString().split('T')[0];
+    const friday = new Date(today.getTime() + (5 - today.getDay()) * 86400000).toISOString().split('T')[0];
+    const nextWeek = new Date(today.getTime() + 7 * 86400000).toISOString().split('T')[0];
+
+    const prompt = `Today is ${todayStr} (${today.toLocaleDateString('en-US', { weekday: 'long' })}).
+Examples: "tomorrow" = ${tomorrow}, "Friday" = ${friday}, "next week" = ${nextWeek}.
+
+Extract from: "${text}"
+
+Calculate exact dates for: tomorrow, next/this Friday/Monday/etc, in X days, end of week, by end of day.
+Return YYYY-MM-DD or null.
+
+JSON (no markdown):
+{"title":"max 10 words","type":"commitment","priority":"high|medium|low","due_date":"YYYY-MM-DD or null","people":[],"summary":"details"}`;
 
     const res = await fetch("https://generativelanguage.googleapis.com/v1/models/gemini-3.5-flash-lite:generateContent?key=" + GEMINI_KEY, {
       method: "POST",

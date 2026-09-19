@@ -71,7 +71,9 @@ export default function TodayPage() {
       .select('*')
       .order('created_at', { ascending: false });
 
+    console.log('Fetched memories:', data?.length, 'Error:', error);
     if (!error && data) {
+      console.log('First memory:', data[0]);
       setMemories(data);
     }
     setLoading(false);
@@ -164,7 +166,8 @@ export default function TodayPage() {
   const categorizeMemory = (memory: Memory): CategoryKey => {
     if (memory.priority === 'high' && !memory.due_date) return 'needs_attention';
     if (memory.due_date) {
-      const dueDate = new Date(memory.due_date);
+      const dateStr = typeof memory.due_date === 'string' ? memory.due_date.split('T')[0] : memory.due_date;
+      const dueDate = new Date(dateStr + 'T00:00:00');
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       dueDate.setHours(0, 0, 0, 0);
