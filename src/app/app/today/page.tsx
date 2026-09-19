@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import { supabase } from '@/lib/supabase';
 
 interface Memory {
@@ -338,7 +338,7 @@ export default function TodayPage() {
     }
   };
 
-  const categories: { key: CategoryKey; label: string; icon: React.ReactNode; color: string }[] = [
+  const categories: { key: CategoryKey; label: string; icon: ReactNode; color: string }[] = [
     {
       key: 'needs_attention',
       label: 'Needs Attention',
