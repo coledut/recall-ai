@@ -237,7 +237,10 @@ export default function DashboardPage() {
                 </svg>
               </div>
             </div>
-            <p className="text-xs text-green-700 mt-4 group-hover:text-green-600 transition-colors">📈 {stats.createdThisMonth} this month</p>
+            <p className="text-xs text-green-700 mt-4 group-hover:text-green-600 transition-colors">
+              <span className="inline-block w-4 h-4 bg-gradient-to-br from-green-300 to-green-400 rounded-full mr-1 align-text-bottom"></span>
+              {stats.createdThisMonth} this month
+            </p>
           </div>
 
           {/* High Priority */}
@@ -253,7 +256,10 @@ export default function DashboardPage() {
                 </svg>
               </div>
             </div>
-            <p className="text-xs text-red-700 mt-4 group-hover:text-red-600 transition-colors">⚡ Needs attention</p>
+            <p className="text-xs text-red-700 mt-4 group-hover:text-red-600 transition-colors">
+              <span className="inline-block w-4 h-4 bg-gradient-to-br from-red-300 to-red-400 rounded-full mr-1 align-text-bottom"></span>
+              Needs attention
+            </p>
           </div>
 
           {/* Overdue Items */}
@@ -269,7 +275,10 @@ export default function DashboardPage() {
                 </svg>
               </div>
             </div>
-            <p className="text-xs text-orange-700 mt-4 group-hover:text-orange-600 transition-colors">⚠️ Past due date</p>
+            <p className="text-xs text-orange-700 mt-4 group-hover:text-orange-600 transition-colors">
+              <span className="inline-block w-4 h-4 bg-gradient-to-br from-orange-300 to-orange-400 rounded-full mr-1 align-text-bottom"></span>
+              Past due date
+            </p>
           </div>
 
           {/* Due Today */}
@@ -285,7 +294,10 @@ export default function DashboardPage() {
                 </svg>
               </div>
             </div>
-            <p className="text-xs text-teal-700 mt-4 group-hover:text-teal-600 transition-colors">✅ Action needed today</p>
+            <p className="text-xs text-teal-700 mt-4 group-hover:text-teal-600 transition-colors">
+              <span className="inline-block w-4 h-4 bg-gradient-to-br from-teal-300 to-teal-400 rounded-full mr-1 align-text-bottom"></span>
+              Action needed today
+            </p>
           </div>
         </div>
 
@@ -293,7 +305,14 @@ export default function DashboardPage() {
         <div className="grid md:grid-cols-3 gap-6 mb-8">
           {/* Priority Distribution */}
           <div className="bg-gradient-to-br from-gray-100 to-gray-50 rounded-2xl shadow-lg p-6 border-2 border-gray-300 hover:shadow-2xl hover:shadow-gray-400/30 transition-all duration-300 group cursor-pointer">
-            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2 group-hover:text-gray-700 transition-colors">🎯 Priority Distribution</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2 group-hover:text-gray-700 transition-colors">
+              <div className="w-6 h-6 bg-gradient-to-br from-red-400 to-red-500 rounded-full flex items-center justify-center">
+                <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11z" />
+                </svg>
+              </div>
+              Priority Distribution
+            </h3>
             <div className="space-y-3">
               <div>
                 <div className="flex justify-between text-sm mb-2">
@@ -342,7 +361,14 @@ export default function DashboardPage() {
 
           {/* Upcoming */}
           <div className="bg-gradient-to-br from-gray-100 to-gray-50 rounded-2xl shadow-lg p-6 border-2 border-gray-300 hover:shadow-2xl hover:shadow-gray-400/30 transition-all duration-300 group cursor-pointer">
-            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2 group-hover:text-gray-700 transition-colors">⏰ Upcoming</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2 group-hover:text-gray-700 transition-colors">
+              <div className="w-6 h-6 bg-gradient-to-br from-orange-400 to-orange-500 rounded-full flex items-center justify-center">
+                <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M11.99 5V1h-8v4H1v14h22V5h-11.01zm7 10h-5v5h-4v-5H4v-4h5V7h4v4h5v4z" />
+                </svg>
+              </div>
+              Upcoming
+            </h3>
             <div className="space-y-3">
               <div className="bg-gradient-to-r from-orange-100 to-orange-50 p-4 rounded-xl border-2 border-orange-300">
                 <p className="text-orange-700 text-sm font-semibold">Due This Week</p>
@@ -357,7 +383,14 @@ export default function DashboardPage() {
 
           {/* Memory Types */}
           <div className="bg-gradient-to-br from-gray-100 to-gray-50 rounded-2xl shadow-lg p-6 border-2 border-gray-300 hover:shadow-2xl hover:shadow-gray-400/30 transition-all duration-300 group cursor-pointer">
-            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2 group-hover:text-gray-700 transition-colors">🏷️ By Type</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2 group-hover:text-gray-700 transition-colors">
+              <div className="w-6 h-6 bg-gradient-to-br from-purple-400 to-purple-500 rounded-full flex items-center justify-center">
+                <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16zM16 17H5V7h11l3.55 5L16 17z" />
+                </svg>
+              </div>
+              By Type
+            </h3>
             <div className="space-y-3">
               {Object.entries(stats.memoryTypes)
                 .sort(([, a], [, b]) => b - a)
@@ -374,7 +407,14 @@ export default function DashboardPage() {
         {/* Recent Memories Categorized */}
         <div className="bg-gradient-to-br from-gray-100 to-gray-50 rounded-2xl shadow-lg p-6 border-2 border-gray-300 hover:shadow-2xl hover:shadow-gray-400/30 transition-all duration-300">
           <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
-            <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2 hover:text-gray-700 transition-colors">📝 Memories</h3>
+            <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2 hover:text-gray-700 transition-colors">
+              <div className="w-7 h-7 bg-gradient-to-br from-blue-400 to-blue-500 rounded-full flex items-center justify-center">
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M3 13h2v8H3zm4-8h2v16H7zm4-2h2v18h-2zm4 4h2v14h-2zm4-2h2v16h-2z" />
+                </svg>
+              </div>
+              Memories
+            </h3>
             <div className="flex gap-3 flex-wrap">
               <select
                 value={sortBy}
@@ -411,7 +451,14 @@ export default function DashboardPage() {
             {/* Overdue Section */}
             {groupedMemories.overdue.length > 0 && (
               <div>
-                <h4 className="text-lg font-bold text-red-700 mb-3 flex items-center gap-2">🚨 Overdue ({groupedMemories.overdue.length})</h4>
+                <h4 className="text-lg font-bold text-red-700 mb-3 flex items-center gap-2">
+                  <div className="w-7 h-7 bg-gradient-to-br from-red-400 to-red-500 rounded-full flex items-center justify-center">
+                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
+                    </svg>
+                  </div>
+                  Overdue ({groupedMemories.overdue.length})
+                </h4>
                 <div className="space-y-3">
                   {groupedMemories.overdue.slice(0, 5).map(memory => (
                     <div
@@ -443,7 +490,14 @@ export default function DashboardPage() {
             {/* Due Today Section */}
               {groupedMemories['due-today'].length > 0 && (
                 <div>
-                  <h4 className="text-lg font-bold text-orange-700 mb-3 flex items-center gap-2">⏰ Due Today ({groupedMemories['due-today'].length})</h4>
+                  <h4 className="text-lg font-bold text-orange-700 mb-3 flex items-center gap-2">
+                    <div className="w-7 h-7 bg-gradient-to-br from-orange-400 to-orange-500 rounded-full flex items-center justify-center">
+                      <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z" />
+                      </svg>
+                    </div>
+                    Due Today ({groupedMemories['due-today'].length})
+                  </h4>
                   <div className="space-y-3">
                     {groupedMemories['due-today'].slice(0, 5).map(memory => (
                       <div key={memory.id} className="border-l-4 rounded-xl p-4 bg-white/80 hover:bg-white transition-all duration-300 hover:shadow-xl hover:scale-105 hover:-translate-y-2 group cursor-pointer" style={{borderColor: memory.priority === 'high' ? '#dc2626' : memory.priority === 'medium' ? '#eab308' : '#16a34a'}}>
@@ -465,7 +519,14 @@ export default function DashboardPage() {
               {/* Coming Up Section */}
               {groupedMemories['coming-up'].length > 0 && (
                 <div>
-                  <h4 className="text-lg font-bold text-blue-700 mb-3 flex items-center gap-2">📆 Coming Up ({groupedMemories['coming-up'].length})</h4>
+                  <h4 className="text-lg font-bold text-blue-700 mb-3 flex items-center gap-2">
+                    <div className="w-7 h-7 bg-gradient-to-br from-blue-400 to-blue-500 rounded-full flex items-center justify-center">
+                      <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
+                      </svg>
+                    </div>
+                    Coming Up ({groupedMemories['coming-up'].length})
+                  </h4>
                   <div className="space-y-3">
                     {groupedMemories['coming-up'].slice(0, 5).map(memory => (
                       <div key={memory.id} className="border-l-4 rounded-xl p-4 bg-white/80 hover:bg-white transition-all duration-300 hover:shadow-xl hover:scale-105 hover:-translate-y-2 group cursor-pointer" style={{borderColor: memory.priority === 'high' ? '#dc2626' : memory.priority === 'medium' ? '#eab308' : '#16a34a'}}>
@@ -487,7 +548,14 @@ export default function DashboardPage() {
               {/* Other Section */}
               {groupedMemories.other.length > 0 && (
                 <div>
-                  <h4 className="text-lg font-bold text-gray-700 mb-3 flex items-center gap-2">📋 Other ({groupedMemories.other.length})</h4>
+                  <h4 className="text-lg font-bold text-gray-700 mb-3 flex items-center gap-2">
+                    <div className="w-7 h-7 bg-gradient-to-br from-gray-400 to-gray-500 rounded-full flex items-center justify-center">
+                      <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M3 13h2v8H3zm4-8h2v16H7zm4-2h2v18h-2zm4 4h2v14h-2zm4-2h2v16h-2z" />
+                      </svg>
+                    </div>
+                    Other ({groupedMemories.other.length})
+                  </h4>
                   <div className="space-y-3">
                     {groupedMemories.other.slice(0, 5).map(memory => (
                       <div key={memory.id} className="border-l-4 rounded-xl p-4 bg-white/80 hover:bg-white transition-all duration-300 hover:shadow-xl hover:scale-105 hover:-translate-y-2 group cursor-pointer" style={{borderColor: memory.priority === 'high' ? '#dc2626' : memory.priority === 'medium' ? '#eab308' : '#16a34a'}}>
