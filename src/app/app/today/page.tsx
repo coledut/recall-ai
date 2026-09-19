@@ -511,7 +511,7 @@ export default function TodayPage() {
                           {groupedMemories[key].map((memory) => (
                             <div
                               key={memory.id}
-                              className="border-l-4 rounded-xl p-5 bg-white/60 backdrop-blur-sm border-green-400 hover:border-green-500 hover:shadow-lg hover:shadow-green-200 transition-all duration-300 hover:scale-102 hover:-translate-y-1 group"
+                              className="border-l-4 rounded-xl p-5 bg-white/60 backdrop-blur-sm border-green-400 hover:border-green-600 hover:shadow-2xl hover:shadow-green-400/30 transition-all duration-300 hover:scale-105 hover:-translate-y-2 group cursor-pointer"
                             >
                               <div className="flex justify-between items-start mb-2">
                                 <h4 className="font-bold text-gray-900 group-hover:text-green-700 transition-colors">{memory.title}</h4>

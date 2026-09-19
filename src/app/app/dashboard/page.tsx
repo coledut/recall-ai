@@ -187,67 +187,75 @@ export default function DashboardPage() {
         {/* Key Stats Grid */}
         <div className="grid md:grid-cols-4 gap-6 mb-8">
           {/* Total Memories */}
-          <div className="bg-gradient-to-br from-green-100 to-green-50 rounded-2xl shadow-lg p-6 border-2 border-green-400 hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <div className="bg-gradient-to-br from-green-100 to-green-50 rounded-2xl shadow-lg p-6 border-2 border-green-400 hover:shadow-2xl hover:shadow-green-500/40 transition-all duration-300 hover:scale-105 group cursor-pointer">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-green-700 text-sm font-bold">Total Memories</p>
-                <p className="text-5xl font-bold text-green-900 mt-2">{stats.totalMemories}</p>
+                <p className="text-5xl font-bold text-green-900 mt-2 group-hover:text-green-600 transition-colors">{stats.totalMemories}</p>
               </div>
-              <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24" className="text-green-600">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C6.5 6.253 2 10.753 2 16.253s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10z" />
-              </svg>
+              <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-teal-400 rounded-full flex items-center justify-center group-hover:rotate-12 transition-transform duration-300 shadow-lg group-hover:shadow-xl group-hover:shadow-green-500/50">
+                <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+              </div>
             </div>
-            <p className="text-xs text-green-700 mt-4">↑ {stats.createdThisMonth} this month</p>
+            <p className="text-xs text-green-700 mt-4 group-hover:text-green-600 transition-colors">📈 {stats.createdThisMonth} this month</p>
           </div>
 
           {/* High Priority */}
-          <div className="bg-gradient-to-br from-red-100 to-red-50 rounded-2xl shadow-lg p-6 border-2 border-red-400 hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <div className="bg-gradient-to-br from-red-100 to-red-50 rounded-2xl shadow-lg p-6 border-2 border-red-400 hover:shadow-2xl hover:shadow-red-500/40 transition-all duration-300 hover:scale-105 group cursor-pointer">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-red-700 text-sm font-bold">High Priority</p>
-                <p className="text-5xl font-bold text-red-900 mt-2">{stats.highPriority}</p>
+                <p className="text-5xl font-bold text-red-900 mt-2 group-hover:text-red-600 transition-colors">{stats.highPriority}</p>
               </div>
-              <svg className="w-16 h-16 text-red-600 animate-pulse" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-              </svg>
+              <div className="w-20 h-20 bg-gradient-to-br from-red-400 to-pink-400 rounded-full flex items-center justify-center group-hover:animate-pulse group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl group-hover:shadow-red-500/50">
+                <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
+                </svg>
+              </div>
             </div>
-            <p className="text-xs text-red-700 mt-4">! Needs attention</p>
+            <p className="text-xs text-red-700 mt-4 group-hover:text-red-600 transition-colors">⚡ Needs attention</p>
           </div>
 
           {/* Overdue Items */}
-          <div className="bg-gradient-to-br from-orange-100 to-orange-50 rounded-2xl shadow-lg p-6 border-2 border-orange-400 hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <div className="bg-gradient-to-br from-orange-100 to-orange-50 rounded-2xl shadow-lg p-6 border-2 border-orange-400 hover:shadow-2xl hover:shadow-orange-500/40 transition-all duration-300 hover:scale-105 group cursor-pointer">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-orange-700 text-sm font-bold">Overdue</p>
-                <p className="text-5xl font-bold text-orange-900 mt-2">{stats.overdue}</p>
+                <p className="text-5xl font-bold text-orange-900 mt-2 group-hover:text-orange-600 transition-colors">{stats.overdue}</p>
               </div>
-              <svg className="w-16 h-16 text-orange-600 animate-bounce" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
-              </svg>
+              <div className="w-20 h-20 bg-gradient-to-br from-orange-400 to-red-400 rounded-full flex items-center justify-center group-hover:animate-bounce transition-all duration-300 shadow-lg group-hover:shadow-xl group-hover:shadow-orange-500/50">
+                <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
+                </svg>
+              </div>
             </div>
-            <p className="text-xs text-orange-700 mt-4">⚡ Past due date</p>
+            <p className="text-xs text-orange-700 mt-4 group-hover:text-orange-600 transition-colors">⚠️ Past due date</p>
           </div>
 
           {/* Due Today */}
-          <div className="bg-gradient-to-br from-teal-100 to-teal-50 rounded-2xl shadow-lg p-6 border-2 border-teal-400 hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <div className="bg-gradient-to-br from-teal-100 to-teal-50 rounded-2xl shadow-lg p-6 border-2 border-teal-400 hover:shadow-2xl hover:shadow-teal-500/40 transition-all duration-300 hover:scale-105 group cursor-pointer">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-teal-700 text-sm font-bold">Due Today</p>
-                <p className="text-5xl font-bold text-teal-900 mt-2">{stats.dueToday}</p>
+                <p className="text-5xl font-bold text-teal-900 mt-2 group-hover:text-teal-600 transition-colors">{stats.dueToday}</p>
               </div>
-              <svg className="w-16 h-16 text-teal-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zm-5-5h5v5h-5z" />
-              </svg>
+              <div className="w-20 h-20 bg-gradient-to-br from-teal-400 to-cyan-400 rounded-full flex items-center justify-center group-hover:rotate-12 transition-transform duration-300 shadow-lg group-hover:shadow-xl group-hover:shadow-teal-500/50">
+                <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zm-5-5h5v5h-5z" />
+                </svg>
+              </div>
             </div>
-            <p className="text-xs text-teal-700 mt-4">✓ Action needed today</p>
+            <p className="text-xs text-teal-700 mt-4 group-hover:text-teal-600 transition-colors">✅ Action needed today</p>
           </div>
         </div>
 
         {/* Secondary Stats */}
         <div className="grid md:grid-cols-3 gap-6 mb-8">
           {/* Priority Distribution */}
-          <div className="bg-gradient-to-br from-gray-100 to-gray-50 rounded-2xl shadow-lg p-6 border-2 border-gray-300">
-            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">🎯 Priority Distribution</h3>
+          <div className="bg-gradient-to-br from-gray-100 to-gray-50 rounded-2xl shadow-lg p-6 border-2 border-gray-300 hover:shadow-2xl hover:shadow-gray-400/30 transition-all duration-300 group cursor-pointer">
+            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2 group-hover:text-gray-700 transition-colors">🎯 Priority Distribution</h3>
             <div className="space-y-3">
               <div>
                 <div className="flex justify-between text-sm mb-2">
@@ -295,8 +303,8 @@ export default function DashboardPage() {
           </div>
 
           {/* Upcoming */}
-          <div className="bg-gradient-to-br from-gray-100 to-gray-50 rounded-2xl shadow-lg p-6 border-2 border-gray-300">
-            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">⏰ Upcoming</h3>
+          <div className="bg-gradient-to-br from-gray-100 to-gray-50 rounded-2xl shadow-lg p-6 border-2 border-gray-300 hover:shadow-2xl hover:shadow-gray-400/30 transition-all duration-300 group cursor-pointer">
+            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2 group-hover:text-gray-700 transition-colors">⏰ Upcoming</h3>
             <div className="space-y-3">
               <div className="bg-gradient-to-r from-orange-100 to-orange-50 p-4 rounded-xl border-2 border-orange-300">
                 <p className="text-orange-700 text-sm font-semibold">Due This Week</p>
@@ -310,8 +318,8 @@ export default function DashboardPage() {
           </div>
 
           {/* Memory Types */}
-          <div className="bg-gradient-to-br from-gray-100 to-gray-50 rounded-2xl shadow-lg p-6 border-2 border-gray-300">
-            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">🏷️ By Type</h3>
+          <div className="bg-gradient-to-br from-gray-100 to-gray-50 rounded-2xl shadow-lg p-6 border-2 border-gray-300 hover:shadow-2xl hover:shadow-gray-400/30 transition-all duration-300 group cursor-pointer">
+            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2 group-hover:text-gray-700 transition-colors">🏷️ By Type</h3>
             <div className="space-y-3">
               {Object.entries(stats.memoryTypes)
                 .sort(([, a], [, b]) => b - a)
@@ -326,9 +334,9 @@ export default function DashboardPage() {
         </div>
 
         {/* Recent Memories by Priority */}
-        <div className="bg-gradient-to-br from-gray-100 to-gray-50 rounded-2xl shadow-lg p-6 border-2 border-gray-300">
+        <div className="bg-gradient-to-br from-gray-100 to-gray-50 rounded-2xl shadow-lg p-6 border-2 border-gray-300 hover:shadow-2xl hover:shadow-gray-400/30 transition-all duration-300">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">📝 Recent Memories</h3>
+            <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2 hover:text-gray-700 transition-colors">📝 Recent Memories</h3>
             <div className="flex gap-2 flex-wrap">
               {(['all', 'high', 'medium', 'low'] as const).map(priority => (
                 <button
@@ -356,7 +364,7 @@ export default function DashboardPage() {
             {filteredMemories.slice(0, 10).map(memory => (
               <div
                 key={memory.id}
-                className="border-l-4 rounded-xl p-4 bg-white/80 hover:bg-white transition-all duration-200 hover:shadow-lg hover:scale-102 group"
+                className="border-l-4 rounded-xl p-4 bg-white/80 hover:bg-white transition-all duration-300 hover:shadow-xl hover:scale-105 hover:-translate-y-2 group cursor-pointer"
                 style={{
                   borderColor:
                     memory.priority === 'high'
@@ -364,6 +372,13 @@ export default function DashboardPage() {
                       : memory.priority === 'medium'
                       ? '#eab308'
                       : '#16a34a',
+                  boxShadow: `0 0 20px 0 ${
+                    memory.priority === 'high'
+                      ? 'rgba(220, 38, 38, 0.1)'
+                      : memory.priority === 'medium'
+                      ? 'rgba(234, 179, 8, 0.1)'
+                      : 'rgba(22, 163, 74, 0.1)'
+                  }`,
                 }}
               >
                 <div className="flex justify-between items-start mb-2">
