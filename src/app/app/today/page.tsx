@@ -338,56 +338,44 @@ export default function TodayPage() {
     }
   };
 
-  const categories: { key: CategoryKey; label: string; icon: ReactNode; color: string }[] = [
+  const categories: { key: CategoryKey; label: string; color: string; gradient: string; svgPath: string }[] = [
     {
       key: 'needs_attention',
       label: 'Needs Attention',
-      icon: (
-        <div className="w-8 h-8 bg-gradient-to-br from-red-400 to-red-500 rounded-full flex items-center justify-center">
-          <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
-          </svg>
-        </div>
-      ),
-      color: 'border-red-200 bg-red-50'
+      color: 'border-red-200 bg-red-50',
+      gradient: 'from-red-400 to-red-500',
+      svgPath: 'M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z'
     },
     {
       key: 'due_today',
       label: 'Due Today',
-      icon: (
-        <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-500 rounded-full flex items-center justify-center">
-          <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z" />
-          </svg>
-        </div>
-      ),
-      color: 'border-orange-200 bg-orange-50'
+      color: 'border-orange-200 bg-orange-50',
+      gradient: 'from-orange-400 to-orange-500',
+      svgPath: 'M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z'
     },
     {
       key: 'coming_up',
       label: 'Coming Up',
-      icon: (
-        <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-500 rounded-full flex items-center justify-center">
-          <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M11.99 5V1h-8v4H1v14h22V5h-11.01zm7 10h-5v5h-4v-5H4v-4h5V7h4v4h5v4z" />
-          </svg>
-        </div>
-      ),
-      color: 'border-blue-200 bg-blue-50'
+      color: 'border-blue-200 bg-blue-50',
+      gradient: 'from-blue-400 to-blue-500',
+      svgPath: 'M11.99 5V1h-8v4H1v14h22V5h-11.01zm7 10h-5v5h-4v-5H4v-4h5V7h4v4h5v4z'
     },
     {
       key: 'other',
       label: 'Other',
-      icon: (
-        <div className="w-8 h-8 bg-gradient-to-br from-gray-400 to-gray-500 rounded-full flex items-center justify-center">
-          <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M3 13h2v8H3zm4-8h2v16H7zm4-2h2v18h-2zm4 4h2v14h-2zm4-2h2v16h-2z" />
-          </svg>
-        </div>
-      ),
-      color: 'border-gray-200 bg-gray-50'
+      color: 'border-gray-200 bg-gray-50',
+      gradient: 'from-gray-400 to-gray-500',
+      svgPath: 'M3 13h2v8H3zm4-8h2v16H7zm4-2h2v18h-2zm4 4h2v14h-2zm4-2h2v16h-2z'
     },
   ];
+
+  const renderIcon = (gradient: string, svgPath: string) => (
+    <div className={`w-8 h-8 bg-gradient-to-br ${gradient} rounded-full flex items-center justify-center`}>
+      <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+        <path d={svgPath} />
+      </svg>
+    </div>
+  );
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-green-50 via-teal-50 to-green-50">
@@ -584,12 +572,12 @@ export default function TodayPage() {
               <p className="text-white/60">No memories yet. Start capturing!</p>
             ) : (
               <div className="space-y-8">
-                {categories.map(({ key, label, icon, color }) => (
+                {categories.map(({ key, label, color, gradient, svgPath }) => (
                   <div key={key}>
                     {groupedMemories[key] && groupedMemories[key].length > 0 && (
                       <div>
                         <h3 className="text-2xl font-bold mb-5 text-green-700 flex items-center gap-3">
-                          {icon} {label} <span className="text-lg font-semibold text-green-600">({groupedMemories[key].length})</span>
+                          {renderIcon(gradient, svgPath)} {label} <span className="text-lg font-semibold text-green-600">({groupedMemories[key].length})</span>
                         </h3>
                         <div className="space-y-3">
                           {groupedMemories[key].map((memory) => (
