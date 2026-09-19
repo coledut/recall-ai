@@ -39,13 +39,22 @@ export default function TodayPage() {
       return;
     }
 
-    // Check for Gmail/Calendar token in URL
+    // Check for Gmail/Calendar/Slack tokens in URL
     const params = new URLSearchParams(window.location.search);
     const gmailToken = params.get('gmail_token');
+    const slackToken = params.get('slack_token');
+
     if (gmailToken) {
       await fetchEmails(gmailToken, session.access_token);
       await syncCalendar(gmailToken, session.access_token);
-      // Remove token from URL
+    }
+
+    if (slackToken) {
+      await syncSlack(slackToken, session.access_token);
+    }
+
+    if (gmailToken || slackToken) {
+      // Remove tokens from URL
       window.history.replaceState({}, '', '/app/today');
     }
 
@@ -77,6 +86,20 @@ export default function TodayPage() {
       console.log('Calendar sync result:', data);
     } catch (error) {
       console.error('Calendar sync error:', error);
+    }
+  };
+
+  const syncSlack = async (slackToken: string, authToken: string) => {
+    try {
+      const res = await fetch('/api/slack/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slackToken, authToken }),
+      });
+      const data = await res.json();
+      console.log('Slack sync result:', data);
+    } catch (error) {
+      console.error('Slack sync error:', error);
     }
   };
 
@@ -197,6 +220,9 @@ export default function TodayPage() {
       const category = categorizeMemory(memory);
       if (!acc[category]) acc[category] = [];
       acc[category].push(memory);
+      if (memory.title === 'Call Sarah') {
+        console.log('Call Sarah memory:', { title: memory.title, due_date: memory.due_date, priority: memory.priority, category });
+      }
       return acc;
     },
     {} as Record<CategoryKey, Memory[]>
@@ -303,9 +329,15 @@ export default function TodayPage() {
                 <p className="text-sm text-gray-600 mb-3">Or sync from:</p>
                 <a
                   href="/api/auth/gmail"
-                  className="w-full block py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 text-center"
+                  className="w-full block py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 text-center mb-2"
                 >
                   📧 Connect Gmail
+                </a>
+                <a
+                  href="/api/auth/slack"
+                  className="w-full block py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 text-center"
+                >
+                  💬 Connect Slack
                 </a>
               </div>
             </div>
