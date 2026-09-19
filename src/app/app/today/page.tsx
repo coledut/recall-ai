@@ -124,13 +124,17 @@ export default function TodayPage() {
       console.error('Full error details:', error);
     }
 
+    console.log('CHECK: error=', error, 'data=', data?.length);
+
     if (!error && data) {
+      console.log('✅ SETTING MEMORIES with', data.length, 'items');
       console.log('First memory:', data[0]);
       setMemories(data);
+      console.log('✅ setMemories called, state should update');
     } else if (error) {
-      console.log('No data due to error');
+      console.log('❌ No data due to error:', error);
     } else {
-      console.log('No data, no error - strange state');
+      console.log('❌ No data, no error - strange state');
     }
     setLoading(false);
   };
@@ -258,13 +262,16 @@ export default function TodayPage() {
     {} as Record<CategoryKey, Memory[]>
   );
 
-  console.log('Grouped memories:', {
+  console.log('Grouped memories BEFORE render:', {
     total: memories.length,
     needs_attention: groupedMemories.needs_attention?.length || 0,
     due_today: groupedMemories.due_today?.length || 0,
     coming_up: groupedMemories.coming_up?.length || 0,
-    other: groupedMemories.other?.length || 0
+    other: groupedMemories.other?.length || 0,
+    allKeys: Object.keys(groupedMemories)
   });
+
+  console.log('Full groupedMemories object:', groupedMemories);
 
   const handleAddMemory = async (e: React.FormEvent) => {
     e.preventDefault();
