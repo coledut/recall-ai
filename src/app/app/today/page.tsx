@@ -28,6 +28,9 @@ export default function TodayPage() {
   const [recording, setRecording] = useState(false);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
   const [notifications, setNotifications] = useState<any>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<Memory[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
     console.log('⚡ useEffect mounted');
@@ -151,6 +154,36 @@ export default function TodayPage() {
       }
     } catch (error) {
       console.error('Notifications fetch error:', error);
+    }
+  };
+
+  const handleSearch = async (query: string) => {
+    setSearchQuery(query);
+
+    if (query.length < 2) {
+      setSearchResults([]);
+      setIsSearching(false);
+      return;
+    }
+
+    setIsSearching(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`, {
+        headers: { Authorization: `Bearer ${session.access_token}` },
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setSearchResults(data.results || []);
+        console.log('Search results:', data.count, 'items');
+      }
+    } catch (error) {
+      console.error('Search error:', error);
+    } finally {
+      setIsSearching(false);
     }
   };
 
