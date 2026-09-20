@@ -71,7 +71,7 @@ JSON array:`,
       // Check if person already exists
       const { data: existing } = await supabase
         .from('people')
-        .select('id')
+        .select('id, interaction_count')
         .eq('user_id', user.id)
         .eq('name', name.trim())
         .single();
