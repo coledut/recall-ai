@@ -6,31 +6,37 @@ import Link from 'next/link';
 const FEATURES = [
   {
     icon: '📧',
+    gradient: 'from-red-400 to-pink-500',
     title: 'Smart Capture',
     description: 'Capture from Gmail, Calendar, Slack, voice, files & quick text. All in one place.',
   },
   {
     icon: '🧠',
+    gradient: 'from-purple-400 to-indigo-500',
     title: 'AI Extraction',
     description: 'Claude AI automatically extracts commitments, dates, and priorities from your inputs.',
   },
   {
     icon: '📋',
+    gradient: 'from-blue-400 to-cyan-500',
     title: 'Smart Organization',
     description: 'Automatically categorized: Overdue, Due Today, Coming Up. Never miss a deadline.',
   },
   {
     icon: '💬',
+    gradient: 'from-green-400 to-teal-500',
     title: 'Ask Recall',
     description: '"What did I promise Sarah?" Get instant answers grounded in your actual memories.',
   },
   {
     icon: '📧',
+    gradient: 'from-orange-400 to-red-500',
     title: 'Daily Briefs',
     description: 'Automated email summaries of your commitments. Customizable schedule & quiet hours.',
   },
   {
     icon: '👥',
+    gradient: 'from-yellow-400 to-orange-500',
     title: 'People Tracking',
     description: 'Track relationships. Never forget who you need to follow up with and when.',
   },
@@ -185,8 +191,10 @@ export default function LandingPage() {
 
           <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {FEATURES.map((feature, idx) => (
-              <div key={idx} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
-                <div className="text-4xl mb-4">{feature.icon}</div>
+              <div key={idx} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 transform hover:scale-105">
+                <div className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-full flex items-center justify-center text-2xl mb-4 shadow-lg`}>
+                  {feature.icon}
+                </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
               </div>
