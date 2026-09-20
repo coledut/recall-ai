@@ -49,7 +49,7 @@ export async function recordApiUsage(teamId: string, endpoint: string) {
         calls_count: 1,
         month,
       },
-    ]).on('*', () => {}); // Fire and forget
+    ]);
   } catch (error) {
     console.error('Usage tracking error:', error);
   }
