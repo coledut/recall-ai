@@ -416,6 +416,17 @@ export default function TodayPage() {
               </div>
               Dashboard
             </a>
+            <a
+              href="/app/settings"
+              className="text-white/90 hover:text-white font-semibold flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-200 group"
+            >
+              <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-red-400 rounded-full flex items-center justify-center group-hover:shadow-lg group-hover:shadow-orange-400/50 group-hover:scale-110 transition-all duration-300">
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l1.72-1.34c.15-.12.19-.34.1-.51l-1.63-2.83c-.12-.22-.39-.3-.61-.22l-2.03.81c-.42-.32-.9-.6-1.44-.84l-.3-2.16c-.04-.24-.25-.41-.5-.41h-3.26c-.25 0-.46.17-.49.41l-.3 2.16c-.54.24-1.02.52-1.44.84l-2.03-.81c-.22-.09-.49 0-.61.22L2.74 8.87c-.09.17-.05.39.1.51l1.72 1.34c-.05.3-.07.62-.07.94 0 .33.02.64.07.94l-1.72 1.34c-.15.12-.19.34-.1.51l1.63 2.83c.12.22.39.3.61.22l2.03-.81c.42.32.9.6 1.44.84l.3 2.16c.04.24.25.41.5.41h3.26c.25 0 .46-.17.49-.41l.3-2.16c.54-.24 1.02-.52 1.44-.84l2.03.81c.22.09.49 0 .61-.22l1.63-2.83c.09-.17.05-.39-.1-.51l-1.72-1.34zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" />
+                </svg>
+              </div>
+              Settings
+            </a>
             <button
               onClick={() => supabase.auth.signOut().then(() => (window.location.href = '/'))}
               className="text-white/90 hover:text-white px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-200"
