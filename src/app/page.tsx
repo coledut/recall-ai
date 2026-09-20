@@ -97,26 +97,33 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: '📧',
+                gradient: 'from-purple-400 to-pink-400',
+                svgPath: 'M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z',
                 title: 'Universal Capture',
                 desc: 'Capture from email, calendar, voice messages, and files in one place.',
               },
               {
-                icon: '🧠',
+                gradient: 'from-cyan-400 to-blue-500',
+                svgPath: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z',
                 title: 'AI-Powered',
                 desc: 'Claude AI extracts and organizes commitments automatically.',
               },
               {
-                icon: '⚡',
+                gradient: 'from-yellow-400 to-orange-500',
+                svgPath: 'M13 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V9l-7-7zM5.5 20c-.83 0-1.5-.67-1.5-1.5S4.67 17 5.5 17 7 17.67 7 18.5 6.33 20 5.5 20zm6.5-4H6V4h5.5v12z',
                 title: 'Lightning Fast',
                 desc: 'Instant search and retrieval of all your memories.',
               },
             ].map((feature, i) => (
               <div
                 key={i}
-                className="p-8 rounded-xl bg-gradient-to-br from-green-50 to-teal-50 hover:shadow-lg transition transform hover:-translate-y-2"
+                className="p-8 rounded-xl bg-gradient-to-br from-green-50 to-teal-50 hover:shadow-lg transition transform hover:-translate-y-2 group"
               >
-                <div className="text-5xl mb-4">{feature.icon}</div>
+                <div className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-full flex items-center justify-center mb-4 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300`}>
+                  <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d={feature.svgPath} />
+                  </svg>
+                </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">
                   {feature.title}
                 </h3>
