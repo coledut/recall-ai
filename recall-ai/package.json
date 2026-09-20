@@ -1,0 +1,31 @@
+{
+  "name": "recall-ai",
+  "version": "0.1.0",
+  "description": "Recall AI: an AI-powered memory and follow-through assistant",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "type-check": "turbo type-check",
+    "test": "turbo test",
+    "test:e2e": "turbo test:e2e",
+    "format": "turbo format",
+    "db:migrate": "cd packages/db && drizzle-kit migrate",
+    "db:generate": "cd packages/db && drizzle-kit generate:sqlite"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "eslint": "^8.54.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "^3.1.0",
+    "turbo": "^1.10.16",
+    "typescript": "^5.3.3"
+  }
+}
