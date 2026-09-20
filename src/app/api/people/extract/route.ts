@@ -112,15 +112,17 @@ JSON array:`,
 
       // Link to memory if memoryId provided
       if (memoryId) {
-        await supabase.from('memory_people').insert([
-          {
-            memory_id: memoryId,
-            person_id: personId,
-          },
-        ]).catch(err => {
+        try {
+          await supabase.from('memory_people').insert([
+            {
+              memory_id: memoryId,
+              person_id: personId,
+            },
+          ]);
+        } catch (err) {
           // Ignore if already linked
-          console.log('Link already exists or error:', err?.message);
-        });
+          console.log('Link already exists or error:', err instanceof Error ? err.message : String(err));
+        }
       }
     }
 
