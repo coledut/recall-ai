@@ -14,6 +14,7 @@ export default function MobileNav() {
     { href: '/app/analytics', label: 'Analytics', icon: '📊' },
     { href: '/app/dashboard', label: 'Dashboard', icon: '📈' },
     { href: '/app/settings', label: 'Settings', icon: '⚙️' },
+    { href: '/app/billing', label: 'Billing', icon: '💳' },
   ];
 
   return (
