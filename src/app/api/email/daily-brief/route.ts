@@ -1,8 +1,9 @@
 ﻿import { createClient } from "@supabase/supabase-js";
+import { sendDailyBrief } from "@/lib/sendgrid";
 
 export async function POST(request: Request) {
   try {
-    const { userId, authToken } = await request.json();
+    const { userId, authToken, sendEmail = false } = await request.json();
 
     if (!userId || !authToken) {
       return Response.json({ error: "Missing userId or authToken" }, { status: 400 });
@@ -72,13 +73,23 @@ export async function POST(request: Request) {
       comingUp.slice(0, 5)
     );
 
+    let emailResult = null;
+    if (sendEmail && user.email) {
+      emailResult = await sendDailyBrief(user.email, emailHtml, {
+        overdue: overdue.length,
+        dueToday: dueToday.length,
+        comingUp: comingUp.length,
+      });
+    }
+
     return Response.json({
       success: true,
       email: user.email,
       overdue: overdue.length,
       dueToday: dueToday.length,
       comingUp: comingUp.length,
-      emailHtml,
+      emailSent: emailResult?.success || false,
+      emailError: emailResult?.error || null,
     });
   } catch (error) {
     console.error("Daily brief error:", error);
