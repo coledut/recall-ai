@@ -544,8 +544,8 @@ export default function TodayPage() {
             {/* Search Bar */}
             <div className="mb-8">
               <div className="relative">
-                <div className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 bg-gradient-to-br from-teal-400 to-cyan-400 rounded-full flex items-center justify-center pointer-events-none">
-                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <div className="absolute left-3 top-1/2 transform -translate-y-1/2 w-6 h-6 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-full flex items-center justify-center pointer-events-none shadow-lg">
+                  <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
                   </svg>
                 </div>
@@ -554,7 +554,7 @@ export default function TodayPage() {
                   placeholder="Search your memories..."
                   value={searchQuery}
                   onChange={(e) => handleSearch(e.target.value)}
-                  className="w-full pl-12 pr-5 py-3 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 bg-white/10 text-gray-900 placeholder-gray-600 backdrop-blur-sm focus:bg-white/15 transition-all duration-200"
+                  className="w-full pl-14 pr-5 py-3 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 bg-white/10 text-gray-900 placeholder-gray-600 backdrop-blur-sm focus:bg-white/15 transition-all duration-200"
                 />
               </div>
               {isSearching && <p className="text-sm text-teal-300 mt-3 animate-pulse">✨ Searching...</p>}
