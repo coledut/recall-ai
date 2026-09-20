@@ -3,6 +3,7 @@
 export const dynamic = 'force-dynamic';
 
 import { useState, useEffect } from 'react';
+import { Calendar, AlertCircle, Circle } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
 interface Memory {
@@ -418,15 +419,15 @@ export default function DashboardPage() {
                 onChange={(e) => setSortBy(e.target.value as 'due-date' | 'created-date' | 'priority')}
                 className="px-4 py-2 rounded-full text-sm font-bold border-2 border-gray-300 bg-white text-gray-700 hover:border-gray-400 transition-all cursor-pointer"
               >
-                <option value="due-date">📅 Due Date</option>
-                <option value="created-date">✨ Created Date</option>
-                <option value="priority">⚡ Priority</option>
+                <option value="due-date">Due Date</option>
+                <option value="created-date">Created Date</option>
+                <option value="priority">Priority</option>
               </select>
               {(['all', 'high', 'medium', 'low'] as const).map(priority => (
                 <button
                   key={priority}
                   onClick={() => setSelectedPriority(priority)}
-                  className={`px-4 py-2 rounded-full text-sm font-bold transition-all duration-200 border ${
+                  className={`px-4 py-2 rounded-full text-sm font-bold transition-all duration-200 border flex items-center gap-2 ${
                     selectedPriority === priority
                       ? priority === 'high'
                         ? 'bg-red-100 text-red-700 border-red-300 shadow-lg shadow-red-200'
@@ -438,7 +439,8 @@ export default function DashboardPage() {
                       : 'bg-gray-100 text-gray-600 border-gray-300 hover:bg-gray-200 hover:text-gray-700'
                   }`}
                 >
-                  {priority === 'all' ? '📌 All' : priority === 'high' ? '🔴 High' : priority === 'medium' ? '🟡 Medium' : '🟢 Low'}
+                  <Circle className="w-3 h-3 fill-current" />
+                  {priority === 'all' ? 'All' : priority === 'high' ? 'High' : priority === 'medium' ? 'Medium' : 'Low'}
                 </button>
               ))}
             </div>
@@ -476,7 +478,7 @@ export default function DashboardPage() {
                       <p className="text-sm text-gray-700 line-clamp-2 group-hover:text-gray-900 transition-colors">{memory.content}</p>
                       <div className="flex justify-between items-center mt-3 text-xs text-gray-600">
                         <span className="capitalize px-2 py-1 bg-gray-100 rounded-lg">{memory.type}</span>
-                        {memory.due_date && <span className="text-green-700">📅 {memory.due_date.split('T')[0]}</span>}
+                        {memory.due_date && <span className="text-green-700 flex items-center gap-1"><Calendar className="w-3 h-3" /> {memory.due_date.split('T')[0]}</span>}
                       </div>
                     </div>
                   ))}
@@ -505,7 +507,7 @@ export default function DashboardPage() {
                         <p className="text-sm text-gray-700 line-clamp-2 group-hover:text-gray-900 transition-colors">{memory.content}</p>
                         <div className="flex justify-between items-center mt-3 text-xs text-gray-600">
                           <span className="capitalize px-2 py-1 bg-gray-100 rounded-lg">{memory.type}</span>
-                          {memory.due_date && <span className="text-green-700">📅 {memory.due_date.split('T')[0]}</span>}
+                          {memory.due_date && <span className="text-green-700 flex items-center gap-1"><Calendar className="w-3 h-3" /> {memory.due_date.split('T')[0]}</span>}
                         </div>
                       </div>
                     ))}
@@ -534,7 +536,7 @@ export default function DashboardPage() {
                         <p className="text-sm text-gray-700 line-clamp-2 group-hover:text-gray-900 transition-colors">{memory.content}</p>
                         <div className="flex justify-between items-center mt-3 text-xs text-gray-600">
                           <span className="capitalize px-2 py-1 bg-gray-100 rounded-lg">{memory.type}</span>
-                          {memory.due_date && <span className="text-green-700">📅 {memory.due_date.split('T')[0]}</span>}
+                          {memory.due_date && <span className="text-green-700 flex items-center gap-1"><Calendar className="w-3 h-3" /> {memory.due_date.split('T')[0]}</span>}
                         </div>
                       </div>
                     ))}

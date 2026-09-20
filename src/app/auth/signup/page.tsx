@@ -4,6 +4,7 @@ export const dynamic = 'force-dynamic';
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { User, Mail, Lock, AlertCircle, Loader, Sparkles } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
 export default function SignUpPage() {
@@ -66,17 +67,16 @@ export default function SignUpPage() {
 
         <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
           {error && (
-            <div className="p-3 sm:p-4 bg-gradient-to-r from-red-600/30 to-red-600/10 border border-red-400/50 rounded-xl text-red-700 text-xs sm:text-sm backdrop-blur-sm">
-              ⚠️ {error}
+            <div className="p-3 sm:p-4 bg-gradient-to-r from-red-600/30 to-red-600/10 border border-red-400/50 rounded-xl text-red-700 text-xs sm:text-sm backdrop-blur-sm flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 flex-shrink-0" />
+              <span>{error}</span>
             </div>
           )}
 
           <div>
             <div className="flex items-center gap-2 mb-2 sm:mb-3">
               <div className="w-5 sm:w-6 h-5 sm:h-6 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                </svg>
+                <User className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-white" />
               </div>
               <label className="text-xs sm:text-sm font-semibold text-green-700">Full Name</label>
             </div>
@@ -92,9 +92,7 @@ export default function SignUpPage() {
           <div>
             <div className="flex items-center gap-2 mb-2 sm:mb-3">
               <div className="w-5 sm:w-6 h-5 sm:h-6 bg-gradient-to-br from-red-400 to-red-500 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                </svg>
+                <Mail className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-white" />
               </div>
               <label className="text-xs sm:text-sm font-semibold text-green-700">Email</label>
             </div>
@@ -111,9 +109,7 @@ export default function SignUpPage() {
           <div>
             <div className="flex items-center gap-2 mb-2 sm:mb-3">
               <div className="w-5 sm:w-6 h-5 sm:h-6 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M18 8h-1V6c0-.55-.45-1-1-1H8c-.55 0-1 .45-1 1v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm3.5-9h-7V6h7v2z" />
-                </svg>
+                <Lock className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-white" />
               </div>
               <label className="text-xs sm:text-sm font-semibold text-green-700">Password</label>
             </div>
@@ -130,9 +126,19 @@ export default function SignUpPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-bold rounded-xl hover:from-green-700 hover:to-teal-700 disabled:opacity-50 transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-green-500/30 border border-green-400/30 mt-4 sm:mt-6 text-sm sm:text-base"
+            className="w-full py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-bold rounded-xl hover:from-green-700 hover:to-teal-700 disabled:opacity-50 transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-green-500/30 border border-green-400/30 mt-4 sm:mt-6 text-sm sm:text-base flex items-center justify-center gap-2"
           >
-            {loading ? '⏳ Creating account...' : '✨ Sign Up'}
+            {loading ? (
+              <>
+                <Loader className="w-4 h-4 animate-spin" />
+                Creating account...
+              </>
+            ) : (
+              <>
+                <Sparkles className="w-4 h-4" />
+                Sign Up
+              </>
+            )}
           </button>
         </form>
 

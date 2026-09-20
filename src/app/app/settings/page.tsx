@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Mail, Moon, Bell, Save, RotateCcw, Check, X } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
 interface Settings {
@@ -65,14 +66,14 @@ export default function SettingsPage() {
       });
 
       if (response.ok) {
-        setMessage('✅ Settings saved successfully!');
+        setMessage('Settings saved successfully!');
         setTimeout(() => setMessage(''), 3000);
       } else {
-        setMessage('❌ Failed to save settings');
+        setMessage('Failed to save settings');
       }
     } catch (error) {
       console.error('Error saving settings:', error);
-      setMessage('❌ Error saving settings');
+      setMessage('Error saving settings');
     } finally {
       setSaving(false);
     }
@@ -112,8 +113,9 @@ export default function SettingsPage() {
           <p className="text-xs sm:text-sm md:text-base text-gray-600 mb-6 sm:mb-8">Customize how you receive your daily brief and notifications</p>
 
           {message && (
-            <div className="mb-6 p-4 bg-green-100 border border-green-400 rounded-lg text-green-800">
-              {message}
+            <div className="mb-6 p-4 bg-green-100 border border-green-400 rounded-lg text-green-800 flex items-center gap-2">
+              <Check className="w-5 h-5 flex-shrink-0" />
+              <span>{message}</span>
             </div>
           )}
 
@@ -122,7 +124,8 @@ export default function SettingsPage() {
               {/* Daily Brief Section */}
               <div className="border-b pb-8">
                 <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                  <span className="text-2xl">📧</span> Daily Brief Email
+                  <Mail className="w-6 h-6 text-red-500" />
+                  Daily Brief Email
                 </h3>
 
                 <div className="space-y-4">
@@ -189,7 +192,8 @@ export default function SettingsPage() {
               {/* Quiet Hours Section */}
               <div className="border-b pb-8">
                 <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                  <span className="text-2xl">🌙</span> Quiet Hours
+                  <Moon className="w-6 h-6 text-purple-500" />
+                  Quiet Hours
                 </h3>
 
                 <div className="space-y-4">
@@ -237,7 +241,8 @@ export default function SettingsPage() {
               {/* Notifications Section */}
               <div className="pb-8">
                 <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                  <span className="text-2xl">🔔</span> Notifications
+                  <Bell className="w-6 h-6 text-orange-500" />
+                  Notifications
                 </h3>
 
                 <label className="flex items-center gap-3 cursor-pointer">
@@ -253,11 +258,22 @@ export default function SettingsPage() {
 
               {/* Save Button */}
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <button onClick={handleSave} disabled={saving} className="flex-1 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-bold rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base">
-                  {saving ? '💾 Saving...' : '💾 Save Settings'}
+                <button onClick={handleSave} disabled={saving} className="flex-1 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-bold rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base flex items-center justify-center gap-2">
+                  {saving ? (
+                    <>
+                      <Save className="w-4 h-4 animate-spin" />
+                      Saving...
+                    </>
+                  ) : (
+                    <>
+                      <Save className="w-4 h-4" />
+                      Save Settings
+                    </>
+                  )}
                 </button>
-                <button onClick={() => loadSettings()} className="flex-1 py-3 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-all text-sm sm:text-base">
-                  ↺ Reset
+                <button onClick={() => loadSettings()} className="flex-1 py-3 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-all text-sm sm:text-base flex items-center justify-center gap-2">
+                  <RotateCcw className="w-4 h-4" />
+                  Reset
                 </button>
               </div>
             </div>
@@ -266,7 +282,10 @@ export default function SettingsPage() {
 
         {/* Cron Setup Instructions */}
         <div className="mt-8 bg-blue-50 border border-blue-200 rounded-xl p-6">
-          <h3 className="text-lg font-bold text-blue-900 mb-3">⚙️ Setup Automated Email Scheduling</h3>
+          <h3 className="text-lg font-bold text-blue-900 mb-3 flex items-center gap-2">
+            <Mail className="w-5 h-5" />
+            Setup Automated Email Scheduling
+          </h3>
           <p className="text-blue-800 mb-4">
             To enable automatic daily brief emails, set up a cron job to call this endpoint once per hour:
           </p>

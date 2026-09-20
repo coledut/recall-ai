@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Plus, X } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
 interface Person {
@@ -131,8 +132,18 @@ export default function PeoplePage() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-1 sm:mb-2">People</h2>
             <p className="text-xs sm:text-sm md:text-base text-gray-600">Track your relationships and follow-ups</p>
           </div>
-          <button onClick={() => setShowForm(!showForm)} className="px-4 sm:px-6 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-bold text-sm sm:text-base rounded-xl hover:shadow-lg transition-all whitespace-nowrap">
-            {showForm ? '✕ Cancel' : '+ Add Person'}
+          <button onClick={() => setShowForm(!showForm)} className="px-4 sm:px-6 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-bold text-sm sm:text-base rounded-xl hover:shadow-lg transition-all whitespace-nowrap flex items-center justify-center gap-2">
+            {showForm ? (
+              <>
+                <X className="w-4 h-4" />
+                Cancel
+              </>
+            ) : (
+              <>
+                <Plus className="w-4 h-4" />
+                Add Person
+              </>
+            )}
           </button>
         </div>
 

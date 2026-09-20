@@ -3,6 +3,7 @@
 export const dynamic = 'force-dynamic';
 
 import { useState, useEffect, useRef } from 'react';
+import { Loader, Sparkles, FileText } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
 interface Message {
@@ -123,9 +124,9 @@ export default function AskRecallPage() {
                         <div className="mt-3 pt-3 border-t border-gray-300/30 space-y-2">
                           <p className="text-xs font-semibold opacity-70">Sources:</p>
                           {msg.references.map((ref) => (
-                            <div key={ref.id} className="text-xs bg-white/10 p-2 rounded opacity-80">
-                              📌 {ref.title}
-                              {ref.dueDate && ` (Due: ${ref.dueDate})`}
+                            <div key={ref.id} className="text-xs bg-white/10 p-2 rounded opacity-80 flex items-center gap-1">
+                              <FileText className="w-3 h-3 flex-shrink-0" />
+                              <span>{ref.title}{ref.dueDate && ` (Due: ${ref.dueDate})`}</span>
                             </div>
                           ))}
                         </div>
@@ -160,8 +161,16 @@ export default function AskRecallPage() {
                 disabled={loading}
                 className="flex-1 px-3 sm:px-4 py-3 border border-green-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 text-gray-900 placeholder-gray-500 disabled:opacity-50 text-sm"
               />
-              <button type="submit" disabled={loading || !input.trim()} className="px-4 sm:px-6 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-bold rounded-xl hover:from-green-700 hover:to-teal-700 disabled:opacity-50 text-sm">
-                {loading ? "⏳" : "✨"}
+              <button type="submit" disabled={loading || !input.trim()} className="px-4 sm:px-6 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-bold rounded-xl hover:from-green-700 hover:to-teal-700 disabled:opacity-50 text-sm flex items-center justify-center gap-2">
+                {loading ? (
+                  <>
+                    <Loader className="w-4 h-4 animate-spin" />
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-4 h-4" />
+                  </>
+                )}
               </button>
             </form>
           </div>

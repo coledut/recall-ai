@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Check, AlertCircle } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import { PLAN_FEATURES } from '@/lib/payment-config';
 
@@ -141,13 +142,15 @@ export default function BillingContent() {
         </div>
 
         {success && (
-          <div className="mb-8 p-4 bg-green-500/10 border border-green-500/20 rounded-lg text-green-400">
-            ✅ Payment successful! Your subscription has been updated.
+          <div className="mb-8 p-4 bg-green-500/10 border border-green-500/20 rounded-lg text-green-400 flex items-center gap-2">
+            <Check className="w-5 h-5 flex-shrink-0" />
+            Payment successful! Your subscription has been updated.
           </div>
         )}
         {canceled && (
-          <div className="mb-8 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400">
-            ⚠️ Payment canceled. Try again when ready.
+          <div className="mb-8 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 flex items-center gap-2">
+            <AlertCircle className="w-5 h-5 flex-shrink-0" />
+            Payment canceled. Try again when ready.
           </div>
         )}
 
@@ -185,7 +188,7 @@ export default function BillingContent() {
             <ul className="space-y-3 mb-8">
               {Object.entries(PLAN_FEATURES.free).map(([key, value]) => (
                 <li key={key} className="text-slate-400 flex items-start gap-3">
-                  <span className="text-teal-400 mt-1">✓</span>
+                  <Check className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" />
                   <div>
                     <div className="font-semibold text-white capitalize">{key.replace(/([A-Z])/g, ' $1')}</div>
                     <div className="text-sm text-slate-500">{value}</div>
@@ -219,7 +222,7 @@ export default function BillingContent() {
             <ul className="space-y-3 mb-8">
               {Object.entries(PLAN_FEATURES.pro).map(([key, value]) => (
                 <li key={key} className="text-slate-400 flex items-start gap-3">
-                  <span className="text-teal-400 mt-1">✓</span>
+                  <Check className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" />
                   <div>
                     <div className="font-semibold text-white capitalize">{key.replace(/([A-Z])/g, ' $1')}</div>
                     <div className="text-sm text-slate-500">{value}</div>
@@ -257,7 +260,7 @@ export default function BillingContent() {
             <ul className="space-y-3 mb-8">
               {Object.entries(PLAN_FEATURES.enterprise).map(([key, value]) => (
                 <li key={key} className="text-slate-400 flex items-start gap-3">
-                  <span className="text-teal-400 mt-1">✓</span>
+                  <Check className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" />
                   <div>
                     <div className="font-semibold text-white capitalize">{key.replace(/([A-Z])/g, ' $1')}</div>
                     <div className="text-sm text-slate-500">{value}</div>

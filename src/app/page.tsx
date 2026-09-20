@@ -2,40 +2,41 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { Mail, Sparkles, FileText, MessageCircle, Send, Users } from 'lucide-react';
 
 const FEATURES = [
   {
-    icon: '📧',
+    icon: Mail,
     gradient: 'from-red-400 to-pink-500',
     title: 'Smart Capture',
     description: 'Capture from Gmail, Calendar, Slack, voice, files & quick text. All in one place.',
   },
   {
-    icon: '🧠',
+    icon: Sparkles,
     gradient: 'from-purple-400 to-indigo-500',
     title: 'AI Extraction',
     description: 'Claude AI automatically extracts commitments, dates, and priorities from your inputs.',
   },
   {
-    icon: '📋',
+    icon: FileText,
     gradient: 'from-blue-400 to-cyan-500',
     title: 'Smart Organization',
     description: 'Automatically categorized: Overdue, Due Today, Coming Up. Never miss a deadline.',
   },
   {
-    icon: '💬',
+    icon: MessageCircle,
     gradient: 'from-green-400 to-teal-500',
     title: 'Ask Recall',
     description: '"What did I promise Sarah?" Get instant answers grounded in your actual memories.',
   },
   {
-    icon: '📧',
+    icon: Send,
     gradient: 'from-orange-400 to-red-500',
     title: 'Daily Briefs',
     description: 'Automated email summaries of your commitments. Customizable schedule & quiet hours.',
   },
   {
-    icon: '👥',
+    icon: Users,
     gradient: 'from-yellow-400 to-orange-500',
     title: 'People Tracking',
     description: 'Track relationships. Never forget who you need to follow up with and when.',
@@ -47,19 +48,19 @@ const TESTIMONIALS = [
     name: 'Priya S.',
     role: 'Founder, TechStartup',
     quote: 'Recall AI transformed how I manage commitments. I never miss a deadline anymore.',
-    avatar: '👩‍💼',
+    initials: 'PS',
   },
   {
     name: 'Ahmed K.',
     role: 'CEO, Digital Agency',
     quote: 'The semantic search finds relevant memories I forgot existed. Game changer.',
-    avatar: '👨‍💼',
+    initials: 'AK',
   },
   {
     name: 'Jessica M.',
     role: 'Product Manager',
     quote: 'Daily briefs keep me organized. The team features let us collaborate seamlessly.',
-    avatar: '👩‍💻',
+    initials: 'JM',
   },
 ];
 
@@ -190,15 +191,18 @@ export default function LandingPage() {
           </div>
 
           <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {FEATURES.map((feature, idx) => (
-              <div key={idx} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 transform hover:scale-105">
-                <div className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-full flex items-center justify-center text-2xl mb-4 shadow-lg`}>
-                  {feature.icon}
+            {FEATURES.map((feature, idx) => {
+              const IconComponent = feature.icon;
+              return (
+                <div key={idx} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 transform hover:scale-105">
+                  <div className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-full flex items-center justify-center mb-4 shadow-lg`}>
+                    <IconComponent className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
+                  <p className="text-gray-600">{feature.description}</p>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -215,14 +219,22 @@ export default function LandingPage() {
             {TESTIMONIALS.map((testimonial, idx) => (
               <div key={idx} className="bg-gradient-to-br from-green-50 to-teal-50 rounded-2xl p-8 border border-green-100">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="text-4xl">{testimonial.avatar}</div>
+                  <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-teal-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                    {testimonial.initials}
+                  </div>
                   <div>
                     <div className="font-bold text-gray-900">{testimonial.name}</div>
                     <div className="text-sm text-gray-600">{testimonial.role}</div>
                   </div>
                 </div>
                 <p className="text-gray-700 italic">"{testimonial.quote}"</p>
-                <div className="mt-4 flex gap-1">⭐⭐⭐⭐⭐</div>
+                <div className="mt-4 flex gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
@@ -253,7 +265,12 @@ export default function LandingPage() {
           </form>
 
           {subscribed && (
-            <p className="mt-4 text-green-100">✓ Thanks for subscribing!</p>
+            <p className="mt-4 text-green-100 flex items-center justify-center gap-2">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+              </svg>
+              Thanks for subscribing!
+            </p>
           )}
         </div>
       </section>
@@ -274,11 +291,11 @@ export default function LandingPage() {
                 Get Started
               </button>
               <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-gray-600">
-                <li>✓ Unlimited memories</li>
-                <li>✓ AI extraction</li>
-                <li>✓ People tracking</li>
-                <li>✓ Daily emails</li>
-                <li>✗ Team collaboration</li>
+                <li className="flex items-center gap-2"><svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg>Unlimited memories</li>
+                <li className="flex items-center gap-2"><svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg>AI extraction</li>
+                <li className="flex items-center gap-2"><svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg>People tracking</li>
+                <li className="flex items-center gap-2"><svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg>Daily emails</li>
+                <li className="flex items-center gap-2"><svg className="w-4 h-4 text-gray-400 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" /></svg>Team collaboration</li>
               </ul>
             </div>
 
@@ -292,11 +309,11 @@ export default function LandingPage() {
                 Start Free Trial
               </button>
               <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-white/90">
-                <li>✓ Everything in Free</li>
-                <li>✓ Team collaboration</li>
-                <li>✓ Shared memories</li>
-                <li>✓ 10K API calls/month</li>
-                <li>✓ Priority support</li>
+                <li className="flex items-center gap-2"><svg className="w-4 h-4 text-green-300 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg>Everything in Free</li>
+                <li className="flex items-center gap-2"><svg className="w-4 h-4 text-green-300 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg>Team collaboration</li>
+                <li className="flex items-center gap-2"><svg className="w-4 h-4 text-green-300 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg>Shared memories</li>
+                <li className="flex items-center gap-2"><svg className="w-4 h-4 text-green-300 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg>10K API calls/month</li>
+                <li className="flex items-center gap-2"><svg className="w-4 h-4 text-green-300 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg>Priority support</li>
               </ul>
             </div>
 
@@ -307,11 +324,11 @@ export default function LandingPage() {
                 Contact Sales
               </button>
               <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-gray-600">
-                <li>✓ Everything in Pro</li>
-                <li>✓ Unlimited API calls</li>
-                <li>✓ White-label</li>
-                <li>✓ SSO/SAML</li>
-                <li>✓ Dedicated support</li>
+                <li className="flex items-center gap-2"><svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg>Everything in Pro</li>
+                <li className="flex items-center gap-2"><svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg>Unlimited API calls</li>
+                <li className="flex items-center gap-2"><svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg>White-label</li>
+                <li className="flex items-center gap-2"><svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg>SSO/SAML</li>
+                <li className="flex items-center gap-2"><svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg>Dedicated support</li>
               </ul>
             </div>
           </div>
