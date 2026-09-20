@@ -489,6 +489,17 @@ export default function TodayPage() {
                   Gmail
                 </a>
                 <a
+                  href="/api/auth/gmail"
+                  className="w-full block py-2 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 text-center mb-2 transition-all duration-200 border border-white/20 hover:border-white/50 flex items-center justify-center gap-2 group"
+                >
+                  <div className="w-5 h-5 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full flex items-center justify-center group-hover:shadow-lg group-hover:shadow-blue-400/50">
+                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z" />
+                    </svg>
+                  </div>
+                  Calendar
+                </a>
+                <a
                   href="/api/auth/slack"
                   className="w-full block py-2 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 text-center transition-all duration-200 border border-white/20 hover:border-white/50 flex items-center justify-center gap-2 group"
                 >

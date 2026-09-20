@@ -1,40 +1,40 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from '@supabase/supabase-js';
 
 export async function POST(request: Request) {
   try {
     const { accessToken, authToken } = await request.json();
 
     if (!accessToken || !authToken) {
-      return Response.json({ error: "Missing tokens" }, { status: 400 });
+      return Response.json({ error: 'Missing tokens' }, { status: 400 });
     }
 
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
     if (!supabaseUrl || !supabaseKey) {
-      return Response.json({ error: "Config error" }, { status: 500 });
+      return Response.json({ error: 'Config error' }, { status: 500 });
     }
 
     const supabase = createClient(supabaseUrl, supabaseKey);
     const { data: { user } } = await supabase.auth.getUser(authToken);
 
     if (!user) {
-      return Response.json({ error: "Unauthorized" }, { status: 401 });
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Fetch upcoming events from Google Calendar (next 30 days)
+    // Fetch calendar events for the next 30 days
     const now = new Date().toISOString();
     const thirtyDaysLater = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
 
     const calendarRes = await fetch(
-      `https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=${now}&timeMax=${thirtyDaysLater}&maxResults=20&orderBy=startTime&singleEvents=true`,
+      `https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=${now}&timeMax=${thirtyDaysLater}&maxResults=25&orderBy=startTime&singleEvents=true`,
       {
         headers: { Authorization: `Bearer ${accessToken}` },
       }
     );
 
     if (!calendarRes.ok) {
-      return Response.json({ error: "Calendar API error" }, { status: 400 });
+      return Response.json({ error: 'Calendar API error' }, { status: 400 });
     }
 
     const calendarData = await calendarRes.json();
@@ -42,24 +42,29 @@ export async function POST(request: Request) {
 
     let extractedCount = 0;
 
-    // Process each event
+    // Process each calendar event
     for (const event of events) {
-      const title = event.summary || "Calendar event";
-      const description = event.description || "";
-      const startTime = event.start?.dateTime || event.start?.date;
+      const title = event.summary || 'Untitled event';
+      const description = event.description || '';
+      const startTime = event.start?.dateTime || event.start?.date || '';
+      const attendees = event.attendees?.map((a: any) => a.email).join(', ') || '';
 
-      if (!startTime) continue;
+      // Create text for extraction
+      const eventText = `
+Calendar Event: ${title}
+Date/Time: ${startTime}
+${description ? `Details: ${description}` : ''}
+${attendees ? `Attendees: ${attendees}` : ''}
+      `.trim();
 
-      // Extract commitments from event title + description
-      const eventText = `${title}${description ? ": " + description : ""}`;
-
+      // Extract commitments using our AI
       const extractRes = await fetch(
         `${new URL(request.url).origin}/api/extract`,
         {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            text: `Calendar event: ${eventText}. Scheduled for ${new Date(startTime).toLocaleDateString()}`,
+            text: eventText,
             authToken,
           }),
         }
@@ -76,7 +81,7 @@ export async function POST(request: Request) {
       total: events.length,
     });
   } catch (error) {
-    console.error("Calendar sync error:", error);
-    return Response.json({ error: "Failed to sync calendar" }, { status: 500 });
+    console.error('Calendar fetch error:', error);
+    return Response.json({ error: 'Failed to fetch calendar' }, { status: 500 });
   }
 }
