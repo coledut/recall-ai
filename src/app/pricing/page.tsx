@@ -131,7 +131,7 @@ export default function PricingPage() {
                 </div>
 
                 <Link
-                  href={plan.href}
+                  href={plan.href as any}
                   className={`w-full py-3 sm:py-4 px-4 sm:px-6 rounded-xl font-bold text-center mb-8 transition-all duration-200 ${
                     plan.highlighted
                       ? 'bg-white text-green-600 hover:shadow-lg hover:scale-105'
