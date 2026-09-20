@@ -72,37 +72,28 @@ export default function AnalyticsPage() {
   const sourceTotal = Object.values(analytics.sources).reduce((a, b) => a + b, 0);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
       {/* Navigation */}
-      <nav className="bg-gradient-to-r from-green-600 to-teal-600 text-white mb-8 p-4 rounded-xl shadow-lg">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Recall AI</h1>
-          <div className="flex items-center gap-4">
-            <a href="/app/today" className="hover:bg-white/20 px-4 py-2 rounded-lg transition-all">
-              Today
-            </a>
-            <a href="/app/analytics" className="hover:bg-white/20 px-4 py-2 rounded-lg transition-all font-bold">
-              Analytics
-            </a>
-            <button
-              onClick={() => supabase.auth.signOut().then(() => (window.location.href = '/'))}
-              className="hover:bg-white/20 px-4 py-2 rounded-lg transition-all"
-            >
-              Sign Out
-            </button>
+      <nav className="bg-gradient-to-r from-green-600 to-teal-600 text-white mb-6 sm:mb-8 p-3 sm:p-4 rounded-xl shadow-lg">
+        <div className="max-w-7xl mx-auto flex justify-between items-center gap-4">
+          <h1 className="text-lg sm:text-2xl font-bold truncate">Recall AI</h1>
+          <div className="hidden sm:flex items-center gap-3 sm:gap-4">
+            <a href="/app/today" className="text-sm hover:bg-white/20 px-3 py-2 rounded-lg transition-all">Today</a>
+            <a href="/app/analytics" className="text-sm hover:bg-white/20 px-3 py-2 rounded-lg transition-all font-bold">Analytics</a>
+            <button onClick={() => supabase.auth.signOut().then(() => (window.location.href = '/'))} className="text-sm hover:bg-white/20 px-3 py-2 rounded-lg transition-all">Sign Out</button>
           </div>
         </div>
       </nav>
 
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h2 className="text-4xl font-bold text-gray-900 mb-2">Analytics</h2>
-          <p className="text-gray-600">Your memory and productivity insights</p>
+        <div className="mb-6 sm:mb-8">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-1 sm:mb-2">Analytics</h2>
+          <p className="text-xs sm:text-sm md:text-base text-gray-600">Your memory and productivity insights</p>
         </div>
 
         {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all">
             <div className="text-sm font-semibold text-gray-600 uppercase mb-2">Total Memories</div>
             <div className="text-4xl font-bold text-gray-900">{analytics.summary.totalMemories}</div>
@@ -129,7 +120,7 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Urgency Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <div className="bg-gradient-to-br from-red-600 to-red-700 rounded-xl shadow-lg p-6 text-white">
             <div className="text-sm font-semibold uppercase mb-2 opacity-90">Overdue</div>
             <div className="text-4xl font-bold mb-2">{analytics.urgency.overdue}</div>
@@ -150,7 +141,7 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-6 sm:mb-8">
           {/* Priority Distribution */}
           <div className="bg-white rounded-xl shadow-lg p-6">
             <h3 className="text-xl font-bold text-gray-900 mb-6">Priority Distribution</h3>
@@ -241,9 +232,9 @@ export default function AnalyticsPage() {
 
         {/* Most Active People */}
         {analytics.mostActive.length > 0 && (
-          <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-            <h3 className="text-xl font-bold text-gray-900 mb-6">Most Frequent Contacts</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 mb-6 sm:mb-8">
+            <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 sm:mb-6">Most Frequent Contacts</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
               {analytics.mostActive.map((person, idx) => (
                 <div key={person.name} className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-4 border border-purple-200">
                   <div className="text-2xl font-bold text-purple-600 mb-1">#{idx + 1}</div>
@@ -264,9 +255,9 @@ export default function AnalyticsPage() {
         )}
 
         {/* Weekly Timeline */}
-        <div className="bg-white rounded-xl shadow-lg p-6">
-          <h3 className="text-xl font-bold text-gray-900 mb-6">Capture Activity (Last 7 Days)</h3>
-          <div className="flex items-end justify-between h-64 gap-2">
+        <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6">
+          <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 sm:mb-6">Capture Activity (Last 7 Days)</h3>
+          <div className="flex items-end justify-between h-48 sm:h-64 gap-2">
             {Object.entries(analytics.timeline).map(([date, count]) => {
               const maxCount = Math.max(...Object.values(analytics.timeline), 1);
               const height = (count / maxCount) * 100;

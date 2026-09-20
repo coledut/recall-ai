@@ -74,68 +74,71 @@ export default function LandingPage() {
     <div className="min-h-screen bg-white">
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-2xl font-bold bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+          <div className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
             Recall AI
           </div>
-          <div className="flex gap-6 items-center">
-            <Link href="#features" className="text-gray-600 hover:text-gray-900 font-medium">
+          <div className="hidden sm:flex gap-4 sm:gap-6 items-center">
+            <Link href="#features" className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 font-medium">
               Features
             </Link>
-            <Link href="#pricing" className="text-gray-600 hover:text-gray-900 font-medium">
+            <Link href="#pricing" className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 font-medium">
               Pricing
             </Link>
-            <Link href="/auth/login" className="px-6 py-2 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all">
+            <Link href="/auth/login" className="px-4 sm:px-6 py-2 bg-gradient-to-r from-green-600 to-teal-600 text-white text-sm rounded-lg font-semibold hover:shadow-lg transition-all">
               Sign In
             </Link>
           </div>
+          <Link href="/auth/login" className="sm:hidden px-3 py-2 bg-gradient-to-r from-green-600 to-teal-600 text-white text-xs rounded-lg font-semibold">
+            Sign In
+          </Link>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="relative py-20 px-6 overflow-hidden">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <section className="relative py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div className="max-w-7xl mx-auto grid sm:grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Left: Copy */}
           <div>
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight">
               Never Forget What
               <span className="block bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
                 Matters
               </span>
             </h1>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 leading-relaxed">
               Your AI-powered memory assistant. Capture commitments from email, calendar, voice & more. Get automated daily briefs. Never miss a deadline again.
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex gap-4 flex-wrap">
+            <div className="flex gap-3 sm:gap-4 flex-wrap">
               <Link
                 href="/auth/signup"
-                className="px-8 py-4 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl transition-all transform hover:scale-105"
+                className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-green-600 to-teal-600 text-white text-sm sm:text-base rounded-xl font-bold hover:shadow-2xl transition-all transform hover:scale-105"
               >
                 Start Free Today
               </Link>
               <Link
                 href="#features"
-                className="px-8 py-4 border-2 border-gray-300 text-gray-900 rounded-xl font-bold text-lg hover:border-green-600 transition-all"
+                className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-gray-300 text-gray-900 text-sm sm:text-base rounded-xl font-bold hover:border-green-600 transition-all"
               >
                 See Features →
               </Link>
             </div>
 
             {/* Trust Badges */}
-            <div className="mt-12 flex gap-6">
+            <div className="mt-8 sm:mt-12 flex gap-4 sm:gap-6">
               <div>
-                <div className="text-2xl font-bold text-gray-900">6</div>
-                <div className="text-sm text-gray-600">Capture Sources</div>
+                <div className="text-xl sm:text-2xl font-bold text-gray-900">6</div>
+                <div className="text-xs sm:text-sm text-gray-600">Capture Sources</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-900">100%</div>
-                <div className="text-sm text-gray-600">AI-Powered</div>
+                <div className="text-xl sm:text-2xl font-bold text-gray-900">100%</div>
+                <div className="text-xs sm:text-sm text-gray-600">AI-Powered</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-900">3</div>
-                <div className="text-sm text-gray-600">Languages</div>
+                <div className="text-xl sm:text-2xl font-bold text-gray-900">3</div>
+                <div className="text-xs sm:text-sm text-gray-600">Languages</div>
               </div>
             </div>
           </div>
@@ -173,14 +176,14 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 px-6 bg-gradient-to-br from-gray-50 to-gray-100">
+      <section id="features" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-gray-100">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Powerful Features</h2>
-            <p className="text-xl text-gray-600">Everything you need to master your commitments</p>
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Powerful Features</h2>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600">Everything you need to master your commitments</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {FEATURES.map((feature, idx) => (
               <div key={idx} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
                 <div className="text-4xl mb-4">{feature.icon}</div>
@@ -193,14 +196,14 @@ export default function LandingPage() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 px-6">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Loved by Users</h2>
-            <p className="text-xl text-gray-600">See what people are saying about Recall AI</p>
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Loved by Users</h2>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600">See what people are saying about Recall AI</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {TESTIMONIALS.map((testimonial, idx) => (
               <div key={idx} className="bg-gradient-to-br from-green-50 to-teal-50 rounded-2xl p-8 border border-green-100">
                 <div className="flex items-center gap-4 mb-6">
@@ -219,23 +222,23 @@ export default function LandingPage() {
       </section>
 
       {/* Newsletter */}
-      <section className="py-20 px-6 bg-gradient-to-r from-green-600 to-teal-600 text-white">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-green-600 to-teal-600 text-white">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-4">Stay Updated</h2>
-          <p className="text-lg mb-8 text-white/90">Get tips, features & updates delivered to your inbox</p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Stay Updated</h2>
+          <p className="text-sm sm:text-base md:text-lg mb-6 sm:mb-8 text-white/90">Get tips, features & updates delivered to your inbox</p>
 
-          <form onSubmit={handleSubscribe} className="flex gap-3 max-w-md mx-auto">
+          <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <input
               type="email"
               placeholder="your@email.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 px-6 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white"
+              className="flex-1 px-4 sm:px-6 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white text-sm sm:text-base"
               required
             />
             <button
               type="submit"
-              className="px-8 py-3 bg-white text-green-600 rounded-lg font-bold hover:bg-gray-100 transition-all"
+              className="px-6 sm:px-8 py-3 bg-white text-green-600 rounded-lg font-bold hover:bg-gray-100 transition-all text-sm sm:text-base whitespace-nowrap"
             >
               Subscribe
             </button>
@@ -248,21 +251,21 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing Preview */}
-      <section id="pricing" className="py-20 px-6">
+      <section id="pricing" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Simple Pricing</h2>
-            <p className="text-xl text-gray-600">Start free. Upgrade when you need more.</p>
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Simple Pricing</h2>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600">Start free. Upgrade when you need more.</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="bg-white rounded-2xl border-2 border-gray-200 p-8 hover:border-green-600 transition-all">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Free</h3>
-              <div className="text-4xl font-bold text-gray-900 mb-6">$0</div>
-              <button className="w-full py-3 bg-gray-100 text-gray-900 rounded-lg font-bold hover:bg-gray-200 transition-all mb-8">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto">
+            <div className="bg-white rounded-2xl border-2 border-gray-200 p-6 sm:p-8 hover:border-green-600 transition-all">
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Free</h3>
+              <div className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">$0</div>
+              <button className="w-full py-3 bg-gray-100 text-gray-900 rounded-lg font-bold hover:bg-gray-200 transition-all mb-8 text-sm sm:text-base">
                 Get Started
               </button>
-              <ul className="space-y-3 text-sm text-gray-600">
+              <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-gray-600">
                 <li>✓ Unlimited memories</li>
                 <li>✓ AI extraction</li>
                 <li>✓ People tracking</li>
@@ -271,16 +274,16 @@ export default function LandingPage() {
               </ul>
             </div>
 
-            <div className="bg-gradient-to-br from-green-600 to-teal-600 text-white rounded-2xl p-8 transform scale-105 shadow-2xl">
-              <div className="absolute top-6 right-6 bg-yellow-300 text-gray-900 px-4 py-1 rounded-full text-sm font-bold">
+            <div className="bg-gradient-to-br from-green-600 to-teal-600 text-white rounded-2xl p-6 sm:p-8 transform sm:scale-105 shadow-2xl">
+              <div className="absolute top-4 right-4 sm:top-6 sm:right-6 bg-yellow-300 text-gray-900 px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm font-bold">
                 Popular
               </div>
-              <h3 className="text-2xl font-bold mb-2">Pro</h3>
-              <div className="text-4xl font-bold mb-6">$9<span className="text-lg">/mo</span></div>
-              <button className="w-full py-3 bg-white text-green-600 rounded-lg font-bold hover:bg-gray-100 transition-all mb-8">
+              <h3 className="text-xl sm:text-2xl font-bold mb-2">Pro</h3>
+              <div className="text-3xl sm:text-4xl font-bold mb-6">$9<span className="text-base sm:text-lg">/mo</span></div>
+              <button className="w-full py-3 bg-white text-green-600 rounded-lg font-bold hover:bg-gray-100 transition-all mb-8 text-sm sm:text-base">
                 Start Free Trial
               </button>
-              <ul className="space-y-3 text-sm text-white/90">
+              <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-white/90">
                 <li>✓ Everything in Free</li>
                 <li>✓ Team collaboration</li>
                 <li>✓ Shared memories</li>
@@ -289,13 +292,13 @@ export default function LandingPage() {
               </ul>
             </div>
 
-            <div className="bg-white rounded-2xl border-2 border-gray-200 p-8 hover:border-green-600 transition-all">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Enterprise</h3>
-              <div className="text-2xl font-bold text-gray-900 mb-6">Custom</div>
-              <button className="w-full py-3 bg-green-600 text-white rounded-lg font-bold hover:bg-green-700 transition-all mb-8">
+            <div className="bg-white rounded-2xl border-2 border-gray-200 p-6 sm:p-8 hover:border-green-600 transition-all">
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Enterprise</h3>
+              <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Custom</div>
+              <button className="w-full py-3 bg-green-600 text-white rounded-lg font-bold hover:bg-green-700 transition-all mb-8 text-sm sm:text-base">
                 Contact Sales
               </button>
-              <ul className="space-y-3 text-sm text-gray-600">
+              <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-gray-600">
                 <li>✓ Everything in Pro</li>
                 <li>✓ Unlimited API calls</li>
                 <li>✓ White-label</li>
@@ -308,25 +311,25 @@ export default function LandingPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 px-6 bg-gray-900 text-white text-center">
-        <h2 className="text-4xl font-bold mb-6">Ready to Transform Your Productivity?</h2>
-        <p className="text-xl text-gray-300 mb-8">Join thousands of professionals who never miss a commitment</p>
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gray-900 text-white text-center">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">Ready to Transform Your Productivity?</h2>
+        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 mb-6 sm:mb-8">Join thousands of professionals who never miss a commitment</p>
         <Link
           href="/auth/signup"
-          className="inline-block px-10 py-4 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl transition-all transform hover:scale-105"
+          className="inline-block px-6 sm:px-10 py-3 sm:py-4 bg-gradient-to-r from-green-600 to-teal-600 text-white text-sm sm:text-base md:text-lg rounded-xl font-bold hover:shadow-2xl transition-all transform hover:scale-105"
         >
-          Start Free Today - No Credit Card Required
+          Start Free Today
         </Link>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-950 text-gray-400 py-12 px-6">
+      <footer className="bg-gray-950 text-gray-400 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
-          <p>&copy; 2026 Recall AI. All rights reserved.</p>
-          <div className="flex gap-6 justify-center mt-6">
-            <Link href="#" className="hover:text-white transition-all">Privacy</Link>
-            <Link href="#" className="hover:text-white transition-all">Terms</Link>
-            <Link href="#" className="hover:text-white transition-all">Contact</Link>
+          <p className="text-xs sm:text-sm">&copy; 2026 Recall AI. All rights reserved.</p>
+          <div className="flex gap-3 sm:gap-6 justify-center mt-4 sm:mt-6">
+            <Link href="#" className="text-xs sm:text-sm hover:text-white transition-all">Privacy</Link>
+            <Link href="#" className="text-xs sm:text-sm hover:text-white transition-all">Terms</Link>
+            <Link href="#" className="text-xs sm:text-sm hover:text-white transition-all">Contact</Link>
           </div>
         </div>
       </footer>

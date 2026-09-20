@@ -385,82 +385,27 @@ export default function TodayPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-green-50 via-teal-50 to-green-50">
-      <nav className="bg-gradient-to-r from-green-600 to-teal-600 shadow-2xl px-8 py-5 border-b border-green-400/30">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <nav className="bg-gradient-to-r from-green-600 to-teal-600 shadow-2xl px-4 sm:px-6 lg:px-8 py-4 sm:py-5 border-b border-green-400/30">
+        <div className="max-w-7xl mx-auto flex justify-between items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <svg className="w-6 sm:w-8 h-6 sm:h-8 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
             </svg>
-            <h1 className="text-3xl font-bold text-white">Recall AI</h1>
+            <h1 className="text-lg sm:text-2xl md:text-3xl font-bold text-white truncate">Recall AI</h1>
           </div>
-          <div className="flex gap-6 items-center">
-            <a
-              href="/app/ask"
-              className="text-white/90 hover:text-white font-semibold flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-200 group"
-            >
-              <div className="w-8 h-8 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center group-hover:shadow-lg group-hover:shadow-purple-400/50 group-hover:scale-110 transition-all duration-300">
-                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
-                </svg>
-              </div>
-              Ask
-            </a>
-            <a
-              href="/app/dashboard"
-              className="text-white/90 hover:text-white font-semibold flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-200 group"
-            >
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-full flex items-center justify-center group-hover:shadow-lg group-hover:shadow-blue-400/50 group-hover:scale-110 transition-all duration-300">
-                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
-                </svg>
-              </div>
-              Dashboard
-            </a>
-            <a
-              href="/app/people"
-              className="text-white/90 hover:text-white font-semibold flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-200 group"
-            >
-              <div className="w-8 h-8 bg-gradient-to-br from-pink-400 to-rose-400 rounded-full flex items-center justify-center group-hover:shadow-lg group-hover:shadow-pink-400/50 group-hover:scale-110 transition-all duration-300">
-                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                </svg>
-              </div>
-              People
-            </a>
-            <a
-              href="/app/analytics"
-              className="text-white/90 hover:text-white font-semibold flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-200 group"
-            >
-              <div className="w-8 h-8 bg-gradient-to-br from-indigo-400 to-violet-400 rounded-full flex items-center justify-center group-hover:shadow-lg group-hover:shadow-indigo-400/50 group-hover:scale-110 transition-all duration-300">
-                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
-                </svg>
-              </div>
-              Analytics
-            </a>
-            <a
-              href="/app/settings"
-              className="text-white/90 hover:text-white font-semibold flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-200 group"
-            >
-              <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-red-400 rounded-full flex items-center justify-center group-hover:shadow-lg group-hover:shadow-orange-400/50 group-hover:scale-110 transition-all duration-300">
-                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l1.72-1.34c.15-.12.19-.34.1-.51l-1.63-2.83c-.12-.22-.39-.3-.61-.22l-2.03.81c-.42-.32-.9-.6-1.44-.84l-.3-2.16c-.04-.24-.25-.41-.5-.41h-3.26c-.25 0-.46.17-.49.41l-.3 2.16c-.54.24-1.02.52-1.44.84l-2.03-.81c-.22-.09-.49 0-.61.22L2.74 8.87c-.09.17-.05.39.1.51l1.72 1.34c-.05.3-.07.62-.07.94 0 .33.02.64.07.94l-1.72 1.34c-.15.12-.19.34-.1.51l1.63 2.83c.12.22.39.3.61.22l2.03-.81c.42.32.9.6 1.44.84l.3 2.16c.04.24.25.41.5.41h3.26c.25 0 .46-.17.49-.41l.3-2.16c.54-.24 1.02-.52 1.44-.84l2.03.81c.22.09.49 0 .61-.22l1.63-2.83c.09-.17.05-.39-.1-.51l-1.72-1.34zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" />
-                </svg>
-              </div>
-              Settings
-            </a>
-            <button
-              onClick={() => supabase.auth.signOut().then(() => (window.location.href = '/'))}
-              className="text-white/90 hover:text-white px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-200"
-            >
-              ↗ Sign Out
-            </button>
+          <div className="hidden md:flex gap-4 lg:gap-6 items-center flex-wrap justify-end">
+            <a href="/app/ask" className="text-white/90 hover:text-white font-semibold text-sm px-3 py-2 rounded-lg hover:bg-white/20 transition-all">Ask</a>
+            <a href="/app/dashboard" className="text-white/90 hover:text-white font-semibold text-sm px-3 py-2 rounded-lg hover:bg-white/20 transition-all">Dashboard</a>
+            <a href="/app/people" className="text-white/90 hover:text-white font-semibold text-sm px-3 py-2 rounded-lg hover:bg-white/20 transition-all">People</a>
+            <a href="/app/analytics" className="text-white/90 hover:text-white font-semibold text-sm px-3 py-2 rounded-lg hover:bg-white/20 transition-all">Analytics</a>
+            <a href="/app/settings" className="text-white/90 hover:text-white font-semibold text-sm px-3 py-2 rounded-lg hover:bg-white/20 transition-all">Settings</a>
+            <button onClick={() => supabase.auth.signOut().then(() => (window.location.href = '/'))} className="text-white/90 hover:text-white text-sm px-3 py-2 rounded-lg hover:bg-white/20 transition-all">Sign Out</button>
           </div>
         </div>
       </nav>
 
-      <div className="max-w-7xl mx-auto px-8 py-12">
-        <div className="grid lg:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8">
           <div className="lg:col-span-1 h-fit sticky top-8">
             <div className="bg-gradient-to-br from-green-600 to-teal-600 rounded-2xl shadow-2xl p-6 backdrop-blur-sm border border-green-400/30">
               <h3 className="text-xl font-bold mb-4 text-white flex items-center gap-2">

@@ -138,12 +138,12 @@ export default function BillingPage() {
   const currentPlan = subscription?.plan || 'free';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 p-4 sm:p-6 md:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-4xl font-bold text-white mb-4">Billing & Plans</h1>
-          <p className="text-slate-400">Manage your subscription and access premium features</p>
+        <div className="mb-8 sm:mb-12">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 sm:mb-4">Billing & Plans</h1>
+          <p className="text-xs sm:text-sm md:text-base text-slate-400">Manage your subscription and access premium features</p>
         </div>
 
         {/* Success/Canceled messages */}
@@ -182,7 +182,7 @@ export default function BillingPage() {
         )}
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {/* Free Plan */}
           <div className={`p-8 rounded-lg border-2 transition-all ${
             currentPlan === 'free'

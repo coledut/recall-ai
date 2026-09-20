@@ -110,51 +110,37 @@ export default function PeoplePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
       {/* Navigation */}
-      <nav className="bg-gradient-to-r from-green-600 to-teal-600 text-white mb-8 p-4 rounded-xl shadow-lg">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Recall AI</h1>
-          <div className="flex items-center gap-4">
-            <a href="/app/today" className="hover:bg-white/20 px-4 py-2 rounded-lg transition-all">
-              Today
-            </a>
-            <a href="/app/people" className="hover:bg-white/20 px-4 py-2 rounded-lg transition-all font-bold">
-              People
-            </a>
-            <a href="/app/settings" className="hover:bg-white/20 px-4 py-2 rounded-lg transition-all">
-              Settings
-            </a>
-            <button
-              onClick={() => supabase.auth.signOut().then(() => (window.location.href = '/'))}
-              className="hover:bg-white/20 px-4 py-2 rounded-lg transition-all"
-            >
-              Sign Out
-            </button>
+      <nav className="bg-gradient-to-r from-green-600 to-teal-600 text-white mb-6 sm:mb-8 p-3 sm:p-4 rounded-xl shadow-lg">
+        <div className="max-w-7xl mx-auto flex justify-between items-center gap-4">
+          <h1 className="text-lg sm:text-2xl font-bold truncate">Recall AI</h1>
+          <div className="hidden sm:flex items-center gap-3 sm:gap-4">
+            <a href="/app/today" className="text-sm hover:bg-white/20 px-3 py-2 rounded-lg transition-all">Today</a>
+            <a href="/app/people" className="text-sm hover:bg-white/20 px-3 py-2 rounded-lg transition-all font-bold">People</a>
+            <a href="/app/settings" className="text-sm hover:bg-white/20 px-3 py-2 rounded-lg transition-all">Settings</a>
+            <button onClick={() => supabase.auth.signOut().then(() => (window.location.href = '/'))} className="text-sm hover:bg-white/20 px-3 py-2 rounded-lg transition-all">Sign Out</button>
           </div>
         </div>
       </nav>
 
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-6 sm:mb-8">
           <div>
-            <h2 className="text-4xl font-bold text-gray-900 mb-2">People</h2>
-            <p className="text-gray-600">Track your relationships and follow-ups</p>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-1 sm:mb-2">People</h2>
+            <p className="text-xs sm:text-sm md:text-base text-gray-600">Track your relationships and follow-ups</p>
           </div>
-          <button
-            onClick={() => setShowForm(!showForm)}
-            className="px-6 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-bold rounded-xl hover:shadow-lg transition-all"
-          >
+          <button onClick={() => setShowForm(!showForm)} className="px-4 sm:px-6 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-bold text-sm sm:text-base rounded-xl hover:shadow-lg transition-all whitespace-nowrap">
             {showForm ? '✕ Cancel' : '+ Add Person'}
           </button>
         </div>
 
         {/* Add Person Form */}
         {showForm && (
-          <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Add New Person</h3>
-            <form onSubmit={handleAddPerson} className="space-y-4">
+          <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-8 mb-6 sm:mb-8">
+            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Add New Person</h3>
+            <form onSubmit={handleAddPerson} className="space-y-3 sm:space-y-4">
               <input
                 type="text"
                 placeholder="Name *"
@@ -207,35 +193,14 @@ export default function PeoplePage() {
         )}
 
         {/* Sorting */}
-        <div className="mb-6 flex gap-2">
-          <button
-            onClick={() => setSortBy('last_contact_date')}
-            className={`px-4 py-2 rounded-lg font-semibold transition-all ${
-              sortBy === 'last_contact_date'
-                ? 'bg-gradient-to-r from-green-600 to-teal-600 text-white'
-                : 'bg-white text-gray-700 border border-gray-300'
-            }`}
-          >
+        <div className="mb-6 flex gap-2 flex-wrap">
+          <button onClick={() => setSortBy('last_contact_date')} className={`px-3 sm:px-4 py-2 text-xs sm:text-sm rounded-lg font-semibold transition-all ${sortBy === 'last_contact_date' ? 'bg-gradient-to-r from-green-600 to-teal-600 text-white' : 'bg-white text-gray-700 border border-gray-300'}`}>
             Last Contact
           </button>
-          <button
-            onClick={() => setSortBy('interaction_count')}
-            className={`px-4 py-2 rounded-lg font-semibold transition-all ${
-              sortBy === 'interaction_count'
-                ? 'bg-gradient-to-r from-green-600 to-teal-600 text-white'
-                : 'bg-white text-gray-700 border border-gray-300'
-            }`}
-          >
+          <button onClick={() => setSortBy('interaction_count')} className={`px-3 sm:px-4 py-2 text-xs sm:text-sm rounded-lg font-semibold transition-all ${sortBy === 'interaction_count' ? 'bg-gradient-to-r from-green-600 to-teal-600 text-white' : 'bg-white text-gray-700 border border-gray-300'}`}>
             Frequency
           </button>
-          <button
-            onClick={() => setSortBy('name')}
-            className={`px-4 py-2 rounded-lg font-semibold transition-all ${
-              sortBy === 'name'
-                ? 'bg-gradient-to-r from-green-600 to-teal-600 text-white'
-                : 'bg-white text-gray-700 border border-gray-300'
-            }`}
-          >
+          <button onClick={() => setSortBy('name')} className={`px-3 sm:px-4 py-2 text-xs sm:text-sm rounded-lg font-semibold transition-all ${sortBy === 'name' ? 'bg-gradient-to-r from-green-600 to-teal-600 text-white' : 'bg-white text-gray-700 border border-gray-300'}`}>
             Name
           </button>
         </div>
@@ -245,11 +210,11 @@ export default function PeoplePage() {
           <p className="text-center text-gray-600 py-12">Loading...</p>
         ) : people.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-600 mb-4">No people tracked yet</p>
-            <p className="text-sm text-gray-500">Add people manually or they'll be extracted from your memories</p>
+            <p className="text-gray-600 mb-4 text-sm sm:text-base">No people tracked yet</p>
+            <p className="text-xs sm:text-sm text-gray-500">Add people manually or they'll be extracted from your memories</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {people.map((person) => (
               <div
                 key={person.id}

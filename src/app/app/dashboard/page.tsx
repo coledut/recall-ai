@@ -201,29 +201,26 @@ export default function DashboardPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-green-50 via-teal-50 to-green-50">
-      <nav className="bg-gradient-to-r from-green-600 to-teal-600 shadow-2xl px-8 py-5 border-b border-green-400/30">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <nav className="bg-gradient-to-r from-green-600 to-teal-600 shadow-2xl px-4 sm:px-6 lg:px-8 py-4 sm:py-5 border-b border-green-400/30">
+        <div className="max-w-7xl mx-auto flex justify-between items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <svg className="w-6 sm:w-8 h-6 sm:h-8 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
             </svg>
-            <div>
-              <h1 className="text-3xl font-bold text-white">Analytics Dashboard</h1>
-              <p className="text-sm text-green-50 mt-1">Memory insights and trends</p>
+            <div className="min-w-0">
+              <h1 className="text-lg sm:text-2xl md:text-3xl font-bold text-white truncate">Analytics Dashboard</h1>
+              <p className="text-xs text-green-50 mt-0 sm:mt-1 hidden sm:block">Memory insights and trends</p>
             </div>
           </div>
-          <a
-            href="/app/today"
-            className="text-white hover:text-green-100 font-semibold flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-200"
-          >
-            ← Back to Memories
+          <a href="/app/today" className="text-white text-xs sm:text-sm hover:text-green-100 font-semibold px-2 sm:px-4 py-2 rounded-lg hover:bg-white/20 whitespace-nowrap">
+            ← Back
           </a>
         </div>
       </nav>
 
-      <div className="max-w-7xl mx-auto px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Key Stats Grid */}
-        <div className="grid md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
           {/* Total Memories */}
           <div className="bg-gradient-to-br from-green-100 to-green-50 rounded-2xl shadow-lg p-6 border-2 border-green-400 hover:shadow-2xl hover:shadow-green-500/40 transition-all duration-300 hover:scale-105 group cursor-pointer">
             <div className="flex items-center justify-between">
@@ -302,7 +299,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Secondary Stats */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
           {/* Priority Distribution */}
           <div className="bg-gradient-to-br from-gray-100 to-gray-50 rounded-2xl shadow-lg p-6 border-2 border-gray-300 hover:shadow-2xl hover:shadow-gray-400/30 transition-all duration-300 group cursor-pointer">
             <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2 group-hover:text-gray-700 transition-colors">

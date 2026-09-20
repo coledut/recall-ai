@@ -93,32 +93,23 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
       {/* Navigation */}
-      <nav className="bg-gradient-to-r from-green-600 to-teal-600 text-white mb-8 p-4 rounded-xl shadow-lg">
-        <div className="max-w-4xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Recall AI</h1>
-          <div className="flex items-center gap-4">
-            <a href="/app/today" className="hover:bg-white/20 px-4 py-2 rounded-lg transition-all">
-              Today
-            </a>
-            <a href="/app/settings" className="hover:bg-white/20 px-4 py-2 rounded-lg transition-all font-bold">
-              Settings
-            </a>
-            <button
-              onClick={() => supabase.auth.signOut().then(() => (window.location.href = '/'))}
-              className="hover:bg-white/20 px-4 py-2 rounded-lg transition-all"
-            >
-              Sign Out
-            </button>
+      <nav className="bg-gradient-to-r from-green-600 to-teal-600 text-white mb-6 sm:mb-8 p-3 sm:p-4 rounded-xl shadow-lg">
+        <div className="max-w-4xl mx-auto flex justify-between items-center gap-4">
+          <h1 className="text-lg sm:text-2xl font-bold truncate">Recall AI</h1>
+          <div className="hidden sm:flex items-center gap-3 sm:gap-4">
+            <a href="/app/today" className="text-sm hover:bg-white/20 px-3 py-2 rounded-lg transition-all">Today</a>
+            <a href="/app/settings" className="text-sm hover:bg-white/20 px-3 py-2 rounded-lg transition-all font-bold">Settings</a>
+            <button onClick={() => supabase.auth.signOut().then(() => (window.location.href = '/'))} className="text-sm hover:bg-white/20 px-3 py-2 rounded-lg transition-all">Sign Out</button>
           </div>
         </div>
       </nav>
 
       <div className="max-w-2xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-lg p-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Preferences</h2>
-          <p className="text-gray-600 mb-8">Customize how you receive your daily brief and notifications</p>
+        <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Preferences</h2>
+          <p className="text-xs sm:text-sm md:text-base text-gray-600 mb-6 sm:mb-8">Customize how you receive your daily brief and notifications</p>
 
           {message && (
             <div className="mb-6 p-4 bg-green-100 border border-green-400 rounded-lg text-green-800">
@@ -213,8 +204,8 @@ export default function SettingsPage() {
                   </label>
 
                   {settings.quiet_hours_enabled && (
-                    <div className="ml-8 space-y-4 bg-gray-50 p-4 rounded-lg">
-                      <div className="grid grid-cols-2 gap-4">
+                    <div className="ml-6 sm:ml-8 space-y-3 sm:space-y-4 bg-gray-50 p-3 sm:p-4 rounded-lg">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-2">
                             Start time (UTC)
@@ -261,18 +252,11 @@ export default function SettingsPage() {
               </div>
 
               {/* Save Button */}
-              <div className="flex gap-4">
-                <button
-                  onClick={handleSave}
-                  disabled={saving}
-                  className="flex-1 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-bold rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                >
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <button onClick={handleSave} disabled={saving} className="flex-1 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-bold rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base">
                   {saving ? '💾 Saving...' : '💾 Save Settings'}
                 </button>
-                <button
-                  onClick={() => loadSettings()}
-                  className="flex-1 py-3 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-all"
-                >
+                <button onClick={() => loadSettings()} className="flex-1 py-3 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-all text-sm sm:text-base">
                   ↺ Reset
                 </button>
               </div>
