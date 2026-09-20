@@ -96,7 +96,7 @@ export default function PricingPage() {
             {PRICING_PLANS.map((plan) => (
               <div
                 key={plan.name}
-                className={`relative rounded-2xl p-6 sm:p-8 transition-all duration-300 ${
+                className={`relative rounded-2xl p-6 sm:p-8 transition-all duration-300 flex flex-col h-full ${
                   plan.highlighted
                     ? 'bg-gradient-to-br from-green-600 to-teal-600 text-white shadow-2xl scale-100 md:scale-105'
                     : 'bg-white border-2 border-gray-200 hover:border-green-600'
@@ -130,9 +130,22 @@ export default function PricingPage() {
                   )}
                 </div>
 
+                <div className="flex-grow">
+                  <div className="space-y-3 sm:space-y-4">
+                    {plan.features.map((feature, idx) => (
+                      <div key={idx} className="flex items-start gap-3">
+                        <Check className={`w-5 h-5 flex-shrink-0 mt-0.5 ${plan.highlighted ? 'text-green-200' : 'text-green-600'}`} />
+                        <span className={`text-sm sm:text-base ${plan.highlighted ? 'text-green-50' : 'text-gray-700'}`}>
+                          {feature}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
                 <Link
                   href={plan.href as any}
-                  className={`w-full py-3 sm:py-4 px-4 sm:px-6 rounded-xl font-bold text-center mb-8 transition-all duration-200 ${
+                  className={`w-full py-3 sm:py-4 px-4 sm:px-6 rounded-xl font-bold text-center mt-8 transition-all duration-200 ${
                     plan.highlighted
                       ? 'bg-white text-green-600 hover:shadow-lg hover:scale-105'
                       : 'bg-gradient-to-r from-green-600 to-teal-600 text-white hover:shadow-lg'
@@ -140,17 +153,6 @@ export default function PricingPage() {
                 >
                   {plan.cta}
                 </Link>
-
-                <div className="space-y-3 sm:space-y-4">
-                  {plan.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-start gap-3">
-                      <Check className={`w-5 h-5 flex-shrink-0 mt-0.5 ${plan.highlighted ? 'text-green-200' : 'text-green-600'}`} />
-                      <span className={`text-sm sm:text-base ${plan.highlighted ? 'text-green-50' : 'text-gray-700'}`}>
-                        {feature}
-                      </span>
-                    </div>
-                  ))}
-                </div>
               </div>
             ))}
           </div>
