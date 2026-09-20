@@ -4,6 +4,7 @@ export const dynamic = 'force-dynamic';
 
 import { useState, useEffect, ReactNode } from 'react';
 import { supabase } from '@/lib/supabase';
+import FileUpload from '@/app/components/FileUpload';
 
 interface Memory {
   id: string;
@@ -31,6 +32,8 @@ export default function TodayPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Memory[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [extractedFileText, setExtractedFileText] = useState('');
+  const [sessionToken, setSessionToken] = useState('');
 
   useEffect(() => {
     console.log('⚡ useEffect mounted');
@@ -45,6 +48,7 @@ export default function TodayPage() {
       window.location.href = '/auth/login';
       return;
     }
+    setSessionToken(session.access_token);
 
     // Check for Gmail/Calendar/Slack tokens in URL
     const params = new URLSearchParams(window.location.search);
@@ -308,7 +312,8 @@ export default function TodayPage() {
 
   const handleAddMemory = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!content.trim()) return;
+    const fullText = extractedFileText ? `${extractedFileText}\n\n${content}` : content;
+    if (!fullText.trim()) return;
 
     setExtracting(true);
     const { data: { session } } = await supabase.auth.getSession();
@@ -322,13 +327,14 @@ export default function TodayPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          text: content,
+          text: fullText,
           authToken: session.access_token,
         }),
       });
 
       if (response.ok) {
         setContent('');
+        setExtractedFileText('');
         await fetchMemories();
       }
     } catch (error) {
@@ -433,12 +439,25 @@ export default function TodayPage() {
                 Capture Memory
               </h3>
               <form onSubmit={handleAddMemory} className="space-y-3">
+                {extractedFileText && (
+                  <div className="bg-green-500/20 border border-green-400/50 rounded-xl p-3 backdrop-blur-sm">
+                    <p className="text-xs text-green-200 font-semibold mb-1">✅ File Extracted:</p>
+                    <p className="text-sm text-white/90 line-clamp-2">{extractedFileText.substring(0, 100)}...</p>
+                  </div>
+                )}
                 <textarea
                   placeholder="Tell me what you need to remember..."
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   rows={6}
                   className="w-full px-4 py-3 border border-white/20 rounded-xl focus:ring-2 focus:ring-white focus:border-transparent bg-white/10 text-white placeholder-white/60 backdrop-blur-sm focus:bg-white/20 transition-all duration-200"
+                />
+                <FileUpload
+                  onExtractedText={(text, fileName) => {
+                    setExtractedFileText(text);
+                    console.log(`📎 Extracted from ${fileName}:`, text.substring(0, 100));
+                  }}
+                  authToken={sessionToken}
                 />
                 <button
                   type="submit"
