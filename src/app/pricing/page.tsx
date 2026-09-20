@@ -1,14 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { Check } from 'lucide-react';
+import { Check, Target, Star, Crown } from 'lucide-react';
 
 const PRICING_PLANS = [
   {
     name: 'Free',
     price: '$0',
     description: 'Get started',
-    icon: '🎯',
+    icon: Target,
     features: [
       'Up to 100 memories',
       'Basic capture (text, email)',
@@ -23,7 +23,7 @@ const PRICING_PLANS = [
     price: '$9',
     period: '/month',
     description: 'For professionals',
-    icon: '⭐',
+    icon: Star,
     features: [
       'Unlimited memories',
       'All capture methods (email, calendar, Slack, voice)',
@@ -42,7 +42,7 @@ const PRICING_PLANS = [
     price: '$299',
     period: '/month',
     description: 'For teams',
-    icon: '👑',
+    icon: Crown,
     features: [
       'Everything in Pro',
       'Team collaboration',
@@ -115,7 +115,7 @@ export default function PricingPage() {
 
                 <div className="mb-6">
                   {plan.icon && (
-                    <div className={`w-14 h-14 rounded-full flex items-center justify-center text-2xl mb-4 shadow-lg ${
+                    <div className={`w-14 h-14 rounded-full flex items-center justify-center mb-4 shadow-lg ${
                       plan.highlighted
                         ? 'bg-white/20'
                         : plan.name === 'Pro'
@@ -124,7 +124,7 @@ export default function PricingPage() {
                           ? 'bg-gradient-to-br from-purple-400 to-pink-500'
                           : 'bg-gradient-to-br from-blue-400 to-indigo-500'
                     }`}>
-                      {plan.icon}
+                      <plan.icon className={`w-8 h-8 ${plan.highlighted ? 'text-white' : 'text-white'}`} />
                     </div>
                   )}
                   <h3 className={`text-xl sm:text-2xl font-bold mb-2 ${plan.highlighted ? 'text-white' : 'text-gray-900'}`}>
