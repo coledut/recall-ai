@@ -417,6 +417,17 @@ export default function TodayPage() {
               Dashboard
             </a>
             <a
+              href="/app/people"
+              className="text-white/90 hover:text-white font-semibold flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-200 group"
+            >
+              <div className="w-8 h-8 bg-gradient-to-br from-pink-400 to-rose-400 rounded-full flex items-center justify-center group-hover:shadow-lg group-hover:shadow-pink-400/50 group-hover:scale-110 transition-all duration-300">
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
+              </div>
+              People
+            </a>
+            <a
               href="/app/settings"
               className="text-white/90 hover:text-white font-semibold flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-200 group"
             >
