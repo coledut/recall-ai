@@ -82,7 +82,7 @@ export default function LandingPage() {
             <Link href="#features" className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 font-medium">
               Features
             </Link>
-            <Link href="#pricing" className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 font-medium">
+            <Link href="/pricing" className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 font-medium">
               Pricing
             </Link>
             <Link href="/auth/login" className="px-4 sm:px-6 py-2 bg-gradient-to-r from-green-600 to-teal-600 text-white text-sm rounded-lg font-semibold hover:shadow-lg transition-all">
