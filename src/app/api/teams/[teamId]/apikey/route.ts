@@ -70,7 +70,7 @@ export async function POST(
         api_key: newApiKey,
         api_key_created_at: new Date().toISOString(),
       })
-      .eq('id', params.teamId)
+      .eq('id', teamId)
       .select()
       .single();
 
