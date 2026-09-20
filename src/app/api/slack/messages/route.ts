@@ -22,9 +22,9 @@ export async function POST(request: Request) {
       return Response.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Fetch recent messages from Slack (last 50 messages)
+    // Fetch recent messages from Slack
     const messagesRes = await fetch(
-      `https://slack.com/api/conversations.list?limit=10&exclude_archived=true`,
+      `https://slack.com/api/conversations.list?limit=20&exclude_archived=true&types=public_channel,private_channel,mpim,im`,
       {
         headers: { Authorization: `Bearer ${slackToken}` },
       }
@@ -35,33 +35,39 @@ export async function POST(request: Request) {
     }
 
     const conversationsData = await messagesRes.json();
-    console.log("Slack conversations response:", JSON.stringify(conversationsData).substring(0, 200));
 
     if (!conversationsData.ok) {
       return Response.json({ error: conversationsData.error }, { status: 400 });
     }
 
     const channels = conversationsData.channels || [];
-    console.log("Found channels:", channels.length);
     let extractedCount = 0;
+    let totalMessages = 0;
 
-    // Process each channel
+    // Process each channel/conversation
     for (const channel of channels) {
-      console.log(`Fetching messages from channel: ${channel.name}`);
+      // Fetch messages from the last 24 hours
+      const oneDayAgo = Math.floor(Date.now() / 1000) - 86400;
       const historyRes = await fetch(
-        `https://slack.com/api/conversations.history?channel=${channel.id}&limit=20`,
+        `https://slack.com/api/conversations.history?channel=${channel.id}&limit=30&oldest=${oneDayAgo}`,
         {
           headers: { Authorization: `Bearer ${slackToken}` },
         }
       );
 
       const historyData = await historyRes.json();
-      const messages = historyData.messages || [];
-      console.log(`Channel ${channel.name} has ${messages.length} messages`);
+      if (!historyData.ok) continue;
 
+      const messages = historyData.messages || [];
+      totalMessages += messages.length;
+
+      // Process messages in reverse chronological order
       for (const msg of messages) {
-        if (!msg.text || msg.subtype) continue; // Skip empty or special messages
-        console.log(`Processing message: ${msg.text.substring(0, 50)}...`);
+        if (!msg.text || msg.subtype === 'message_deleted' || msg.user === 'USLACKBOT') continue;
+
+        // Build context-rich message text
+        const channelName = channel.name || 'Direct Message';
+        const messageText = `Slack message in #${channelName}:\n${msg.text}`;
 
         // Extract commitments from message
         const extractRes = await fetch(
@@ -70,7 +76,7 @@ export async function POST(request: Request) {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              text: `Slack message: ${msg.text}`,
+              text: messageText,
               authToken,
             }),
           }
@@ -86,6 +92,7 @@ export async function POST(request: Request) {
       success: true,
       extracted: extractedCount,
       channels: channels.length,
+      totalMessages,
     });
   } catch (error) {
     console.error("Slack messages error:", error);
