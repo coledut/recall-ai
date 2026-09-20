@@ -5,6 +5,7 @@ export async function GET(
   { params }: { params: Promise<{ teamId: string }> }
 ) {
   try {
+    const { teamId } = await params;
     const authHeader = request.headers.get('Authorization');
     const authToken = authHeader?.replace('Bearer ', '');
     if (!authToken) return Response.json({ error: 'Unauthorized' }, { status: 401 });
@@ -20,7 +21,7 @@ export async function GET(
     const { data: team, error } = await supabase
       .from('teams')
       .select('api_key, api_key_created_at')
-      .eq('id', params.teamId)
+      .eq('id', teamId)
       .eq('owner_id', user.id)
       .single();
 
@@ -37,6 +38,7 @@ export async function POST(
   { params }: { params: Promise<{ teamId: string }> }
 ) {
   try {
+    const { teamId } = await params;
     const authHeader = request.headers.get('Authorization');
     const authToken = authHeader?.replace('Bearer ', '');
     if (!authToken) return Response.json({ error: 'Unauthorized' }, { status: 401 });
@@ -53,7 +55,7 @@ export async function POST(
     const { data: team, error: fetchError } = await supabase
       .from('teams')
       .select('owner_id')
-      .eq('id', params.teamId)
+      .eq('id', teamId)
       .single();
 
     if (fetchError || team.owner_id !== user.id) {
