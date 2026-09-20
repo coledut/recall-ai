@@ -1,7 +1,7 @@
 // Multilingual support for Recall AI
 // Supported languages: en (English), hi (Hindi), ar (Arabic)
 
-type Language = 'en' | 'hi' | 'ar';
+export type Language = 'en' | 'hi' | 'ar';
 
 interface Translations {
   [key: string]: {
