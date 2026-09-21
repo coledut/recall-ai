@@ -141,7 +141,7 @@ Return ONLY the JSON array, nothing else:`,
     }
 
     // Score results with TypeSafe if available
-    let scoredResults = indices
+    let scoredResults: any[] = indices
       .map(idx => memories[idx - 1])
       .filter(m => m !== undefined)
       .map((m, i) => ({ memory: m, position: i }));
