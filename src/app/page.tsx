@@ -207,15 +207,46 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* TypeSafe AI Intelligence Section - USP */}
+      {/* Intelligent Memory Understanding Section - USP */}
       <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white">
+        <style>{`
+          @keyframes typewriter {
+            0% { width: 0; }
+            100% { width: 100%; }
+          }
+          @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+          }
+          .typing-animation {
+            overflow: hidden;
+            border-right: 2px solid rgba(255,255,255,0.7);
+            white-space: nowrap;
+            animation: typewriter 3s steps(40, end) forwards, blink 0.7s infinite;
+            animation-delay: 0.5s, 3.5s;
+          }
+          .processing-step {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+          }
+          .processing-step:nth-child(1) { animation-delay: 0.8s; }
+          .processing-step:nth-child(2) { animation-delay: 1.4s; }
+          .processing-step:nth-child(3) { animation-delay: 2.0s; }
+          @keyframes fadeInUp {
+            from {
+              opacity: 0;
+              transform: translateY(10px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+        `}</style>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 sm:mb-16">
-            <div className="inline-block mb-4 px-4 py-2 bg-white/20 rounded-full border border-white/30">
-              <span className="text-sm font-semibold">✨ Powered by TypeSafe AI</span>
-            </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Intelligent Memory Understanding</h2>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90">Advanced semantic AI that truly understands relationships, context, and what matters most</p>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90">Advanced AI that truly understands relationships, context, and what matters most</p>
           </div>
 
           <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
@@ -289,26 +320,44 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* TypeSafe Example */}
+          {/* AI Processing Animation */}
           <div className="mt-12 sm:mt-16 bg-white/5 border border-white/20 rounded-2xl p-8 backdrop-blur-lg">
             <h3 className="text-lg sm:text-xl font-bold mb-6">See It In Action</h3>
             <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <p className="text-sm text-white/80 mb-4"><strong>Example Input:</strong></p>
+                <p className="text-sm text-white/80 mb-4"><strong>Your Input:</strong></p>
                 <div className="bg-black/20 rounded-lg p-4 border border-white/10 text-sm">
                   <p className="text-white/90">"Had coffee with Sarah Chen, my mentor from engineering. She's been guiding me on the product roadmap. Also chatted with Alex, my friend - we haven't talked in months."</p>
                 </div>
               </div>
               <div>
-                <p className="text-sm text-white/80 mb-4"><strong>TypeSafe Output:</strong></p>
-                <div className="bg-black/20 rounded-lg p-4 border border-white/10 text-sm space-y-2">
-                  <div className="flex justify-between items-center">
-                    <span className="text-white/90"><strong>Sarah Chen</strong></span>
-                    <span className="text-purple-300 text-xs">Mentor • 5/5 • Professional ✓</span>
+                <p className="text-sm text-white/80 mb-4"><strong>AI Understanding:</strong></p>
+                <div className="bg-black/20 rounded-lg p-4 border border-white/10 text-sm space-y-3 min-h-24">
+                  {/* Typing animation for input */}
+                  <div className="text-xs text-white/60 mb-3">
+                    <span className="typing-animation">Analyzing text...</span>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-white/90"><strong>Alex</strong></span>
-                    <span className="text-pink-300 text-xs">Friend • 3/5 • Personal ✗</span>
+
+                  {/* Processing steps with staggered animation */}
+                  <div className="processing-step flex items-start gap-2">
+                    <span className="text-blue-300 text-lg">→</span>
+                    <div>
+                      <span className="text-white/90"><strong>Sarah Chen</strong></span>
+                      <span className="text-blue-300 text-xs ml-2">Mentor • 5/5 • Professional ✓</span>
+                    </div>
+                  </div>
+
+                  <div className="processing-step flex items-start gap-2">
+                    <span className="text-purple-300 text-lg">→</span>
+                    <div>
+                      <span className="text-white/90"><strong>Alex</strong></span>
+                      <span className="text-pink-300 text-xs ml-2">Friend • 3/5 • Personal ✗</span>
+                    </div>
+                  </div>
+
+                  <div className="processing-step flex items-start gap-2">
+                    <span className="text-green-300 text-lg">✓</span>
+                    <span className="text-green-300 text-xs">Relationships extracted & ranked</span>
                   </div>
                 </div>
               </div>
