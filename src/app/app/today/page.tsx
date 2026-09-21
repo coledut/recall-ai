@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import FileUpload from '@/app/components/FileUpload';
 import PremiumNav from '@/app/components/PremiumNav';
-import { AlertCircle, Clock, Flag, BarChart3, Send, Mic, FileText, Search, Settings } from 'lucide-react';
+import { AlertCircle, Clock, Flag, BarChart3, Send, Mic, FileText, Search, Settings, Mail, Slack, Calendar, Phone, Upload } from 'lucide-react';
 
 interface Memory {
   id: string;
@@ -141,21 +141,47 @@ export default function DashboardPage() {
               </div>
             )}
 
-            {/* Capture Card */}
-            <div className="card-premium bg-gradient-to-br from-purple-50 to-white p-4 sm:p-6 rounded-lg sm:rounded-xl border-2 border-purple-200">
-              <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <div className="w-8 h-8 bg-gradient-to-br from-purple-600 to-purple-700 rounded-lg flex items-center justify-center">
-                  <Mic className="w-4 h-4 text-white" />
-                </div>
-                Capture Memory
-              </h3>
+            {/* Capture Sources */}
+            <div className="card-premium bg-gradient-to-br from-purple-50 to-white p-4 sm:p-6 rounded-lg sm:rounded-xl border-2 border-purple-200 mb-6">
+              <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-4">Capture from:</h3>
+              <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                <button className="btn-premium p-3 sm:p-4 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-2 text-center">
+                  <Mic className="w-5 h-5 text-purple-600" />
+                  <span className="text-xs sm:text-sm font-semibold text-gray-900">Voice</span>
+                </button>
+                <button className="btn-premium p-3 sm:p-4 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-2 text-center">
+                  <Mail className="w-5 h-5 text-purple-600" />
+                  <span className="text-xs sm:text-sm font-semibold text-gray-900">Email</span>
+                </button>
+                <button className="btn-premium p-3 sm:p-4 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-2 text-center">
+                  <Slack className="w-5 h-5 text-purple-600" />
+                  <span className="text-xs sm:text-sm font-semibold text-gray-900">Slack</span>
+                </button>
+                <button className="btn-premium p-3 sm:p-4 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-2 text-center">
+                  <Calendar className="w-5 h-5 text-purple-600" />
+                  <span className="text-xs sm:text-sm font-semibold text-gray-900">Calendar</span>
+                </button>
+                <button className="btn-premium p-3 sm:p-4 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-2 text-center">
+                  <Upload className="w-5 h-5 text-purple-600" />
+                  <span className="text-xs sm:text-sm font-semibold text-gray-900">Files</span>
+                </button>
+                <button className="btn-premium p-3 sm:p-4 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-2 text-center">
+                  <FileText className="w-5 h-5 text-purple-600" />
+                  <span className="text-xs sm:text-sm font-semibold text-gray-900">Manual</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Quick Capture Card */}
+            <div className="card-premium bg-gradient-to-br from-purple-100 to-purple-50 p-4 sm:p-6 rounded-lg sm:rounded-xl border-2 border-purple-300">
+              <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-4">Quick Capture</h3>
 
               <form onSubmit={handleAddMemory} className="space-y-3">
                 <textarea
                   placeholder="Tell me what you need to remember..."
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  rows={5}
+                  rows={4}
                   className="input-premium w-full text-xs sm:text-sm"
                 />
 
