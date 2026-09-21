@@ -142,32 +142,32 @@ export default function DashboardPage() {
             )}
 
             {/* Capture Sources */}
-            <div className="card-premium bg-gradient-to-br from-purple-50 to-white p-4 sm:p-6 rounded-lg sm:rounded-xl border-2 border-purple-200 mb-6">
+            <div className="card-premium bg-gradient-to-br from-purple-50 to-white p-4 sm:p-6 rounded-lg sm:rounded-xl border-2 border-purple-200 mb-6 reveal-up">
               <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-4">Capture from:</h3>
-              <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                <button className="btn-premium p-3 sm:p-4 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-2 text-center">
-                  <Mic className="w-5 h-5 text-purple-600" />
-                  <span className="text-xs sm:text-sm font-semibold text-gray-900">Voice</span>
+              <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-2 gap-2 sm:gap-3">
+                <button className="btn-premium p-2 sm:p-3 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-1 text-center">
+                  <Mic className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
+                  <span className="text-xs font-semibold text-gray-900">Voice</span>
                 </button>
-                <button className="btn-premium p-3 sm:p-4 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-2 text-center">
-                  <Mail className="w-5 h-5 text-purple-600" />
-                  <span className="text-xs sm:text-sm font-semibold text-gray-900">Email</span>
+                <button className="btn-premium p-2 sm:p-3 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-1 text-center">
+                  <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
+                  <span className="text-xs font-semibold text-gray-900">Email</span>
                 </button>
-                <button className="btn-premium p-3 sm:p-4 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-2 text-center">
-                  <Slack className="w-5 h-5 text-purple-600" />
-                  <span className="text-xs sm:text-sm font-semibold text-gray-900">Slack</span>
+                <button className="btn-premium p-2 sm:p-3 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-1 text-center">
+                  <Slack className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
+                  <span className="text-xs font-semibold text-gray-900">Slack</span>
                 </button>
-                <button className="btn-premium p-3 sm:p-4 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-2 text-center">
-                  <Calendar className="w-5 h-5 text-purple-600" />
-                  <span className="text-xs sm:text-sm font-semibold text-gray-900">Calendar</span>
+                <button className="btn-premium p-2 sm:p-3 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-1 text-center">
+                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
+                  <span className="text-xs font-semibold text-gray-900">Calendar</span>
                 </button>
-                <button className="btn-premium p-3 sm:p-4 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-2 text-center">
-                  <Upload className="w-5 h-5 text-purple-600" />
-                  <span className="text-xs sm:text-sm font-semibold text-gray-900">Files</span>
+                <button className="btn-premium p-2 sm:p-3 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-1 text-center">
+                  <Upload className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
+                  <span className="text-xs font-semibold text-gray-900">Files</span>
                 </button>
-                <button className="btn-premium p-3 sm:p-4 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-2 text-center">
-                  <FileText className="w-5 h-5 text-purple-600" />
-                  <span className="text-xs sm:text-sm font-semibold text-gray-900">Manual</span>
+                <button className="btn-premium p-2 sm:p-3 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-1 text-center">
+                  <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
+                  <span className="text-xs font-semibold text-gray-900">Manual</span>
                 </button>
               </div>
             </div>
