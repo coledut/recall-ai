@@ -5,7 +5,7 @@ interface TypeSafeQuestion {
   id: string;
   instruction: string;
   type: 'choice' | 'score' | 'noul';
-  criteria?: string[] | Record<string, string>;
+  criteria?: string[] | Record<string, string> | string;
 }
 
 interface TypeSafeResponse {
