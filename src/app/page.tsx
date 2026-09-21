@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Mail, Sparkles, FileText, MessageCircle, Send, Users } from 'lucide-react';
+import { Mail, Sparkles, FileText, MessageCircle, Send, Users, Brain, Search, Network } from 'lucide-react';
 
 const FEATURES = [
   {
@@ -203,6 +203,116 @@ export default function LandingPage() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* TypeSafe AI Intelligence Section - USP */}
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="inline-block mb-4 px-4 py-2 bg-white/20 rounded-full border border-white/30">
+              <span className="text-sm font-semibold">✨ Powered by TypeSafe AI</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Intelligent Memory Understanding</h2>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90">Advanced semantic AI that truly understands relationships, context, and what matters most</p>
+          </div>
+
+          <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+            {/* People Intelligence */}
+            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all">
+              <div className="w-14 h-14 bg-gradient-to-br from-blue-300 to-blue-500 rounded-full flex items-center justify-center mb-4 shadow-lg">
+                <Network className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Smart Relationships</h3>
+              <p className="text-white/80 mb-4">TypeSafe automatically understands who's important to you:</p>
+              <ul className="space-y-2 text-sm text-white/90">
+                <li className="flex items-start gap-2">
+                  <span className="text-blue-300 mt-1">•</span>
+                  <span><strong>Role Recognition:</strong> Identifies mentors, managers, colleagues, friends</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-blue-300 mt-1">•</span>
+                  <span><strong>Importance Scoring:</strong> Ranks relationships 1-5 based on context</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-blue-300 mt-1">•</span>
+                  <span><strong>Context Understanding:</strong> Knows professional vs personal relationships</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Search Intelligence */}
+            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all">
+              <div className="w-14 h-14 bg-gradient-to-br from-purple-300 to-purple-500 rounded-full flex items-center justify-center mb-4 shadow-lg">
+                <Search className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Semantic Search Ranking</h3>
+              <p className="text-white/80 mb-4">Find what matters with intelligent multi-factor ranking:</p>
+              <ul className="space-y-2 text-sm text-white/90">
+                <li className="flex items-start gap-2">
+                  <span className="text-purple-300 mt-1">•</span>
+                  <span><strong>Relevance Analysis:</strong> True semantic understanding, not keywords</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-purple-300 mt-1">•</span>
+                  <span><strong>Recency Boost:</strong> Prioritizes recent, timely information</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-purple-300 mt-1">•</span>
+                  <span><strong>Importance Weighting:</strong> Surfaces critical memories first</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* AI Judgment */}
+            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all">
+              <div className="w-14 h-14 bg-gradient-to-br from-pink-300 to-pink-500 rounded-full flex items-center justify-center mb-4 shadow-lg">
+                <Brain className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Calibrated Judgment</h3>
+              <p className="text-white/80 mb-4">AI that makes reliable, predictable decisions:</p>
+              <ul className="space-y-2 text-sm text-white/90">
+                <li className="flex items-start gap-2">
+                  <span className="text-pink-300 mt-1">•</span>
+                  <span><strong>Confidence Scores:</strong> Know how certain the AI is</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-pink-300 mt-1">•</span>
+                  <span><strong>Structured Answers:</strong> Typed, reliable outputs</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-pink-300 mt-1">•</span>
+                  <span><strong>Fast Decisions:</strong> Real-time semantic processing</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* TypeSafe Example */}
+          <div className="mt-12 sm:mt-16 bg-white/5 border border-white/20 rounded-2xl p-8 backdrop-blur-lg">
+            <h3 className="text-lg sm:text-xl font-bold mb-6">See It In Action</h3>
+            <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <p className="text-sm text-white/80 mb-4"><strong>Example Input:</strong></p>
+                <div className="bg-black/20 rounded-lg p-4 border border-white/10 text-sm">
+                  <p className="text-white/90">"Had coffee with Sarah Chen, my mentor from engineering. She's been guiding me on the product roadmap. Also chatted with Alex, my friend - we haven't talked in months."</p>
+                </div>
+              </div>
+              <div>
+                <p className="text-sm text-white/80 mb-4"><strong>TypeSafe Output:</strong></p>
+                <div className="bg-black/20 rounded-lg p-4 border border-white/10 text-sm space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-white/90"><strong>Sarah Chen</strong></span>
+                    <span className="text-purple-300 text-xs">Mentor • 5/5 • Professional ✓</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-white/90"><strong>Alex</strong></span>
+                    <span className="text-pink-300 text-xs">Friend • 3/5 • Personal ✗</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
