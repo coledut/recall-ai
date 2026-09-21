@@ -52,9 +52,25 @@ export default function AnalyticsPage() {
 
   if (loading || !analytics) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
         <PremiumNav currentPage="analytics" />
-        <p className="text-gray-600">Loading analytics...</p>
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 lg:py-12">
+          <div className="mb-8">
+            <div className="h-10 bg-gray-200 rounded w-32 mb-2 animate-pulse"></div>
+            <div className="h-4 bg-gray-200 rounded w-48 animate-pulse"></div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="skeleton-loader h-24 rounded-lg"></div>
+            ))}
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-8">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="skeleton-loader h-32 rounded-lg"></div>
+            ))}
+          </div>
+          <div className="skeleton-loader h-64 rounded-lg"></div>
+        </main>
       </div>
     );
   }
