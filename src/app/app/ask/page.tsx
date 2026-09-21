@@ -73,17 +73,15 @@ export default function AskRecallPage() {
     <main className="min-h-screen bg-gradient-to-br from-green-50 via-teal-50 to-green-50">
       <nav className="bg-gradient-to-r from-green-600 to-teal-600 shadow-2xl px-4 sm:px-6 lg:px-8 py-4 sm:py-5 border-b border-green-400/30">
         <div className="max-w-7xl mx-auto flex justify-between items-center gap-4">
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <svg className="w-6 sm:w-8 h-6 sm:h-8 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
             </svg>
-            <h1 className="text-lg sm:text-2xl md:text-3xl font-bold text-white truncate">Recall AI</h1>
+            <h1 className="text-lg sm:text-2xl md:text-3xl font-bold text-white truncate">Ask Recall</h1>
           </div>
-          <div className="hidden sm:flex gap-4 items-center">
-            <a href="/app/today" className="text-white/90 hover:text-white font-semibold text-sm px-3 py-2 rounded-lg hover:bg-white/20">Today</a>
-            <a href="/app/dashboard" className="text-white/90 hover:text-white font-semibold text-sm px-3 py-2 rounded-lg hover:bg-white/20">Dashboard</a>
-            <button onClick={() => supabase.auth.signOut().then(() => (window.location.href = '/'))} className="text-white/90 hover:text-white text-sm px-3 py-2 rounded-lg hover:bg-white/20">Sign Out</button>
-          </div>
+          <a href="/app/today" className="text-white text-xs sm:text-sm hover:text-green-100 font-semibold px-2 sm:px-4 py-2 rounded-lg hover:bg-white/20 whitespace-nowrap">
+            ← Back
+          </a>
         </div>
       </nav>
 

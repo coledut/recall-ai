@@ -99,11 +99,9 @@ export default function SettingsPage() {
       <nav className="bg-gradient-to-r from-green-600 to-teal-600 text-white mb-6 sm:mb-8 p-3 sm:p-4 rounded-xl shadow-lg">
         <div className="max-w-4xl mx-auto flex justify-between items-center gap-4">
           <h1 className="text-lg sm:text-2xl font-bold truncate">Recall AI</h1>
-          <div className="hidden sm:flex items-center gap-3 sm:gap-4">
-            <a href="/app/today" className="text-sm hover:bg-white/20 px-3 py-2 rounded-lg transition-all">Today</a>
-            <a href="/app/settings" className="text-sm hover:bg-white/20 px-3 py-2 rounded-lg transition-all font-bold">Settings</a>
-            <button onClick={() => supabase.auth.signOut().then(() => (window.location.href = '/'))} className="text-sm hover:bg-white/20 px-3 py-2 rounded-lg transition-all">Sign Out</button>
-          </div>
+          <a href="/app/today" className="text-white text-xs sm:text-sm hover:text-green-100 font-semibold px-2 sm:px-4 py-2 rounded-lg hover:bg-white/20 whitespace-nowrap">
+            ← Back
+          </a>
         </div>
       </nav>
 

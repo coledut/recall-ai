@@ -125,8 +125,8 @@ export default function BillingContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 flex items-center justify-center">
-        <div className="text-white">Loading billing information...</div>
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 flex items-center justify-center">
+        <div className="text-gray-700">Loading billing information...</div>
       </div>
     );
   }
@@ -134,43 +134,49 @@ export default function BillingContent() {
   const currentPlan = subscription?.plan || 'free';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 p-4 sm:p-6 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 p-4 sm:p-6 md:p-8">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-8 sm:mb-12">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 sm:mb-4">Billing & Plans</h1>
-          <p className="text-xs sm:text-sm md:text-base text-slate-400">Manage your subscription and access premium features</p>
+        {/* Header with Back Button */}
+        <div className="mb-8 sm:mb-12 flex justify-between items-start gap-4">
+          <div>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 sm:mb-4">Billing & Plans</h1>
+            <p className="text-xs sm:text-sm md:text-base text-gray-600">Manage your subscription and access premium features</p>
+          </div>
+          <a href="/app/today" className="text-gray-700 hover:text-green-600 font-semibold text-sm sm:text-base px-4 py-2 rounded-lg hover:bg-green-100 transition-all whitespace-nowrap">
+            ← Back
+          </a>
         </div>
 
         {success && (
-          <div className="mb-8 p-4 bg-green-500/10 border border-green-500/20 rounded-lg text-green-400 flex items-center gap-2">
+          <div className="mb-8 p-4 bg-green-100 border border-green-300 rounded-lg text-green-800 flex items-center gap-2">
             <Check className="w-5 h-5 flex-shrink-0" />
             Payment successful! Your subscription has been updated.
           </div>
         )}
         {canceled && (
-          <div className="mb-8 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 flex items-center gap-2">
+          <div className="mb-8 p-4 bg-yellow-100 border border-yellow-300 rounded-lg text-yellow-800 flex items-center gap-2">
             <AlertCircle className="w-5 h-5 flex-shrink-0" />
             Payment canceled. Try again when ready.
           </div>
         )}
 
         {currentPlan !== 'free' && (
-          <div className="mb-12 p-6 bg-teal-500/10 border border-teal-500/20 rounded-lg">
+          <div className="mb-12 p-6 bg-teal-100 border border-teal-300 rounded-lg">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-bold text-white capitalize">Current Plan: {currentPlan}</h2>
-                <p className="text-slate-400 mt-2">
+                <h2 className="text-2xl font-bold text-gray-900 capitalize">Current Plan: {currentPlan}</h2>
+                <p className="text-gray-600 mt-2">
                   {subscription?.current_period_end &&
                     `Renews on ${new Date(subscription.current_period_end).toLocaleDateString()}`
                   }
                 </p>
               </div>
               <div className="text-right">
-                <div className="text-3xl font-bold text-teal-400">
+                <div className="text-3xl font-bold text-teal-600">
                   {subscription?.currency === 'inr' ? '₹' : '$'}
                   {subscription?.currency === 'inr' ? '299' : '9'}
                 </div>
-                <p className="text-slate-400">/month</p>
+                <p className="text-gray-600">/month</p>
               </div>
             </div>
           </div>
@@ -179,26 +185,26 @@ export default function BillingContent() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           <div className={`p-8 rounded-lg border-2 transition-all ${
             currentPlan === 'free'
-              ? 'border-teal-500 bg-teal-500/10'
-              : 'border-slate-700 bg-slate-800/50 hover:border-slate-600'
+              ? 'border-teal-500 bg-teal-50'
+              : 'border-gray-200 bg-white hover:border-teal-300'
           }`}>
-            <h3 className="text-2xl font-bold text-white mb-2">Free</h3>
-            <div className="text-3xl font-bold text-slate-300 mb-6">$0/mo</div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Free</h3>
+            <div className="text-3xl font-bold text-gray-700 mb-6">$0/mo</div>
 
             <ul className="space-y-3 mb-8">
               {Object.entries(PLAN_FEATURES.free).map(([key, value]) => (
-                <li key={key} className="text-slate-400 flex items-start gap-3">
-                  <Check className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" />
+                <li key={key} className="text-gray-700 flex items-start gap-3">
+                  <Check className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-semibold text-white capitalize">{key.replace(/([A-Z])/g, ' $1')}</div>
-                    <div className="text-sm text-slate-500">{value}</div>
+                    <div className="font-semibold text-gray-900 capitalize">{key.replace(/([A-Z])/g, ' $1')}</div>
+                    <div className="text-sm text-gray-600">{value}</div>
                   </div>
                 </li>
               ))}
             </ul>
 
             {currentPlan === 'free' && (
-              <button disabled className="w-full py-2 px-4 bg-slate-700 text-slate-400 rounded-lg font-semibold cursor-not-allowed">
+              <button disabled className="w-full py-2 px-4 bg-gray-200 text-gray-600 rounded-lg font-semibold cursor-not-allowed">
                 Current Plan
               </button>
             )}
@@ -206,40 +212,40 @@ export default function BillingContent() {
 
           <div className={`p-8 rounded-lg border-2 transition-all ${
             currentPlan === 'pro'
-              ? 'border-teal-500 bg-teal-500/10'
-              : 'border-slate-700 bg-slate-800/50 hover:border-teal-500'
+              ? 'border-teal-500 bg-teal-50'
+              : 'border-gray-200 bg-white hover:border-teal-300'
           } relative`}>
-            <div className="absolute -top-4 right-4 bg-teal-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+            <div className="absolute -top-4 right-4 bg-teal-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
               Popular
             </div>
 
-            <h3 className="text-2xl font-bold text-white mb-2">Pro</h3>
-            <div className="text-3xl font-bold text-teal-400 mb-6">
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Pro</h3>
+            <div className="text-3xl font-bold text-teal-600 mb-6">
               {country === 'IN' ? '₹299' : '$9'}
-              <span className="text-lg text-slate-400">/mo</span>
+              <span className="text-lg text-gray-600">/mo</span>
             </div>
 
             <ul className="space-y-3 mb-8">
               {Object.entries(PLAN_FEATURES.pro).map(([key, value]) => (
-                <li key={key} className="text-slate-400 flex items-start gap-3">
-                  <Check className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" />
+                <li key={key} className="text-gray-700 flex items-start gap-3">
+                  <Check className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-semibold text-white capitalize">{key.replace(/([A-Z])/g, ' $1')}</div>
-                    <div className="text-sm text-slate-500">{value}</div>
+                    <div className="font-semibold text-gray-900 capitalize">{key.replace(/([A-Z])/g, ' $1')}</div>
+                    <div className="text-sm text-gray-600">{value}</div>
                   </div>
                 </li>
               ))}
             </ul>
 
             {currentPlan === 'pro' ? (
-              <button disabled className="w-full py-2 px-4 bg-slate-700 text-slate-400 rounded-lg font-semibold cursor-not-allowed">
+              <button disabled className="w-full py-2 px-4 bg-gray-200 text-gray-600 rounded-lg font-semibold cursor-not-allowed">
                 Current Plan
               </button>
             ) : (
               <button
                 onClick={() => upgradeToProOrEnterprise('pro')}
                 disabled={paymentLoading}
-                className="w-full py-2 px-4 bg-teal-500 text-white rounded-lg font-semibold hover:bg-teal-600 disabled:opacity-50"
+                className="w-full py-2 px-4 bg-gradient-to-r from-teal-600 to-green-600 text-white rounded-lg font-semibold hover:from-teal-700 hover:to-green-700 disabled:opacity-50"
               >
                 {paymentLoading ? 'Processing...' : 'Upgrade to Pro'}
               </button>
@@ -248,36 +254,36 @@ export default function BillingContent() {
 
           <div className={`p-8 rounded-lg border-2 transition-all ${
             currentPlan === 'enterprise'
-              ? 'border-teal-500 bg-teal-500/10'
-              : 'border-slate-700 bg-slate-800/50 hover:border-slate-600'
+              ? 'border-teal-500 bg-teal-50'
+              : 'border-gray-200 bg-white hover:border-teal-300'
           }`}>
-            <h3 className="text-2xl font-bold text-white mb-2">Enterprise</h3>
-            <div className="text-3xl font-bold text-slate-300 mb-6">
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Enterprise</h3>
+            <div className="text-3xl font-bold text-gray-700 mb-6">
               {country === 'IN' ? '₹4,999' : '$299'}
-              <span className="text-lg text-slate-400">/mo</span>
+              <span className="text-lg text-gray-600">/mo</span>
             </div>
 
             <ul className="space-y-3 mb-8">
               {Object.entries(PLAN_FEATURES.enterprise).map(([key, value]) => (
-                <li key={key} className="text-slate-400 flex items-start gap-3">
-                  <Check className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" />
+                <li key={key} className="text-gray-700 flex items-start gap-3">
+                  <Check className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-semibold text-white capitalize">{key.replace(/([A-Z])/g, ' $1')}</div>
-                    <div className="text-sm text-slate-500">{value}</div>
+                    <div className="font-semibold text-gray-900 capitalize">{key.replace(/([A-Z])/g, ' $1')}</div>
+                    <div className="text-sm text-gray-600">{value}</div>
                   </div>
                 </li>
               ))}
             </ul>
 
             {currentPlan === 'enterprise' ? (
-              <button disabled className="w-full py-2 px-4 bg-slate-700 text-slate-400 rounded-lg font-semibold cursor-not-allowed">
+              <button disabled className="w-full py-2 px-4 bg-gray-200 text-gray-600 rounded-lg font-semibold cursor-not-allowed">
                 Current Plan
               </button>
             ) : (
               <button
                 onClick={() => upgradeToProOrEnterprise('enterprise')}
                 disabled={paymentLoading}
-                className="w-full py-2 px-4 bg-teal-500 text-white rounded-lg font-semibold hover:bg-teal-600 disabled:opacity-50"
+                className="w-full py-2 px-4 bg-gradient-to-r from-teal-600 to-green-600 text-white rounded-lg font-semibold hover:from-teal-700 hover:to-green-700 disabled:opacity-50"
               >
                 {paymentLoading ? 'Processing...' : 'Upgrade to Enterprise'}
               </button>
@@ -285,9 +291,9 @@ export default function BillingContent() {
           </div>
         </div>
 
-        <div className="mt-12 p-6 bg-slate-800/50 border border-slate-700 rounded-lg">
-          <h3 className="text-xl font-bold text-white mb-4">Payment History</h3>
-          <p className="text-slate-400">Your payment history will appear here once you make a purchase.</p>
+        <div className="mt-12 p-6 bg-white border border-gray-200 rounded-lg">
+          <h3 className="text-xl font-bold text-gray-900 mb-4">Payment History</h3>
+          <p className="text-gray-600">Your payment history will appear here once you make a purchase.</p>
         </div>
       </div>
     </div>
