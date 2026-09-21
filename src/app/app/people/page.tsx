@@ -111,9 +111,9 @@ export default function PeoplePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
       {/* Navigation */}
-      <nav className="bg-gradient-to-r from-green-600 to-teal-600 text-white mb-6 sm:mb-8 p-3 sm:p-4 rounded-xl shadow-lg">
+      <nav className="bg-gradient-to-r from-purple-600 to-purple-700 text-white mb-6 sm:mb-8 p-3 sm:p-4 rounded-xl shadow-lg">
         <div className="max-w-7xl mx-auto flex justify-between items-center gap-4">
           <h1 className="text-lg sm:text-2xl font-bold truncate">Recall AI</h1>
           <a href="/app/today" className="text-white text-xs sm:text-sm hover:text-green-100 font-semibold px-2 sm:px-4 py-2 rounded-lg hover:bg-white/20 whitespace-nowrap">
@@ -129,7 +129,7 @@ export default function PeoplePage() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-1 sm:mb-2">People</h2>
             <p className="text-xs sm:text-sm md:text-base text-gray-600">Track your relationships and follow-ups</p>
           </div>
-          <button onClick={() => setShowForm(!showForm)} className="px-4 sm:px-6 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-bold text-sm sm:text-base rounded-xl hover:shadow-lg transition-all whitespace-nowrap flex items-center justify-center gap-2">
+          <button onClick={() => setShowForm(!showForm)} className="px-4 sm:px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold text-sm sm:text-base rounded-xl hover:shadow-lg transition-all whitespace-nowrap flex items-center justify-center gap-2">
             {showForm ? (
               <>
                 <X className="w-4 h-4" />
@@ -154,7 +154,7 @@ export default function PeoplePage() {
                 placeholder="Name *"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
                 required
               />
               <input
@@ -162,26 +162,26 @@ export default function PeoplePage() {
                 placeholder="Email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               />
               <input
                 type="text"
                 placeholder="Company"
                 value={formData.company}
                 onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               />
               <input
                 type="text"
                 placeholder="Role"
                 value={formData.role}
                 onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               />
               <select
                 value={formData.relationship}
                 onChange={(e) => setFormData({ ...formData, relationship: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               >
                 <option value="contact">Contact</option>
                 <option value="colleague">Colleague</option>
@@ -192,7 +192,7 @@ export default function PeoplePage() {
               </select>
               <button
                 type="submit"
-                className="w-full py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-bold rounded-xl hover:shadow-lg transition-all"
+                className="w-full py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold rounded-xl hover:shadow-lg transition-all"
               >
                 Add Person
               </button>
@@ -202,13 +202,13 @@ export default function PeoplePage() {
 
         {/* Sorting */}
         <div className="mb-6 flex gap-2 flex-wrap">
-          <button onClick={() => setSortBy('last_contact_date')} className={`px-3 sm:px-4 py-2 text-xs sm:text-sm rounded-lg font-semibold transition-all ${sortBy === 'last_contact_date' ? 'bg-gradient-to-r from-green-600 to-teal-600 text-white' : 'bg-white text-gray-700 border border-gray-300'}`}>
+          <button onClick={() => setSortBy('last_contact_date')} className={`px-3 sm:px-4 py-2 text-xs sm:text-sm rounded-lg font-semibold transition-all ${sortBy === 'last_contact_date' ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white' : 'bg-white text-gray-700 border border-gray-300'}`}>
             Last Contact
           </button>
-          <button onClick={() => setSortBy('interaction_count')} className={`px-3 sm:px-4 py-2 text-xs sm:text-sm rounded-lg font-semibold transition-all ${sortBy === 'interaction_count' ? 'bg-gradient-to-r from-green-600 to-teal-600 text-white' : 'bg-white text-gray-700 border border-gray-300'}`}>
+          <button onClick={() => setSortBy('interaction_count')} className={`px-3 sm:px-4 py-2 text-xs sm:text-sm rounded-lg font-semibold transition-all ${sortBy === 'interaction_count' ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white' : 'bg-white text-gray-700 border border-gray-300'}`}>
             Frequency
           </button>
-          <button onClick={() => setSortBy('name')} className={`px-3 sm:px-4 py-2 text-xs sm:text-sm rounded-lg font-semibold transition-all ${sortBy === 'name' ? 'bg-gradient-to-r from-green-600 to-teal-600 text-white' : 'bg-white text-gray-700 border border-gray-300'}`}>
+          <button onClick={() => setSortBy('name')} className={`px-3 sm:px-4 py-2 text-xs sm:text-sm rounded-lg font-semibold transition-all ${sortBy === 'name' ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white' : 'bg-white text-gray-700 border border-gray-300'}`}>
             Name
           </button>
         </div>

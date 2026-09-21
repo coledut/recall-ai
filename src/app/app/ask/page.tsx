@@ -70,8 +70,8 @@ export default function AskRecallPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-green-50 via-teal-50 to-green-50">
-      <nav className="bg-gradient-to-r from-green-600 to-teal-600 shadow-2xl px-4 sm:px-6 lg:px-8 py-4 sm:py-5 border-b border-green-400/30">
+    <main className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50">
+      <nav className="bg-gradient-to-r from-purple-600 to-purple-700 shadow-2xl px-4 sm:px-6 lg:px-8 py-4 sm:py-5 border-b border-purple-400/30">
         <div className="max-w-7xl mx-auto flex justify-between items-center gap-4">
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <svg className="w-6 sm:w-8 h-6 sm:h-8 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
@@ -87,7 +87,7 @@ export default function AskRecallPage() {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div className="mb-6 sm:mb-8 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-green-900 mb-2 sm:mb-3">Ask Recall</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-900 mb-2 sm:mb-3">Ask Recall</h2>
           <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600">Ask questions about your memories naturally</p>
         </div>
 
@@ -96,7 +96,7 @@ export default function AskRecallPage() {
           <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-3 sm:space-y-4 bg-gradient-to-b from-white to-green-50/20">
             {messages.length === 0 ? (
               <div className="h-full flex flex-col items-center justify-center text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-full flex items-center justify-center mb-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-500 rounded-full flex items-center justify-center mb-4">
                   <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
                   </svg>
@@ -113,7 +113,7 @@ export default function AskRecallPage() {
                     <div
                       className={`max-w-xs sm:max-w-sm md:max-w-md px-4 py-2 sm:py-3 rounded-xl text-xs sm:text-sm ${
                         msg.role === 'user'
-                          ? 'bg-gradient-to-r from-green-600 to-teal-600 text-white'
+                          ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white'
                           : 'bg-gray-100 text-gray-900'
                       }`}
                     >
@@ -157,9 +157,9 @@ export default function AskRecallPage() {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask anything..."
                 disabled={loading}
-                className="flex-1 px-3 sm:px-4 py-3 border border-green-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 text-gray-900 placeholder-gray-500 disabled:opacity-50 text-sm"
+                className="flex-1 px-3 sm:px-4 py-3 border border-purple-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 text-gray-900 placeholder-gray-500 disabled:opacity-50 text-sm"
               />
-              <button type="submit" disabled={loading || !input.trim()} className="px-4 sm:px-6 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-bold rounded-xl hover:from-green-700 hover:to-teal-700 disabled:opacity-50 text-sm flex items-center justify-center gap-2">
+              <button type="submit" disabled={loading || !input.trim()} className="px-4 sm:px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold rounded-xl hover:from-purple-700 hover:to-purple-800 disabled:opacity-50 text-sm flex items-center justify-center gap-2">
                 {loading ? (
                   <>
                     <Loader className="w-4 h-4 animate-spin" />

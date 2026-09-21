@@ -384,8 +384,8 @@ export default function TodayPage() {
   );
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-green-50 via-teal-50 to-green-50">
-      <nav className="bg-gradient-to-r from-green-600 to-teal-600 shadow-2xl px-4 sm:px-6 lg:px-8 py-4 sm:py-5 border-b border-green-400/30">
+    <main className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50">
+      <nav className="bg-gradient-to-r from-purple-600 to-purple-700 shadow-2xl px-4 sm:px-6 lg:px-8 py-4 sm:py-5 border-b border-purple-400/30">
         <div className="max-w-7xl mx-auto flex justify-between items-center gap-4">
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <svg className="w-6 sm:w-8 h-6 sm:h-8 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
@@ -395,7 +395,7 @@ export default function TodayPage() {
           </div>
           <div className="hidden md:flex gap-4 lg:gap-6 items-center flex-wrap justify-end">
             <a href="/app/ask" className="text-white/90 hover:text-white font-semibold text-sm px-3 py-2 rounded-lg hover:bg-white/20 transition-all">Ask</a>
-            <a href="/app/dashboard" className="text-white/90 hover:text-white font-semibold text-sm px-3 py-2 rounded-lg hover:bg-white/20 transition-all">Dashboard</a>
+            <a href="/app/today" className="text-white/90 hover:text-white font-semibold text-sm px-3 py-2 rounded-lg hover:bg-white/20 transition-all">Dashboard</a>
             <a href="/app/people" className="text-white/90 hover:text-white font-semibold text-sm px-3 py-2 rounded-lg hover:bg-white/20 transition-all">People</a>
             <a href="/app/analytics" className="text-white/90 hover:text-white font-semibold text-sm px-3 py-2 rounded-lg hover:bg-white/20 transition-all">Analytics</a>
             <a href="/app/settings" className="text-white/90 hover:text-white font-semibold text-sm px-3 py-2 rounded-lg hover:bg-white/20 transition-all">Settings</a>
@@ -407,7 +407,7 @@ export default function TodayPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8">
           <div className="lg:col-span-1 h-fit sticky top-8">
-            <div className="bg-gradient-to-br from-green-600 to-teal-600 rounded-2xl shadow-2xl p-6 backdrop-blur-sm border border-green-400/30">
+            <div className="bg-gradient-to-br from-purple-600 to-purple-700 rounded-2xl shadow-2xl p-6 backdrop-blur-sm border border-purple-400/30">
               <h3 className="text-xl font-bold mb-4 text-white flex items-center gap-2">
                 <div className="w-8 h-8 bg-gradient-to-br from-yellow-300 to-yellow-400 rounded-full flex items-center justify-center shadow-lg">
                   <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -547,12 +547,12 @@ export default function TodayPage() {
                 )}
               </div>
             )}
-            <h2 className="text-4xl font-bold text-green-900 mb-8">Today's Memories</h2>
+            <h2 className="text-4xl font-bold text-purple-900 mb-8">Today's Memories</h2>
 
             {/* Search Bar */}
             <div className="mb-8">
               <div className="relative group">
-                <div className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 bg-gradient-to-br from-teal-500 to-teal-600 rounded-full flex items-center justify-center pointer-events-none">
+                <div className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center pointer-events-none">
                   <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
                   </svg>
@@ -562,10 +562,10 @@ export default function TodayPage() {
                   placeholder="Search your memories..."
                   value={searchQuery}
                   onChange={(e) => handleSearch(e.target.value)}
-                  className="w-full pl-12 pr-5 py-3 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 bg-white/10 text-gray-900 placeholder-gray-700 backdrop-blur-sm focus:bg-white/20 transition-all duration-200 group-focus-within:border-green-400/50"
+                  className="w-full pl-12 pr-5 py-3 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white/10 text-gray-900 placeholder-gray-700 backdrop-blur-sm focus:bg-white/20 transition-all duration-200 group-focus-within:border-purple-400/50"
                 />
               </div>
-              {isSearching && <p className="text-sm text-teal-300 mt-3 animate-pulse">✨ Searching...</p>}
+              {isSearching && <p className="text-sm text-purple-300 mt-3 animate-pulse">✨ Searching...</p>}
               {searchQuery && searchResults.length > 0 && (
                 <p className="text-sm text-purple-200 mt-3">🎯 Found {searchResults.length} result{searchResults.length !== 1 ? 's' : ''}</p>
               )}
@@ -576,10 +576,10 @@ export default function TodayPage() {
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-white/90">✨ Search Results</h3>
                 {searchResults.map((memory: Memory) => (
-                  <div key={memory.id} className="bg-gradient-to-r from-green-600/20 to-teal-600/20 p-4 rounded-xl border border-white/20 hover:border-white/40 hover:shadow-2xl transition-all duration-300 backdrop-blur-sm hover:scale-105 hover:-translate-y-1">
+                  <div key={memory.id} className="bg-gradient-to-r from-purple-600/20 to-purple-700/20 p-4 rounded-xl border border-white/20 hover:border-white/40 hover:shadow-2xl transition-all duration-300 backdrop-blur-sm hover:scale-105 hover:-translate-y-1">
                     <h4 className="font-semibold text-white">{memory.title}</h4>
                     {memory.content && <p className="text-sm text-white/80 mt-2 line-clamp-2">{memory.content}</p>}
-                    {memory.due_date && <p className="text-xs text-teal-300 mt-2">📅 Due: {memory.due_date}</p>}
+                    {memory.due_date && <p className="text-xs text-purple-300 mt-2">📅 Due: {memory.due_date}</p>}
                   </div>
                 ))}
               </div>
@@ -595,17 +595,17 @@ export default function TodayPage() {
                   <div key={key}>
                     {groupedMemories[key] && groupedMemories[key].length > 0 && (
                       <div>
-                        <h3 className="text-2xl font-bold mb-5 text-green-700 flex items-center gap-3">
-                          {renderIcon(gradient, svgPath)} {label} <span className="text-lg font-semibold text-green-600">({groupedMemories[key].length})</span>
+                        <h3 className="text-2xl font-bold mb-5 text-purple-700 flex items-center gap-3">
+                          {renderIcon(gradient, svgPath)} {label} <span className="text-lg font-semibold text-purple-600">({groupedMemories[key].length})</span>
                         </h3>
                         <div className="space-y-3">
                           {groupedMemories[key].map((memory) => (
                             <div
                               key={memory.id}
-                              className="border-l-4 rounded-xl p-5 bg-white/60 backdrop-blur-sm border-green-400 hover:border-green-600 hover:shadow-2xl hover:shadow-green-400/30 transition-all duration-300 hover:scale-105 hover:-translate-y-2 group cursor-pointer"
+                              className="border-l-4 rounded-xl p-5 bg-white/60 backdrop-blur-sm border-purple-400 hover:border-purple-600 hover:shadow-2xl hover:shadow-purple-400/30 transition-all duration-300 hover:scale-105 hover:-translate-y-2 group cursor-pointer"
                             >
                               <div className="flex justify-between items-start mb-2 gap-2">
-                                <h4 className="font-bold text-gray-900 group-hover:text-green-700 transition-colors line-clamp-2">{memory.title}</h4>
+                                <h4 className="font-bold text-gray-900 group-hover:text-purple-700 transition-colors line-clamp-2">{memory.title}</h4>
                                 {memory.priority && (
                                   <span className={`text-xs font-bold px-3 py-1 rounded-full flex-shrink-0 ${
                                     memory.priority === 'high' ? 'bg-red-100 text-red-700 border border-red-300' :
@@ -619,7 +619,7 @@ export default function TodayPage() {
                               <p className="text-gray-700 mb-3 group-hover:text-gray-900 transition-colors line-clamp-3">{memory.content}</p>
                               <div className="flex flex-wrap gap-2">
                                 {memory.tags?.map((tag) => (
-                                  <span key={tag} className="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full border border-green-300 hover:bg-green-200 transition-all">
+                                  <span key={tag} className="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full border border-purple-300 hover:bg-purple-200 transition-all">
                                     {tag}
                                   </span>
                                 ))}

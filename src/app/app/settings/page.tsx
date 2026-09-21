@@ -87,19 +87,19 @@ export default function SettingsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white flex items-center justify-center">
         <p className="text-gray-600">Loading settings...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
       {/* Navigation */}
-      <nav className="bg-gradient-to-r from-green-600 to-teal-600 text-white mb-6 sm:mb-8 p-3 sm:p-4 rounded-xl shadow-lg">
+      <nav className="bg-gradient-to-r from-purple-600 to-purple-700 text-white mb-6 sm:mb-8 p-3 sm:p-4 rounded-xl shadow-lg">
         <div className="max-w-4xl mx-auto flex justify-between items-center gap-4">
           <h1 className="text-lg sm:text-2xl font-bold truncate">Recall AI</h1>
-          <a href="/app/today" className="text-white text-xs sm:text-sm hover:text-green-100 font-semibold px-2 sm:px-4 py-2 rounded-lg hover:bg-white/20 whitespace-nowrap">
+          <a href="/app/today" className="text-white text-xs sm:text-sm hover:text-purple-100 font-semibold px-2 sm:px-4 py-2 rounded-lg hover:bg-white/20 whitespace-nowrap">
             ← Back
           </a>
         </div>
@@ -132,7 +132,7 @@ export default function SettingsPage() {
                       type="checkbox"
                       checked={settings.email_daily_brief}
                       onChange={(e) => handleChange('email_daily_brief', e.target.checked)}
-                      className="w-5 h-5 text-teal-600 rounded focus:ring-2 focus:ring-teal-500"
+                      className="w-5 h-5 text-purple-600 rounded focus:ring-2 focus:ring-purple-500"
                     />
                     <span className="text-gray-700 font-medium">Send daily brief email</span>
                   </label>
@@ -148,7 +148,7 @@ export default function SettingsPage() {
                             type="time"
                             value={settings.daily_brief_time}
                             onChange={(e) => handleChange('daily_brief_time', e.target.value)}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                           />
                           <p className="text-xs text-gray-500 mt-1">Set your preferred time in UTC</p>
                         </div>
@@ -160,7 +160,7 @@ export default function SettingsPage() {
                           <select
                             value={settings.daily_brief_frequency}
                             onChange={(e) => handleChange('daily_brief_frequency', e.target.value)}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                           >
                             <option value="daily">Daily</option>
                             <option value="weekdays">Weekdays only</option>
@@ -177,7 +177,7 @@ export default function SettingsPage() {
                             value={settings.timezone}
                             onChange={(e) => handleChange('timezone', e.target.value)}
                             placeholder="e.g., Asia/Kolkata"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                           />
                           <p className="text-xs text-gray-500 mt-1">For reference only (time above is UTC)</p>
                         </div>
@@ -200,7 +200,7 @@ export default function SettingsPage() {
                       type="checkbox"
                       checked={settings.quiet_hours_enabled}
                       onChange={(e) => handleChange('quiet_hours_enabled', e.target.checked)}
-                      className="w-5 h-5 text-teal-600 rounded focus:ring-2 focus:ring-teal-500"
+                      className="w-5 h-5 text-purple-600 rounded focus:ring-2 focus:ring-purple-500"
                     />
                     <span className="text-gray-700 font-medium">Don't send emails during quiet hours</span>
                   </label>
@@ -216,7 +216,7 @@ export default function SettingsPage() {
                             type="time"
                             value={settings.quiet_hours_start}
                             onChange={(e) => handleChange('quiet_hours_start', e.target.value)}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                           />
                         </div>
                         <div>
@@ -227,7 +227,7 @@ export default function SettingsPage() {
                             type="time"
                             value={settings.quiet_hours_end}
                             onChange={(e) => handleChange('quiet_hours_end', e.target.value)}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                           />
                         </div>
                       </div>
@@ -248,7 +248,7 @@ export default function SettingsPage() {
                     type="checkbox"
                     checked={settings.notifications_enabled}
                     onChange={(e) => handleChange('notifications_enabled', e.target.checked)}
-                    className="w-5 h-5 text-teal-600 rounded focus:ring-2 focus:ring-teal-500"
+                    className="w-5 h-5 text-purple-600 rounded focus:ring-2 focus:ring-purple-500"
                   />
                   <span className="text-gray-700 font-medium">Enable in-app notifications</span>
                 </label>
@@ -256,7 +256,7 @@ export default function SettingsPage() {
 
               {/* Save Button */}
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <button onClick={handleSave} disabled={saving} className="flex-1 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-bold rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base flex items-center justify-center gap-2">
+                <button onClick={handleSave} disabled={saving} className="flex-1 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base flex items-center justify-center gap-2">
                   {saving ? (
                     <>
                       <Save className="w-4 h-4 animate-spin" />

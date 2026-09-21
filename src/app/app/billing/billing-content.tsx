@@ -125,7 +125,7 @@ export default function BillingContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white flex items-center justify-center">
         <div className="text-gray-700">Loading billing information...</div>
       </div>
     );
@@ -134,7 +134,7 @@ export default function BillingContent() {
   const currentPlan = subscription?.plan || 'free';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 p-4 sm:p-6 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white p-4 sm:p-6 md:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header with Back Button */}
         <div className="mb-8 sm:mb-12 flex justify-between items-start gap-4">
@@ -142,7 +142,7 @@ export default function BillingContent() {
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 sm:mb-4">Billing & Plans</h1>
             <p className="text-xs sm:text-sm md:text-base text-gray-600">Manage your subscription and access premium features</p>
           </div>
-          <a href="/app/today" className="text-gray-700 hover:text-green-600 font-semibold text-sm sm:text-base px-4 py-2 rounded-lg hover:bg-green-100 transition-all whitespace-nowrap">
+          <a href="/app/today" className="text-gray-700 hover:text-purple-600 font-semibold text-sm sm:text-base px-4 py-2 rounded-lg hover:bg-purple-100 transition-all whitespace-nowrap">
             ← Back
           </a>
         </div>
@@ -161,7 +161,7 @@ export default function BillingContent() {
         )}
 
         {currentPlan !== 'free' && (
-          <div className="mb-12 p-6 bg-teal-100 border border-teal-300 rounded-lg">
+          <div className="mb-12 p-6 bg-purple-100 border border-purple-300 rounded-lg">
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 capitalize">Current Plan: {currentPlan}</h2>
@@ -172,7 +172,7 @@ export default function BillingContent() {
                 </p>
               </div>
               <div className="text-right">
-                <div className="text-3xl font-bold text-teal-600">
+                <div className="text-3xl font-bold text-purple-600">
                   {subscription?.currency === 'inr' ? '₹' : '$'}
                   {subscription?.currency === 'inr' ? '299' : '9'}
                 </div>
@@ -185,8 +185,8 @@ export default function BillingContent() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           <div className={`p-8 rounded-lg border-2 transition-all ${
             currentPlan === 'free'
-              ? 'border-teal-500 bg-teal-50'
-              : 'border-gray-200 bg-white hover:border-teal-300'
+              ? 'border-purple-500 bg-purple-50'
+              : 'border-gray-200 bg-white hover:border-purple-300'
           }`}>
             <h3 className="text-2xl font-bold text-gray-900 mb-2">Free</h3>
             <div className="text-3xl font-bold text-gray-700 mb-6">$0/mo</div>
@@ -194,7 +194,7 @@ export default function BillingContent() {
             <ul className="space-y-3 mb-8">
               {Object.entries(PLAN_FEATURES.free).map(([key, value]) => (
                 <li key={key} className="text-gray-700 flex items-start gap-3">
-                  <Check className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" />
+                  <Check className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
                   <div>
                     <div className="font-semibold text-gray-900 capitalize">{key.replace(/([A-Z])/g, ' $1')}</div>
                     <div className="text-sm text-gray-600">{value}</div>
@@ -212,15 +212,15 @@ export default function BillingContent() {
 
           <div className={`p-8 rounded-lg border-2 transition-all ${
             currentPlan === 'pro'
-              ? 'border-teal-500 bg-teal-50'
-              : 'border-gray-200 bg-white hover:border-teal-300'
+              ? 'border-purple-500 bg-purple-50'
+              : 'border-gray-200 bg-white hover:border-purple-300'
           } relative`}>
-            <div className="absolute -top-4 right-4 bg-teal-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+            <div className="absolute -top-4 right-4 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
               Popular
             </div>
 
             <h3 className="text-2xl font-bold text-gray-900 mb-2">Pro</h3>
-            <div className="text-3xl font-bold text-teal-600 mb-6">
+            <div className="text-3xl font-bold text-purple-600 mb-6">
               {country === 'IN' ? '₹299' : '$9'}
               <span className="text-lg text-gray-600">/mo</span>
             </div>
@@ -228,7 +228,7 @@ export default function BillingContent() {
             <ul className="space-y-3 mb-8">
               {Object.entries(PLAN_FEATURES.pro).map(([key, value]) => (
                 <li key={key} className="text-gray-700 flex items-start gap-3">
-                  <Check className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" />
+                  <Check className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
                   <div>
                     <div className="font-semibold text-gray-900 capitalize">{key.replace(/([A-Z])/g, ' $1')}</div>
                     <div className="text-sm text-gray-600">{value}</div>
@@ -245,7 +245,7 @@ export default function BillingContent() {
               <button
                 onClick={() => upgradeToProOrEnterprise('pro')}
                 disabled={paymentLoading}
-                className="w-full py-2 px-4 bg-gradient-to-r from-teal-600 to-green-600 text-white rounded-lg font-semibold hover:from-teal-700 hover:to-green-700 disabled:opacity-50"
+                className="w-full py-2 px-4 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-purple-800 disabled:opacity-50"
               >
                 {paymentLoading ? 'Processing...' : 'Upgrade to Pro'}
               </button>
@@ -254,8 +254,8 @@ export default function BillingContent() {
 
           <div className={`p-8 rounded-lg border-2 transition-all ${
             currentPlan === 'enterprise'
-              ? 'border-teal-500 bg-teal-50'
-              : 'border-gray-200 bg-white hover:border-teal-300'
+              ? 'border-purple-500 bg-purple-50'
+              : 'border-gray-200 bg-white hover:border-purple-300'
           }`}>
             <h3 className="text-2xl font-bold text-gray-900 mb-2">Enterprise</h3>
             <div className="text-3xl font-bold text-gray-700 mb-6">
@@ -266,7 +266,7 @@ export default function BillingContent() {
             <ul className="space-y-3 mb-8">
               {Object.entries(PLAN_FEATURES.enterprise).map(([key, value]) => (
                 <li key={key} className="text-gray-700 flex items-start gap-3">
-                  <Check className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" />
+                  <Check className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
                   <div>
                     <div className="font-semibold text-gray-900 capitalize">{key.replace(/([A-Z])/g, ' $1')}</div>
                     <div className="text-sm text-gray-600">{value}</div>
@@ -283,7 +283,7 @@ export default function BillingContent() {
               <button
                 onClick={() => upgradeToProOrEnterprise('enterprise')}
                 disabled={paymentLoading}
-                className="w-full py-2 px-4 bg-gradient-to-r from-teal-600 to-green-600 text-white rounded-lg font-semibold hover:from-teal-700 hover:to-green-700 disabled:opacity-50"
+                className="w-full py-2 px-4 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-purple-800 disabled:opacity-50"
               >
                 {paymentLoading ? 'Processing...' : 'Upgrade to Enterprise'}
               </button>

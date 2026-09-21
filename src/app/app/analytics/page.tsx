@@ -62,7 +62,7 @@ export default function AnalyticsPage() {
 
   if (loading || !analytics) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white flex items-center justify-center">
         <p className="text-gray-600">Loading analytics...</p>
       </div>
     );
@@ -72,12 +72,12 @@ export default function AnalyticsPage() {
   const sourceTotal = Object.values(analytics.sources).reduce((a, b) => a + b, 0);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
       {/* Navigation */}
-      <nav className="bg-gradient-to-r from-green-600 to-teal-600 text-white mb-6 sm:mb-8 p-3 sm:p-4 rounded-xl shadow-lg">
+      <nav className="bg-gradient-to-r from-purple-600 to-purple-700 text-white mb-6 sm:mb-8 p-3 sm:p-4 rounded-xl shadow-lg">
         <div className="max-w-7xl mx-auto flex justify-between items-center gap-4">
           <h1 className="text-lg sm:text-2xl font-bold truncate">Recall AI</h1>
-          <a href="/app/today" className="text-white text-xs sm:text-sm hover:text-green-100 font-semibold px-2 sm:px-4 py-2 rounded-lg hover:bg-white/20 whitespace-nowrap">
+          <a href="/app/today" className="text-white text-xs sm:text-sm hover:text-purple-100 font-semibold px-2 sm:px-4 py-2 rounded-lg hover:bg-white/20 whitespace-nowrap">
             ← Back
           </a>
         </div>
@@ -216,7 +216,7 @@ export default function AnalyticsPage() {
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
                       <div
-                        className="bg-teal-500 h-2 rounded-full"
+                        className="bg-purple-500 h-2 rounded-full"
                         style={{
                           width: `${sourceTotal > 0 ? (count / sourceTotal) * 100 : 0}%`,
                         }}
@@ -261,7 +261,7 @@ export default function AnalyticsPage() {
               const height = (count / maxCount) * 100;
               return (
                 <div key={date} className="flex flex-col items-center flex-1">
-                  <div className="w-full bg-gradient-to-t from-teal-500 to-teal-400 rounded-t" style={{ height: `${height}%`, minHeight: '4px' }} />
+                  <div className="w-full bg-gradient-to-t from-purple-500 to-purple-400 rounded-t" style={{ height: `${height}%`, minHeight: '4px' }} />
                   <p className="text-xs text-gray-600 mt-2">{date}</p>
                   <p className="text-xs font-semibold text-gray-900">{count}</p>
                 </div>
