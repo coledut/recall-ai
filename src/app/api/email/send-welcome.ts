@@ -1,4 +1,3 @@
-import { sendWelcomeEmail } from '@/lib/email-service';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
@@ -12,6 +11,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const { sendWelcomeEmail } = await import('@/lib/email-service');
     const result = await sendWelcomeEmail(email, name);
 
     if (!result.success) {

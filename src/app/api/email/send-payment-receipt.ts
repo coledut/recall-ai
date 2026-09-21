@@ -1,4 +1,3 @@
-import { sendPaymentReceiptEmail } from '@/lib/email-service';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
@@ -26,6 +25,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const { sendPaymentReceiptEmail } = await import('@/lib/email-service');
     const result = await sendPaymentReceiptEmail(
       email,
       name,
