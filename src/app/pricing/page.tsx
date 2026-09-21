@@ -62,19 +62,19 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200">
+      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-purple-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <Link href="/" className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
-            Recall AI
+          <Link href="/" className="text-xl sm:text-2xl font-bold text-purple-600">
+            iRecall
           </Link>
           <div className="hidden sm:flex gap-6 items-center">
             <Link href="/" className="text-sm text-gray-600 hover:text-gray-900">Home</Link>
             <Link href="/pricing" className="text-sm text-gray-900 font-semibold">Pricing</Link>
-            <Link href="/auth/login" className="px-6 py-2 bg-gradient-to-r from-green-600 to-teal-600 text-white text-sm rounded-lg font-semibold hover:shadow-lg transition-all">
+            <Link href="/auth/login" className="px-6 py-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white text-sm rounded-lg font-semibold hover:shadow-lg transition-all">
               Sign In
             </Link>
           </div>
-          <Link href="/auth/login" className="sm:hidden px-3 py-2 bg-gradient-to-r from-green-600 to-teal-600 text-white text-xs rounded-lg font-semibold">
+          <Link href="/auth/login" className="sm:hidden px-3 py-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white text-xs rounded-lg font-semibold">
             Sign In
           </Link>
         </div>
@@ -101,8 +101,8 @@ export default function PricingPage() {
                 key={plan.name}
                 className={`relative rounded-2xl p-6 sm:p-8 transition-all duration-300 flex flex-col h-full ${
                   plan.highlighted
-                    ? 'bg-gradient-to-br from-green-600 to-teal-600 text-white shadow-2xl scale-100 md:scale-105'
-                    : 'bg-white border-2 border-gray-200 hover:border-green-600'
+                    ? 'bg-gradient-to-br from-purple-600 to-purple-700 text-white shadow-2xl scale-100 md:scale-105'
+                    : 'bg-white border-2 border-gray-200 hover:border-purple-600'
                 }`}
               >
                 {plan.highlighted && (
@@ -118,11 +118,7 @@ export default function PricingPage() {
                     <div className={`w-14 h-14 rounded-full flex items-center justify-center mb-4 shadow-lg ${
                       plan.highlighted
                         ? 'bg-white/20'
-                        : plan.name === 'Pro'
-                          ? 'bg-gradient-to-br from-green-400 to-teal-500'
-                          : plan.name === 'Enterprise'
-                          ? 'bg-gradient-to-br from-purple-400 to-pink-500'
-                          : 'bg-gradient-to-br from-blue-400 to-indigo-500'
+                        : 'bg-gradient-to-br from-purple-400 to-purple-500'
                     }`}>
                       <plan.icon className={`w-8 h-8 ${plan.highlighted ? 'text-white' : 'text-white'}`} />
                     </div>
@@ -130,7 +126,7 @@ export default function PricingPage() {
                   <h3 className={`text-xl sm:text-2xl font-bold mb-2 ${plan.highlighted ? 'text-white' : 'text-gray-900'}`}>
                     {plan.name}
                   </h3>
-                  <p className={`text-sm ${plan.highlighted ? 'text-green-50' : 'text-gray-600'}`}>
+                  <p className={`text-sm ${plan.highlighted ? 'text-purple-50' : 'text-gray-600'}`}>
                     {plan.description}
                   </p>
                 </div>
@@ -140,7 +136,7 @@ export default function PricingPage() {
                     {plan.price}
                   </span>
                   {plan.period && (
-                    <span className={`${plan.highlighted ? 'text-green-50' : 'text-gray-600'}`}>
+                    <span className={`${plan.highlighted ? 'text-purple-50' : 'text-gray-600'}`}>
                       {plan.period}
                     </span>
                   )}
@@ -150,8 +146,8 @@ export default function PricingPage() {
                   <div className="space-y-3 sm:space-y-4">
                     {plan.features.map((feature, idx) => (
                       <div key={idx} className="flex items-start gap-3">
-                        <Check className={`w-5 h-5 flex-shrink-0 mt-0.5 ${plan.highlighted ? 'text-green-200' : 'text-green-600'}`} />
-                        <span className={`text-sm sm:text-base ${plan.highlighted ? 'text-green-50' : 'text-gray-700'}`}>
+                        <Check className={`w-5 h-5 flex-shrink-0 mt-0.5 ${plan.highlighted ? 'text-purple-200' : 'text-purple-600'}`} />
+                        <span className={`text-sm sm:text-base ${plan.highlighted ? 'text-purple-50' : 'text-gray-700'}`}>
                           {feature}
                         </span>
                       </div>
@@ -163,8 +159,8 @@ export default function PricingPage() {
                   href={plan.href as any}
                   className={`w-full py-3 sm:py-4 px-4 sm:px-6 rounded-xl font-bold text-center mt-8 transition-all duration-200 ${
                     plan.highlighted
-                      ? 'bg-white text-green-600 hover:shadow-lg hover:scale-105'
-                      : 'bg-gradient-to-r from-green-600 to-teal-600 text-white hover:shadow-lg'
+                      ? 'bg-white text-purple-600 hover:shadow-lg hover:scale-105'
+                      : 'bg-gradient-to-r from-purple-600 to-purple-700 text-white hover:shadow-lg'
                   }`}
                 >
                   {plan.cta}
@@ -206,7 +202,7 @@ export default function PricingPage() {
           </h2>
           <Link
             href="/auth/signup"
-            className="inline-block px-8 sm:px-12 py-4 bg-gradient-to-r from-green-600 to-teal-600 text-white text-base sm:text-lg rounded-xl font-bold hover:shadow-2xl transition-all hover:scale-105"
+            className="inline-block px-8 sm:px-12 py-4 bg-gradient-to-r from-purple-600 to-purple-700 text-white text-base sm:text-lg rounded-xl font-bold hover:shadow-2xl transition-all hover:scale-105"
           >
             Start Free Today
           </Link>
