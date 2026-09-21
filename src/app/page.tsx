@@ -73,8 +73,8 @@ export default function LandingPage() {
                 <div className="w-9 h-9 sm:w-11 sm:h-11 bg-gradient-to-br from-purple-600 to-purple-700 rounded-lg flex items-center justify-center shadow-lg hover-lift">
                   <span className="text-white font-bold text-base sm:text-lg">i</span>
                 </div>
-                <div className="hidden xs:block">
-                  <div className="text-sm sm:text-lg font-bold gradient-primary">iRecall.ai</div>
+                <div>
+                  <div className="text-sm sm:text-lg font-bold text-purple-600">iRecall</div>
                 </div>
               </div>
             </Link>
