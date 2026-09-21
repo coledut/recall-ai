@@ -29,6 +29,7 @@ export default function DashboardPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [notifications, setNotifications] = useState<any>(null);
   const [sessionToken, setSessionToken] = useState('');
+  const [selectedCapture, setSelectedCapture] = useState<string | null>(null);
 
   useEffect(() => {
     loadData();
@@ -145,29 +146,29 @@ export default function DashboardPage() {
             <div className="card-premium bg-gradient-to-br from-purple-50 to-white p-4 sm:p-6 rounded-lg sm:rounded-xl border-2 border-purple-200 mb-6 reveal-up">
               <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-4">Capture from:</h3>
               <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-2 gap-2 sm:gap-3">
-                <button className="btn-premium p-2 sm:p-3 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-1 text-center">
-                  <Mic className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
-                  <span className="text-xs font-semibold text-gray-900">Voice</span>
+                <button onClick={() => setSelectedCapture('voice')} className={`btn-premium p-2 sm:p-3 rounded-lg transition-all flex flex-col items-center gap-1 text-center border-2 hover-lift cursor-pointer ${selectedCapture === 'voice' ? 'bg-purple-500 border-purple-600 text-white' : 'bg-white border-purple-200 hover:border-purple-400 hover:bg-purple-50'}`}>
+                  <Mic className={`w-4 h-4 sm:w-5 sm:h-5 ${selectedCapture === 'voice' ? 'text-white' : 'text-purple-600'}`} />
+                  <span className={`text-xs font-semibold ${selectedCapture === 'voice' ? 'text-white' : 'text-gray-900'}`}>Voice</span>
                 </button>
-                <button className="btn-premium p-2 sm:p-3 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-1 text-center">
-                  <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
-                  <span className="text-xs font-semibold text-gray-900">Email</span>
+                <button onClick={() => setSelectedCapture('email')} className={`btn-premium p-2 sm:p-3 rounded-lg transition-all flex flex-col items-center gap-1 text-center border-2 hover-lift cursor-pointer ${selectedCapture === 'email' ? 'bg-purple-500 border-purple-600 text-white' : 'bg-white border-purple-200 hover:border-purple-400 hover:bg-purple-50'}`}>
+                  <Mail className={`w-4 h-4 sm:w-5 sm:h-5 ${selectedCapture === 'email' ? 'text-white' : 'text-purple-600'}`} />
+                  <span className={`text-xs font-semibold ${selectedCapture === 'email' ? 'text-white' : 'text-gray-900'}`}>Email</span>
                 </button>
-                <button className="btn-premium p-2 sm:p-3 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-1 text-center">
-                  <Slack className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
-                  <span className="text-xs font-semibold text-gray-900">Slack</span>
+                <button onClick={() => setSelectedCapture('slack')} className={`btn-premium p-2 sm:p-3 rounded-lg transition-all flex flex-col items-center gap-1 text-center border-2 hover-lift cursor-pointer ${selectedCapture === 'slack' ? 'bg-purple-500 border-purple-600 text-white' : 'bg-white border-purple-200 hover:border-purple-400 hover:bg-purple-50'}`}>
+                  <Slack className={`w-4 h-4 sm:w-5 sm:h-5 ${selectedCapture === 'slack' ? 'text-white' : 'text-purple-600'}`} />
+                  <span className={`text-xs font-semibold ${selectedCapture === 'slack' ? 'text-white' : 'text-gray-900'}`}>Slack</span>
                 </button>
-                <button className="btn-premium p-2 sm:p-3 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-1 text-center">
-                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
-                  <span className="text-xs font-semibold text-gray-900">Calendar</span>
+                <button onClick={() => setSelectedCapture('calendar')} className={`btn-premium p-2 sm:p-3 rounded-lg transition-all flex flex-col items-center gap-1 text-center border-2 hover-lift cursor-pointer ${selectedCapture === 'calendar' ? 'bg-purple-500 border-purple-600 text-white' : 'bg-white border-purple-200 hover:border-purple-400 hover:bg-purple-50'}`}>
+                  <Calendar className={`w-4 h-4 sm:w-5 sm:h-5 ${selectedCapture === 'calendar' ? 'text-white' : 'text-purple-600'}`} />
+                  <span className={`text-xs font-semibold ${selectedCapture === 'calendar' ? 'text-white' : 'text-gray-900'}`}>Calendar</span>
                 </button>
-                <button className="btn-premium p-2 sm:p-3 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-1 text-center">
-                  <Upload className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
-                  <span className="text-xs font-semibold text-gray-900">Files</span>
+                <button onClick={() => setSelectedCapture('files')} className={`btn-premium p-2 sm:p-3 rounded-lg transition-all flex flex-col items-center gap-1 text-center border-2 hover-lift cursor-pointer ${selectedCapture === 'files' ? 'bg-purple-500 border-purple-600 text-white' : 'bg-white border-purple-200 hover:border-purple-400 hover:bg-purple-50'}`}>
+                  <Upload className={`w-4 h-4 sm:w-5 sm:h-5 ${selectedCapture === 'files' ? 'text-white' : 'text-purple-600'}`} />
+                  <span className={`text-xs font-semibold ${selectedCapture === 'files' ? 'text-white' : 'text-gray-900'}`}>Files</span>
                 </button>
-                <button className="btn-premium p-2 sm:p-3 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all flex flex-col items-center gap-1 text-center">
-                  <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
-                  <span className="text-xs font-semibold text-gray-900">Manual</span>
+                <button onClick={() => setSelectedCapture('manual')} className={`btn-premium p-2 sm:p-3 rounded-lg transition-all flex flex-col items-center gap-1 text-center border-2 hover-lift cursor-pointer ${selectedCapture === 'manual' ? 'bg-purple-500 border-purple-600 text-white' : 'bg-white border-purple-200 hover:border-purple-400 hover:bg-purple-50'}`}>
+                  <FileText className={`w-4 h-4 sm:w-5 sm:h-5 ${selectedCapture === 'manual' ? 'text-white' : 'text-purple-600'}`} />
+                  <span className={`text-xs font-semibold ${selectedCapture === 'manual' ? 'text-white' : 'text-gray-900'}`}>Manual</span>
                 </button>
               </div>
             </div>
@@ -193,9 +194,9 @@ export default function DashboardPage() {
                 <button
                   type="submit"
                   disabled={extracting || !content.trim()}
-                  className="btn-premium w-full py-2.5 sm:py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold text-sm rounded-lg hover-lift disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="btn-premium w-full py-3 sm:py-4 bg-gradient-to-r from-purple-700 to-purple-900 text-white font-bold text-base sm:text-lg rounded-lg hover-lift disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:shadow-purple-500/40 border-2 border-purple-600"
                 >
-                  <Send className="w-4 h-4" />
+                  <Send className="w-5 h-5" />
                   {extracting ? 'Capturing...' : 'Capture & Extract'}
                 </button>
               </form>
