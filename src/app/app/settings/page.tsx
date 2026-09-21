@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Mail, Moon, Bell, Save, RotateCcw, Check, X } from 'lucide-react';
+import { Mail, Moon, Bell, Save, RotateCcw, Check } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import PremiumNav from '@/app/components/PremiumNav';
 
 interface Settings {
   email_daily_brief: boolean;
@@ -68,12 +69,9 @@ export default function SettingsPage() {
       if (response.ok) {
         setMessage('Settings saved successfully!');
         setTimeout(() => setMessage(''), 3000);
-      } else {
-        setMessage('Failed to save settings');
       }
     } catch (error) {
       console.error('Error saving settings:', error);
-      setMessage('Error saving settings');
     } finally {
       setSaving(false);
     }
@@ -87,218 +85,160 @@ export default function SettingsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white flex items-center justify-center">
+        <PremiumNav currentPage="settings" />
         <p className="text-gray-600">Loading settings...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
-      {/* Navigation */}
-      <nav className="bg-gradient-to-r from-purple-600 to-purple-700 text-white mb-6 sm:mb-8 p-3 sm:p-4 rounded-xl shadow-lg">
-        <div className="max-w-4xl mx-auto flex justify-between items-center gap-4">
-          <h1 className="text-lg sm:text-2xl font-bold truncate">Recall AI</h1>
-          <a href="/app/today" className="text-white text-xs sm:text-sm hover:text-purple-100 font-semibold px-2 sm:px-4 py-2 rounded-lg hover:bg-white/20 whitespace-nowrap">
-            ← Back
-          </a>
+    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
+      <PremiumNav currentPage="settings" />
+
+      <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 lg:py-12">
+        {/* Header */}
+        <div className="mb-8 reveal-up">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">Preferences</h1>
+          <p className="text-xs sm:text-sm md:text-base text-gray-600">Customize how you receive updates and notifications</p>
         </div>
-      </nav>
 
-      <div className="max-w-2xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Preferences</h2>
-          <p className="text-xs sm:text-sm md:text-base text-gray-600 mb-6 sm:mb-8">Customize how you receive your daily brief and notifications</p>
+        {/* Message */}
+        {message && (
+          <div className="mb-6 p-3 sm:p-4 bg-green-100 border-2 border-green-400 rounded-lg text-green-800 flex items-center gap-2 text-xs sm:text-sm">
+            <Check className="w-4 h-4 flex-shrink-0" />
+            {message}
+          </div>
+        )}
 
-          {message && (
-            <div className="mb-6 p-4 bg-green-100 border border-green-400 rounded-lg text-green-800 flex items-center gap-2">
-              <Check className="w-5 h-5 flex-shrink-0" />
-              <span>{message}</span>
-            </div>
-          )}
+        {settings && (
+          <div className="card-premium bg-white rounded-lg sm:rounded-xl border-2 border-purple-200 p-4 sm:p-6 space-y-6 sm:space-y-8 reveal-up">
+            {/* Daily Brief */}
+            <div className="border-b border-purple-200 pb-6">
+              <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <Mail className="w-5 h-5 text-purple-600" />
+                Daily Brief Email
+              </h3>
 
-          {settings && (
-            <div className="space-y-8">
-              {/* Daily Brief Section */}
-              <div className="border-b pb-8">
-                <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                  <Mail className="w-6 h-6 text-red-500" />
-                  Daily Brief Email
-                </h3>
+              <label className="flex items-center gap-3 cursor-pointer mb-4">
+                <input
+                  type="checkbox"
+                  checked={settings.email_daily_brief}
+                  onChange={(e) => handleChange('email_daily_brief', e.target.checked)}
+                  className="w-5 h-5 accent-purple-600 cursor-pointer"
+                />
+                <span className="text-sm text-gray-700 font-medium">Send daily brief email</span>
+              </label>
 
-                <div className="space-y-4">
-                  <label className="flex items-center gap-3 cursor-pointer">
+              {settings.email_daily_brief && (
+                <div className="ml-8 space-y-4 bg-purple-50 p-4 rounded-lg">
+                  <div>
+                    <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Send at (UTC)</label>
                     <input
-                      type="checkbox"
-                      checked={settings.email_daily_brief}
-                      onChange={(e) => handleChange('email_daily_brief', e.target.checked)}
-                      className="w-5 h-5 text-purple-600 rounded focus:ring-2 focus:ring-purple-500"
+                      type="time"
+                      value={settings.daily_brief_time}
+                      onChange={(e) => handleChange('daily_brief_time', e.target.value)}
+                      className="input-premium w-full text-xs sm:text-sm"
                     />
-                    <span className="text-gray-700 font-medium">Send daily brief email</span>
-                  </label>
-
-                  {settings.email_daily_brief && (
-                    <>
-                      <div className="ml-8 space-y-4 bg-gray-50 p-4 rounded-lg">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Send at (UTC)
-                          </label>
-                          <input
-                            type="time"
-                            value={settings.daily_brief_time}
-                            onChange={(e) => handleChange('daily_brief_time', e.target.value)}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                          />
-                          <p className="text-xs text-gray-500 mt-1">Set your preferred time in UTC</p>
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Frequency
-                          </label>
-                          <select
-                            value={settings.daily_brief_frequency}
-                            onChange={(e) => handleChange('daily_brief_frequency', e.target.value)}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                          >
-                            <option value="daily">Daily</option>
-                            <option value="weekdays">Weekdays only</option>
-                            <option value="weekly">Weekly</option>
-                          </select>
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Timezone
-                          </label>
-                          <input
-                            type="text"
-                            value={settings.timezone}
-                            onChange={(e) => handleChange('timezone', e.target.value)}
-                            placeholder="e.g., Asia/Kolkata"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                          />
-                          <p className="text-xs text-gray-500 mt-1">For reference only (time above is UTC)</p>
-                        </div>
-                      </div>
-                    </>
-                  )}
+                  </div>
+                  <div>
+                    <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Frequency</label>
+                    <select
+                      value={settings.daily_brief_frequency}
+                      onChange={(e) => handleChange('daily_brief_frequency', e.target.value)}
+                      className="input-premium w-full text-xs sm:text-sm"
+                    >
+                      <option value="daily">Daily</option>
+                      <option value="weekdays">Weekdays only</option>
+                      <option value="weekly">Weekly</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
+              )}
+            </div>
 
-              {/* Quiet Hours Section */}
-              <div className="border-b pb-8">
-                <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                  <Moon className="w-6 h-6 text-purple-500" />
-                  Quiet Hours
-                </h3>
+            {/* Quiet Hours */}
+            <div className="border-b border-purple-200 pb-6">
+              <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <Moon className="w-5 h-5 text-purple-600" />
+                Quiet Hours
+              </h3>
 
-                <div className="space-y-4">
-                  <label className="flex items-center gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={settings.quiet_hours_enabled}
-                      onChange={(e) => handleChange('quiet_hours_enabled', e.target.checked)}
-                      className="w-5 h-5 text-purple-600 rounded focus:ring-2 focus:ring-purple-500"
-                    />
-                    <span className="text-gray-700 font-medium">Don't send emails during quiet hours</span>
-                  </label>
+              <label className="flex items-center gap-3 cursor-pointer mb-4">
+                <input
+                  type="checkbox"
+                  checked={settings.quiet_hours_enabled}
+                  onChange={(e) => handleChange('quiet_hours_enabled', e.target.checked)}
+                  className="w-5 h-5 accent-purple-600 cursor-pointer"
+                />
+                <span className="text-sm text-gray-700 font-medium">Don't send emails during quiet hours</span>
+              </label>
 
-                  {settings.quiet_hours_enabled && (
-                    <div className="ml-6 sm:ml-8 space-y-3 sm:space-y-4 bg-gray-50 p-3 sm:p-4 rounded-lg">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Start time (UTC)
-                          </label>
-                          <input
-                            type="time"
-                            value={settings.quiet_hours_start}
-                            onChange={(e) => handleChange('quiet_hours_start', e.target.value)}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            End time (UTC)
-                          </label>
-                          <input
-                            type="time"
-                            value={settings.quiet_hours_end}
-                            onChange={(e) => handleChange('quiet_hours_end', e.target.value)}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                          />
-                        </div>
-                      </div>
+              {settings.quiet_hours_enabled && (
+                <div className="ml-8 space-y-3 bg-purple-50 p-4 rounded-lg">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Start time (UTC)</label>
+                      <input
+                        type="time"
+                        value={settings.quiet_hours_start}
+                        onChange={(e) => handleChange('quiet_hours_start', e.target.value)}
+                        className="input-premium w-full text-xs sm:text-sm"
+                      />
                     </div>
-                  )}
+                    <div>
+                      <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">End time (UTC)</label>
+                      <input
+                        type="time"
+                        value={settings.quiet_hours_end}
+                        onChange={(e) => handleChange('quiet_hours_end', e.target.value)}
+                        className="input-premium w-full text-xs sm:text-sm"
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
-
-              {/* Notifications Section */}
-              <div className="pb-8">
-                <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                  <Bell className="w-6 h-6 text-orange-500" />
-                  Notifications
-                </h3>
-
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={settings.notifications_enabled}
-                    onChange={(e) => handleChange('notifications_enabled', e.target.checked)}
-                    className="w-5 h-5 text-purple-600 rounded focus:ring-2 focus:ring-purple-500"
-                  />
-                  <span className="text-gray-700 font-medium">Enable in-app notifications</span>
-                </label>
-              </div>
-
-              {/* Save Button */}
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <button onClick={handleSave} disabled={saving} className="flex-1 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold rounded-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base flex items-center justify-center gap-2">
-                  {saving ? (
-                    <>
-                      <Save className="w-4 h-4 animate-spin" />
-                      Saving...
-                    </>
-                  ) : (
-                    <>
-                      <Save className="w-4 h-4" />
-                      Save Settings
-                    </>
-                  )}
-                </button>
-                <button onClick={() => loadSettings()} className="flex-1 py-3 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-all text-sm sm:text-base flex items-center justify-center gap-2">
-                  <RotateCcw className="w-4 h-4" />
-                  Reset
-                </button>
-              </div>
+              )}
             </div>
-          )}
-        </div>
 
-        {/* Cron Setup Instructions */}
-        <div className="mt-8 bg-blue-50 border border-blue-200 rounded-xl p-6">
-          <h3 className="text-lg font-bold text-blue-900 mb-3 flex items-center gap-2">
-            <Mail className="w-5 h-5" />
-            Setup Automated Email Scheduling
-          </h3>
-          <p className="text-blue-800 mb-4">
-            To enable automatic daily brief emails, set up a cron job to call this endpoint once per hour:
-          </p>
-          <code className="block bg-blue-100 p-3 rounded text-sm text-blue-900 mb-4 overflow-x-auto">
-            {process.env.NEXT_PUBLIC_VERCEL_URL
-              ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/cron/daily-brief?secret=[CRON_SECRET]`
-              : 'https://your-app.vercel.app/api/cron/daily-brief?secret=[CRON_SECRET]'
-            }
-          </code>
-          <p className="text-sm text-blue-700">
-            Use a free service like <strong>EasyCron.com</strong> or <strong>cron-job.org</strong> to schedule this call.
-            Remember to set the <code>CRON_SECRET</code> environment variable.
-          </p>
-        </div>
-      </div>
+            {/* Notifications */}
+            <div className="pb-6">
+              <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <Bell className="w-5 h-5 text-purple-600" />
+                Notifications
+              </h3>
+
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={settings.notifications_enabled}
+                  onChange={(e) => handleChange('notifications_enabled', e.target.checked)}
+                  className="w-5 h-5 accent-purple-600 cursor-pointer"
+                />
+                <span className="text-sm text-gray-700 font-medium">Enable in-app notifications</span>
+              </label>
+            </div>
+
+            {/* Save Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-purple-200">
+              <button
+                onClick={handleSave}
+                disabled={saving}
+                className="btn-premium px-6 py-2.5 sm:py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold rounded-lg hover-lift disabled:opacity-50 flex items-center justify-center gap-2 text-sm flex-1 sm:flex-none"
+              >
+                <Save className="w-4 h-4" />
+                {saving ? 'Saving...' : 'Save Settings'}
+              </button>
+              <button
+                onClick={() => loadSettings()}
+                className="btn-premium px-6 py-2.5 sm:py-3 bg-gray-100 text-gray-700 font-bold rounded-lg hover:bg-gray-200 transition-smooth flex items-center justify-center gap-2 text-sm flex-1 sm:flex-none"
+              >
+                <RotateCcw className="w-4 h-4" />
+                Reset
+              </button>
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   );
 }

@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Plus, X } from 'lucide-react';
+import { Plus, X, Users as UsersIcon } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import PremiumNav from '@/app/components/PremiumNav';
 
 interface Person {
   id: string;
@@ -85,51 +86,21 @@ export default function PeoplePage() {
     }
   };
 
-  const getRelationshipColor = (relationship: string) => {
-    const colors: Record<string, string> = {
-      mentor: 'bg-purple-100 text-purple-800',
-      colleague: 'bg-blue-100 text-blue-800',
-      lead: 'bg-green-100 text-green-800',
-      investor: 'bg-yellow-100 text-yellow-800',
-      friend: 'bg-pink-100 text-pink-800',
-      contact: 'bg-gray-100 text-gray-800',
-    };
-    return colors[relationship] || colors.contact;
-  };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const today = new Date();
-    const diffMs = today.getTime() - date.getTime();
-    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
-    if (diffDays === 0) return 'Today';
-    if (diffDays === 1) return 'Yesterday';
-    if (diffDays < 7) return `${diffDays} days ago`;
-    if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
-    return `${Math.floor(diffDays / 30)} months ago`;
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
-      {/* Navigation */}
-      <nav className="bg-gradient-to-r from-purple-600 to-purple-700 text-white mb-6 sm:mb-8 p-3 sm:p-4 rounded-xl shadow-lg">
-        <div className="max-w-7xl mx-auto flex justify-between items-center gap-4">
-          <h1 className="text-lg sm:text-2xl font-bold truncate">Recall AI</h1>
-          <a href="/app/today" className="text-white text-xs sm:text-sm hover:text-green-100 font-semibold px-2 sm:px-4 py-2 rounded-lg hover:bg-white/20 whitespace-nowrap">
-            ← Back
-          </a>
-        </div>
-      </nav>
+    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
+      <PremiumNav currentPage="people" />
 
-      <div className="max-w-7xl mx-auto">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 lg:py-12">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-6 sm:mb-8">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-8 reveal-up">
           <div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-1 sm:mb-2">People</h2>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">People</h1>
             <p className="text-xs sm:text-sm md:text-base text-gray-600">Track your relationships and follow-ups</p>
           </div>
-          <button onClick={() => setShowForm(!showForm)} className="px-4 sm:px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold text-sm sm:text-base rounded-xl hover:shadow-lg transition-all whitespace-nowrap flex items-center justify-center gap-2">
+          <button
+            onClick={() => setShowForm(!showForm)}
+            className="btn-premium px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold text-sm rounded-lg hover-lift w-full sm:w-auto flex items-center justify-center gap-2"
+          >
             {showForm ? (
               <>
                 <X className="w-4 h-4" />
@@ -144,17 +115,17 @@ export default function PeoplePage() {
           </button>
         </div>
 
-        {/* Add Person Form */}
+        {/* Add Form */}
         {showForm && (
-          <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-8 mb-6 sm:mb-8">
-            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Add New Person</h3>
+          <div className="card-premium bg-white p-4 sm:p-6 rounded-lg sm:rounded-xl border-2 border-purple-200 mb-8 reveal-up">
+            <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">Add New Person</h3>
             <form onSubmit={handleAddPerson} className="space-y-3 sm:space-y-4">
               <input
                 type="text"
                 placeholder="Name *"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                className="input-premium w-full text-xs sm:text-sm"
                 required
               />
               <input
@@ -162,37 +133,35 @@ export default function PeoplePage() {
                 placeholder="Email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                className="input-premium w-full text-xs sm:text-sm"
               />
               <input
                 type="text"
                 placeholder="Company"
                 value={formData.company}
                 onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                className="input-premium w-full text-xs sm:text-sm"
               />
               <input
                 type="text"
                 placeholder="Role"
                 value={formData.role}
                 onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                className="input-premium w-full text-xs sm:text-sm"
               />
               <select
                 value={formData.relationship}
                 onChange={(e) => setFormData({ ...formData, relationship: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                className="input-premium w-full text-xs sm:text-sm"
               >
                 <option value="contact">Contact</option>
                 <option value="colleague">Colleague</option>
                 <option value="mentor">Mentor</option>
                 <option value="friend">Friend</option>
-                <option value="lead">Lead</option>
-                <option value="investor">Investor</option>
               </select>
               <button
                 type="submit"
-                className="w-full py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold rounded-xl hover:shadow-lg transition-all"
+                className="btn-premium w-full py-2.5 sm:py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-bold rounded-lg hover-lift text-sm"
               >
                 Add Person
               </button>
@@ -200,76 +169,65 @@ export default function PeoplePage() {
           </div>
         )}
 
-        {/* Sorting */}
-        <div className="mb-6 flex gap-2 flex-wrap">
-          <button onClick={() => setSortBy('last_contact_date')} className={`px-3 sm:px-4 py-2 text-xs sm:text-sm rounded-lg font-semibold transition-all ${sortBy === 'last_contact_date' ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white' : 'bg-white text-gray-700 border border-gray-300'}`}>
-            Last Contact
-          </button>
-          <button onClick={() => setSortBy('interaction_count')} className={`px-3 sm:px-4 py-2 text-xs sm:text-sm rounded-lg font-semibold transition-all ${sortBy === 'interaction_count' ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white' : 'bg-white text-gray-700 border border-gray-300'}`}>
-            Frequency
-          </button>
-          <button onClick={() => setSortBy('name')} className={`px-3 sm:px-4 py-2 text-xs sm:text-sm rounded-lg font-semibold transition-all ${sortBy === 'name' ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white' : 'bg-white text-gray-700 border border-gray-300'}`}>
-            Name
-          </button>
+        {/* Sorting Buttons */}
+        <div className="flex gap-2 mb-6 flex-wrap reveal-up">
+          {[
+            { key: 'last_contact_date', label: 'Last Contact' },
+            { key: 'interaction_count', label: 'Frequency' },
+            { key: 'name', label: 'Name' },
+          ].map((btn) => (
+            <button
+              key={btn.key}
+              onClick={() => setSortBy(btn.key as any)}
+              className={`btn-premium px-3 sm:px-4 py-2 text-xs sm:text-sm rounded-lg font-semibold transition-smooth ${
+                sortBy === btn.key
+                  ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white'
+                  : 'bg-white text-gray-700 border-2 border-purple-200 hover:border-purple-400'
+              }`}
+            >
+              {btn.label}
+            </button>
+          ))}
         </div>
 
         {/* People Grid */}
         {loading ? (
-          <p className="text-center text-gray-600 py-12">Loading...</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="skeleton-loader h-40 sm:h-48 rounded-lg" />
+            ))}
+          </div>
         ) : people.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-600 mb-4 text-sm sm:text-base">No people tracked yet</p>
-            <p className="text-xs sm:text-sm text-gray-500">Add people manually or they'll be extracted from your memories</p>
+            <UsersIcon className="w-16 h-16 text-purple-200 mx-auto mb-4" />
+            <p className="text-sm sm:text-base text-gray-600">No people tracked yet</p>
+            <p className="text-xs sm:text-sm text-gray-500 mt-2">Add people manually or they'll be extracted from memories</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {people.map((person) => (
+            {people.map((person, idx) => (
               <div
                 key={person.id}
-                className="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all hover:-translate-y-1"
+                className="card-premium bg-white p-4 sm:p-6 rounded-lg sm:rounded-xl border-2 border-purple-200 hover-lift reveal-up"
+                style={{ animationDelay: `${idx * 0.05}s` }}
               >
-                {/* Header */}
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900">{person.name}</h3>
-                    {person.company && (
-                      <p className="text-sm text-gray-600">{person.company}</p>
-                    )}
-                  </div>
-                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getRelationshipColor(person.relationship)}`}>
-                    {person.relationship}
-                  </span>
+                <div className="mb-4">
+                  <h3 className="text-base sm:text-lg font-bold text-gray-900 line-clamp-1">{person.name}</h3>
+                  {person.company && <p className="text-xs sm:text-sm text-gray-600">{person.company}</p>}
                 </div>
-
-                {/* Details */}
-                <div className="space-y-2 mb-4">
-                  {person.role && (
-                    <p className="text-sm text-gray-700">
-                      <span className="font-semibold">Role:</span> {person.role}
-                    </p>
-                  )}
-                  {person.email && (
-                    <p className="text-sm text-gray-700">
-                      <span className="font-semibold">Email:</span> {person.email}
-                    </p>
-                  )}
-                  <p className="text-sm text-gray-700">
-                    <span className="font-semibold">Interactions:</span> {person.interaction_count}
-                  </p>
-                  <p className="text-sm text-gray-700">
-                    <span className="font-semibold">Last Contact:</span> {formatDate(person.last_contact_date)}
-                  </p>
+                <div className="space-y-2 text-xs sm:text-sm text-gray-700 mb-4">
+                  {person.role && <p><span className="font-semibold">Role:</span> {person.role}</p>}
+                  <p><span className="font-semibold">Interactions:</span> {person.interaction_count}</p>
+                  <p><span className="font-semibold">Last Contact:</span> {new Date(person.last_contact_date).toLocaleDateString()}</p>
                 </div>
-
-                {/* Stats */}
-                <div className="border-t pt-4">
-                  <p className="text-xs text-gray-500">Added {formatDate(person.created_at)}</p>
-                </div>
+                <span className="inline-block px-3 py-1 bg-purple-100 text-purple-700 text-xs font-semibold rounded-full">
+                  {person.relationship}
+                </span>
               </div>
             ))}
           </div>
         )}
-      </div>
+      </main>
     </div>
   );
 }
