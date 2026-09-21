@@ -11,7 +11,7 @@ interface NavProps {
 
 interface NavItem {
   name: string;
-  href: string;
+  href: any;
   key: string;
 }
 
