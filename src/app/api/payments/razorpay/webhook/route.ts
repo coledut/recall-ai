@@ -77,6 +77,26 @@ export async function POST(request: Request) {
             status: 'succeeded',
           })
           .eq('provider_id', payment.id);
+
+        // Send payment receipt email (lazy import to avoid build-time API key requirement)
+        try {
+          const { sendPaymentReceiptEmail } = await import('@/lib/email-service');
+          const { data: { user } } = await supabase.auth.admin.getUserById(userId);
+          if (user?.email) {
+            const amount = Math.round(payment.amount / 100); // Convert paise to rupees
+            await sendPaymentReceiptEmail(
+              user.email,
+              user.user_metadata?.full_name || 'User',
+              plan as 'pro' | 'enterprise',
+              amount,
+              'inr',
+              'razorpay'
+            );
+          }
+        } catch (emailError) {
+          console.error('Failed to send payment receipt email:', emailError);
+          // Don't fail webhook if email fails
+        }
       }
     }
 

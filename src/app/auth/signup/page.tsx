@@ -33,6 +33,18 @@ export default function SignUpPage() {
       }
 
       if (data.session) {
+        // Send welcome email
+        try {
+          await fetch('/api/email/send-welcome', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, name: fullName }),
+          });
+        } catch (emailError) {
+          console.error('Welcome email failed:', emailError);
+          // Don't fail signup if email fails
+        }
+
         // Wait for session to be stored
         await new Promise(resolve => setTimeout(resolve, 500));
         window.location.href = '/app/today';

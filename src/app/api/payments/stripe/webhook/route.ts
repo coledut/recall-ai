@@ -58,6 +58,7 @@ export async function POST(request: Request) {
           .single();
 
         if (customer) {
+          // Record payment
           await supabase
             .from('payment_history')
             .insert([{
@@ -70,6 +71,33 @@ export async function POST(request: Request) {
               payment_method: 'card',
               description: `Invoice for ${invoice.lines.data[0]?.description}`,
             }]);
+
+          // Get user email and plan for receipt email (lazy import to avoid build-time API key requirement)
+          try {
+            const { sendPaymentReceiptEmail } = await import('@/lib/email-service');
+            const { data: { user } } = await supabase.auth.admin.getUserById(customer.user_id);
+            const { data: subscription } = await supabase
+              .from('subscriptions')
+              .select('plan')
+              .eq('user_id', customer.user_id)
+              .single();
+
+            if (user?.email && subscription?.plan) {
+              const amount = Math.round(invoice.amount_paid / 100);
+              const plan = subscription.plan as 'pro' | 'enterprise';
+              await sendPaymentReceiptEmail(
+                user.email,
+                user.user_metadata?.full_name || 'User',
+                plan,
+                amount,
+                'usd',
+                'stripe'
+              );
+            }
+          } catch (emailError) {
+            console.error('Failed to send payment receipt email:', emailError);
+            // Don't fail webhook if email fails
+          }
         }
       }
     }
