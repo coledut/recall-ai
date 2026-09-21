@@ -9,10 +9,16 @@ interface NavProps {
   currentPage?: string;
 }
 
+interface NavItem {
+  name: string;
+  href: string;
+  key: string;
+}
+
 export default function PremiumNav({ currentPage = 'today' }: NavProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navItems = [
+  const navItems: NavItem[] = [
     { name: 'Today', href: '/app/today', key: 'today' },
     { name: 'Ask', href: '/app/ask', key: 'ask' },
     { name: 'People', href: '/app/people', key: 'people' },
