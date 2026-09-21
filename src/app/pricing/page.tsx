@@ -10,14 +10,10 @@ const PRICING_PLANS = [
     description: 'Get started',
     icon: Target,
     features: [
-      { label: 'Memories', value: 'Unlimited' },
-      { label: 'API Calls', value: '100/month' },
-      { label: 'Team Members', value: '1' },
-      { label: 'File Upload', value: '10MB' },
-      { label: 'OCR', value: '✅' },
-      { label: 'Email Schedule', value: '❌' },
-      { label: 'Integrations', value: '❌' },
-      { label: 'Support', value: 'Community' },
+      'Up to 100 memories',
+      'Basic capture (text, email)',
+      'Search memories',
+      'Mobile app access',
     ],
     cta: 'Get Started',
     href: '/auth/signup',
@@ -29,14 +25,13 @@ const PRICING_PLANS = [
     description: 'For professionals',
     icon: Star,
     features: [
-      { label: 'Memories', value: 'Unlimited' },
-      { label: 'API Calls', value: '10,000/month' },
-      { label: 'Team Members', value: '10' },
-      { label: 'File Upload', value: '100MB' },
-      { label: 'OCR', value: '✅' },
-      { label: 'Email Schedule', value: '✅ Daily' },
-      { label: 'Integrations', value: '✅ Webhooks + Zapier' },
-      { label: 'Support', value: 'Email Support' },
+      'Unlimited memories',
+      'All capture methods (email, calendar, Slack, voice)',
+      'AI-powered extraction',
+      'Daily email briefs',
+      'People tracking',
+      'Advanced search',
+      'Priority support',
     ],
     cta: 'Start Free Trial',
     href: '/auth/signup',
@@ -49,14 +44,14 @@ const PRICING_PLANS = [
     description: 'For teams',
     icon: Crown,
     features: [
-      { label: 'Memories', value: 'Unlimited' },
-      { label: 'API Calls', value: 'Unlimited' },
-      { label: 'Team Members', value: 'Unlimited' },
-      { label: 'File Upload', value: 'Unlimited' },
-      { label: 'OCR', value: '✅' },
-      { label: 'Email Schedule', value: '✅ Custom' },
-      { label: 'Integrations', value: '✅ All + White-label' },
-      { label: 'Support', value: '24/7 Dedicated' },
+      'Everything in Pro',
+      'Team collaboration',
+      'Advanced analytics',
+      'Custom integrations',
+      'Zapier + Make support',
+      'Webhook API access',
+      'Dedicated support',
+      'SOC 2 compliance',
     ],
     cta: 'Contact Sales',
     href: 'mailto:sales@recall-ai.com',
@@ -152,16 +147,9 @@ export default function PricingPage() {
                     {plan.features.map((feature, idx) => (
                       <div key={idx} className="flex items-start gap-3">
                         <Check className={`w-5 h-5 flex-shrink-0 mt-0.5 ${plan.highlighted ? 'text-purple-200' : 'text-purple-600'}`} />
-                        <div>
-                          <div className={`font-semibold ${plan.highlighted ? 'text-purple-50' : 'text-gray-900'}`}>
-                            {typeof feature === 'string' ? feature : feature.label}
-                          </div>
-                          {typeof feature !== 'string' && (
-                            <div className={`text-xs sm:text-sm ${plan.highlighted ? 'text-purple-100' : 'text-gray-600'}`}>
-                              {feature.value}
-                            </div>
-                          )}
-                        </div>
+                        <span className={`text-sm sm:text-base ${plan.highlighted ? 'text-purple-50' : 'text-gray-700'}`}>
+                          {feature}
+                        </span>
                       </div>
                     ))}
                   </div>
