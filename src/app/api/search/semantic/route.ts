@@ -1,6 +1,47 @@
 import { createClient } from '@supabase/supabase-js';
 import Anthropic from '@anthropic-ai/sdk';
 
+interface TypeSafeQuestion {
+  id: string;
+  instruction: string;
+  type: 'choice' | 'score' | 'noul';
+  criteria?: string[] | Record<string, string> | string;
+}
+
+interface TypeSafeResponse {
+  questions: Array<{
+    id: string;
+    choice?: string;
+    score?: number;
+    noul?: number;
+    confidence?: number;
+  }>;
+}
+
+async function askTypeSafe(
+  state: Record<string, any>,
+  questions: TypeSafeQuestion[],
+  apiKey: string
+): Promise<TypeSafeResponse> {
+  const response = await fetch('https://api.typesafe.ai/v1/judge', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      state,
+      questions,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`TypeSafe API error: ${response.statusText}`);
+  }
+
+  return response.json();
+}
+
 export async function POST(request: Request) {
   try {
     const authHeader = request.headers.get('Authorization');
@@ -12,6 +53,7 @@ export async function POST(request: Request) {
 
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    const typeSafeKey = process.env.TYPESAFE_API_KEY;
 
     if (!supabaseUrl || !supabaseKey) {
       return Response.json({ error: 'Config error' }, { status: 500 });
@@ -62,7 +104,7 @@ ${memoriesContext}
 
 User search query: "${query}"
 
-Find the top ${Math.min(limit, 10)} most relevant memories that match the user's search intent.
+Find the top ${Math.min(limit, 20)} most relevant memories that match the user's search intent.
 Consider semantic meaning, not just keyword matching.
 
 Return JSON array with memory indices only (1-based):
@@ -98,24 +140,114 @@ Return ONLY the JSON array, nothing else:`,
         .map(m => m.index + 1);
     }
 
-    // Get the actual memory objects
-    const results = indices
+    // Score results with TypeSafe if available
+    let scoredResults = indices
       .map(idx => memories[idx - 1])
-      .filter(m => m !== undefined);
+      .filter(m => m !== undefined)
+      .map((m, i) => ({ memory: m, position: i }));
+
+    if (typeSafeKey && scoredResults.length > 0) {
+      try {
+        // Score each result for relevance
+        const questions: TypeSafeQuestion[] = [
+          {
+            id: 'relevance',
+            instruction: `How relevant is this memory to the user's search query: "${query}"?`,
+            type: 'score',
+            criteria: '1=Not relevant, 5=Highly relevant and directly answers the query',
+          },
+          {
+            id: 'recency',
+            instruction: `Is this memory recent and useful for remembering what just happened?`,
+            type: 'noul',
+          },
+          {
+            id: 'importance',
+            instruction: `Is this an important memory that the user frequently refers to?`,
+            type: 'noul',
+          },
+        ];
+
+        // Score results in batches to avoid rate limits
+        const batchSize = 5;
+        for (let i = 0; i < scoredResults.length; i += batchSize) {
+          const batch = scoredResults.slice(i, i + batchSize);
+
+          for (const item of batch) {
+            try {
+              const typeSafeResponse = await askTypeSafe(
+                {
+                  query,
+                  memoryTitle: item.memory.title,
+                  memoryContent: item.memory.content?.substring(0, 300) || '',
+                  memorySource: item.memory.source,
+                  createdAt: item.memory.created_at,
+                },
+                questions,
+                typeSafeKey
+              );
+
+              // Extract scores from TypeSafe
+              let relevanceScore = 3; // Default middle score
+              let recencyScore = 0.5;
+              let importanceScore = 0.5;
+
+              for (const q of typeSafeResponse.questions) {
+                if (q.id === 'relevance' && q.score !== undefined) {
+                  relevanceScore = q.score;
+                } else if (q.id === 'recency' && q.noul !== undefined) {
+                  recencyScore = q.noul;
+                } else if (q.id === 'importance' && q.noul !== undefined) {
+                  importanceScore = q.noul;
+                }
+              }
+
+              // Combine scores: relevance is primary (0-5), boost with recency and importance
+              item.typeSafeScore =
+                relevanceScore * 10 + recencyScore * 3 + importanceScore * 2;
+              item.relevanceScore = relevanceScore;
+              item.recencyScore = recencyScore;
+              item.importanceScore = importanceScore;
+            } catch (err) {
+              console.error('TypeSafe scoring error:', err instanceof Error ? err.message : String(err));
+              // Fallback to position-based scoring
+              item.typeSafeScore = (scoredResults.length - item.position) * 5;
+            }
+          }
+        }
+
+        // Re-sort by TypeSafe scores
+        scoredResults.sort((a, b) => (b.typeSafeScore || 0) - (a.typeSafeScore || 0));
+      } catch (err) {
+        console.error('TypeSafe integration error:', err instanceof Error ? err.message : String(err));
+        // Continue with original order if TypeSafe fails
+      }
+    }
+
+    // Return top results
+    const results = scoredResults
+      .slice(0, limit)
+      .map(item => ({
+        id: item.memory.id,
+        title: item.memory.title,
+        content: item.memory.content,
+        source: item.memory.source,
+        priority: item.memory.priority,
+        due_date: item.memory.due_date,
+        created_at: item.memory.created_at,
+        ...(item.typeSafeScore && {
+          relevanceScore: item.relevanceScore,
+          recencyScore: item.recencyScore,
+          importanceScore: item.importanceScore,
+        }),
+      }));
 
     return Response.json({
       success: true,
       query,
       resultsCount: results.length,
-      results: results.map(m => ({
-        id: m.id,
-        title: m.title,
-        content: m.content,
-        source: m.source,
-        priority: m.priority,
-        due_date: m.due_date,
-        created_at: m.created_at,
-      })),
+      results,
+      enhanced: typeSafeKey ? 'TypeSafe relevance ranking enabled' : 'Basic semantic search',
     });
   } catch (error) {
     console.error('Semantic search error:', error);
